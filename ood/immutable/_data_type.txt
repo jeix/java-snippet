@@ -1,0 +1,15 @@
+
+ChangeOverview
+	ruleset : BizRuleSet
+		majors : BizRuleType[]
+		recents : BizRuleType[]
+		others : BizRuleGroup[]
+			types : BizRuleType[]
+
+BizRuleGroup
+	code : String
+	name : string
+
+BizRuleType
+	code : String
+	name : string

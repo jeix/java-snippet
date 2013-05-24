@@ -1,0 +1,117 @@
+
+gradual, iterative, evolving coding
+
+### v1
+
+/**
+ * IPv6 compliance 유틸리티
+ */
+public class IpUtil {
+	/**
+	 * IPv6 compliance
+	 * <pre>
+	 * 단순히 30자리로 잘라낸다.
+	 * 향후 별도 처리 요.
+	 * </pre>
+	 * @param secuDto
+	 */
+	public static void makeIPv6Compliance(SecurityLogDTO secuDto) {
+		String ip = secuDto.getUserIp();
+		if (ip != null && ip.length() > INTEGER.INT_30) { // IPv6 compliance
+			secuDto.setUserIp(ip.substring(INTEGER.INT_0, INTEGER.INT_30));
+		}
+	}
+}
+
+### v2
+
+/**
+ * IPv6 compliance 유틸리티
+ */
+public class IpUtil {
+	/**
+	 * IPv6 compliance
+	 * <pre>
+	 * 단순히 30자리로 잘라낸다.
+	 * 향후 별도 처리 요.
+	 * </pre>
+	 * @param secuDto
+	 */
+	public static void makeIPv6Compliance(SecurityLogDTO secuDto) {
+		String ip = secuDto.getUserIp();
+		if (ip != null && ip.length() > INTEGER.INT_30) { // IPv6 compliance
+			secuDto.setUserIp(ip.substring(INTEGER.INT_0, INTEGER.INT_30));
+		}
+	}
+	
+	/**
+	 * 30자리로 잘라진 IP자리를 반환한다.
+	 * @param secuDto
+	 * @return
+	 */
+	public static String getIPv6Compliance(SecurityLogDTO secuDto) {
+		String ip = secuDto.getUserIp();
+		if (ip != null && ip.length() > INTEGER.INT_30) { // IPv6 compliance
+			return ip.substring(INTEGER.INT_0, INTEGER.INT_30);
+		}
+		return ip;
+	}
+}
+
+### v3
+
+/**
+ * IPv6 compliance 유틸리티
+ */
+public class IpUtil {
+	
+	/** 기준 자리수 */
+	private static final int MAX_LENGTH = INTEGER.INT_30;
+	
+	/**
+	 * IP가 최대 30자리가 되게 한다.
+	 * <pre>
+	 * 단순히 30자리로 잘라낸다.
+	 * 향후 별도 처리가 필요할지도.
+	 * </pre>
+	 * @param secuDto
+	 */
+	public static void makeIPv6Compliance(SecurityLogDTO secuDto) {
+		String ip = secuDto.getUserIp();
+		if (isOverLength(ip)) {
+			secuDto.setUserIp(cutToLength(ip));
+		}
+	}
+	
+	/**
+	 * 30자리로 잘라진 IP자리를 반환한다.
+	 * @param secuDto
+	 * @return
+	 */
+	public static String getIPv6Compliance(SecurityLogDTO secuDto) {
+		String ip = secuDto.getUserIp();
+		if (isOverLength(ip)) {
+			return cutToLength(ip);
+		}
+		return ip;
+	}
+	
+	/**
+	 * 기준 자리수를 넘는가
+	 * @param ip
+	 * @return
+	 */
+	private static boolean isOverLength(String ip) {
+		return ip != null && ip.length() > MAX_LENGTH;
+	}
+	
+	/**
+	 * 기준 자리수로 자른다<br/>
+	 * 기준 자리수를 넘는 경우에만 호출되어야 한다
+	 * @param ip
+	 * @return
+	 */
+	private static string cutToLength(String ip) {
+		return ip.substring(0, MAX_LENGTH);
+	}
+}
