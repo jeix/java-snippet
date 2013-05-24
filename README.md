@@ -36,10 +36,10 @@ Contents
   radix 파라미터에 의해 결정된 진수 체계에서 지원되는 수를 나타내는 문자가 아닌 문자가 있는 경우 `NumberFormatException`을 일으킨다  
   "010"처럼 선행되는 "0"은 결과적으로 무시된다  
   그래서  
-  . Integer.parseInt("010")       # 8이 아니고 10을 리턴한다  
-  . Integer.parseInt("0x10")      # NumberFormatException을 일으킨다  
-  . Integer.parseInt("10", 8)     # 8을 리턴한다  
-  . Integer.parseInt("00FF", 16)  # 255를 리턴한다  
+  . `Integer.parseInt("010")`은 8이 아니고 10을 리턴한다  
+  . `Integer.parseInt("0x10")`은 NumberFormatException을 일으킨다  
+  . `Integer.parseInt("10", 8)`은 8을 리턴한다  
+  . `Integer.parseInt("00FF", 16)`은 255를 리턴한다  
   @see [number/IntegerParseIntTest.java](https://github.com/jeix/java-snippet/blob/master/number/IntegerParseIntTest.java)
 * `Integer.valueOf()`도  
   디폴트 radix는 10이다  
