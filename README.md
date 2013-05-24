@@ -36,10 +36,10 @@ Contents
   radix 파라미터에 의해 결정된 진수 체계에서 지원되는 수를 나타내는 문자가 아닌 문자가 있는 경우 `NumberFormatException`을 일으킨다  
   "010"처럼 선행되는 "0"은 결과적으로 무시된다  
   그래서  
-    Integer.parseInt("010")       # 8이 아니고 10을 리턴한다
-    Integer.parseInt("0x10")      # NumberFormatException을 일으킨다
-    Integer.parseInt("10", 8)     # 8을 리턴한다
-    Integer.parseInt("00FF", 16)  # 255를 리턴한다
+      Integer.parseInt("010")       # 8이 아니고 10을 리턴한다
+      Integer.parseInt("0x10")      # NumberFormatException을 일으킨다
+      Integer.parseInt("10", 8)     # 8을 리턴한다
+      Integer.parseInt("00FF", 16)  # 255를 리턴한다
   @see [number/IntegerParseIntTest.java](https://github.com/jeix/java-snippet/blob/master/number/IntegerParseIntTest.java)
 * `Integer.valueOf()`도  
   디폴트 radix는 10이다  
@@ -64,12 +64,12 @@ Contents
 ### Date
 
 * "yyyy-mm-dd" 스타일을 선호한다면 `java.sql.Date`를 사용하자  
-  - `java.util.Date#toString()`과 달리 java.sql.Date#toString()은  
-    "yyyy-mm-dd" 스타일로 날짜 문자열을 리턴한다
-  - `java.text.DateFormat#parse()`와 달리 `java.sql.Date#valueOf`()은  
-    "yyyy-mm-dd" 스타일만을 받아들인다 (내부적으로 deprecated된 `java.util.Date` 생성자를 사용한다)
-  - `DateFormat#format()`을 사용하지 않는
-    "yyyy-mm-dd" 스타일의 오늘/어제/올제, 저번주/다음주, 저번달/다음달  
+    - `java.util.Date#toString()`과 달리 java.sql.Date#toString()은  
+      "yyyy-mm-dd" 스타일로 날짜 문자열을 리턴한다
+    - `java.text.DateFormat#parse()`와 달리 `java.sql.Date#valueOf`()은  
+      "yyyy-mm-dd" 스타일만을 받아들인다 (내부적으로 deprecated된 `java.util.Date` 생성자를 사용한다)
+    - `DateFormat#format()`을 사용하지 않는
+      "yyyy-mm-dd" 스타일의 오늘/어제/올제, 저번주/다음주, 저번달/다음달  
   @see [datetime/DateStringTest.java](https://github.com/jeix/java-snippet/blob/master/datetime/DateStringTest.java)  
   @see [datetime/TimeStringTest.java](https://github.com/jeix/java-snippet/blob/master/datetime/TimeStringTest.java)
 * 몇 가지 날짜 유틸리티 : 어제/오늘/올제, 일주일 전/후, 한달 전/후  
