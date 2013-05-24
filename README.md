@@ -6,65 +6,61 @@ simple java codelet
 Contents
 --------
 
-https://github.com/jeix/java-snippet/tree/master/datetime
-https://github.com/jeix/java-snippet/blob/master/lsc.java
-https://github.com/jeix/java-snippet/blob/master/lang/NullType.java
-
 ### String
 
-* `java.util.Formatter#format()` 데모
+* `java.util.Formatter#format()` 데모  
   @see [string/FormatterFormatDemo.java](https://github.com/jeix/java-snippet/blob/master/string/FormatterFormatDemo.java)
-* `String#split()`과 `java.util.StringTokenizer`는 둘 다
-  문자열의 끝에 나타나는 구분자들을 잘라내 버린 후 나눈다
-  하지만 중간에 나타나는 빈 문자열은 각각 다르게 처리하는데
-  `String#split()`은 남겨두지만 `java.util.StringTokenizer`는 버린다
+* `String#split()`과 `java.util.StringTokenizer`는 둘 다  
+  문자열의 끝에 나타나는 구분자들을 잘라내 버린 후 나눈다  
+  하지만 중간에 나타나는 빈 문자열은 각각 다르게 처리하는데  
+  `String#split()`은 남겨두지만 `java.util.StringTokenizer`는 버린다  
   @see [string/StringSplit.java](https://github.com/jeix/java-snippet/blob/master/string/StringSplit.java)
-* `String#split()`과 `java.util.StringTokenizer`는 둘 다
-  구분자들로만 이루어진 문자열을 처리하지 못한다
-  `String#split()`은 빈 문자열을 처리할 수 있지만
-  `java.util.StringTokenizer`는 처리하지 못하다
+* `String#split()`과 `java.util.StringTokenizer`는 둘 다  
+  구분자들로만 이루어진 문자열을 처리하지 못한다  
+  `String#split()`은 빈 문자열을 처리할 수 있지만  
+  `java.util.StringTokenizer`는 처리하지 못하다  
   @see [string/StringSplitDemo.java](https://github.com/jeix/java-snippet/blob/master/string/StringSplitDemo.java)
-* `String#replaceAll()`과 `String#replace()`의 차이는
-  바꾸는 횟수가 아니라
-  찾을 문자열로 정규식을 받느냐 아니냐이다
-  @see [string/StringReplaceAllDemo.java](https://github.com/jeix/java-snippet/blob/master/string/StringReplaceAllDemo.java)
+* `String#replaceAll()`과 `String#replace()`의 차이는  
+  바꾸는 횟수가 아니라  
+  찾을 문자열로 정규식을 받느냐 아니냐이다  
+  @see [string/StringReplaceAllDemo.java](https://github.com/jeix/java-snippet/blob/master/string/StringReplaceAllDemo.java)  
   @see [string/StringReplaceDemo.java](https://github.com/jeix/java-snippet/blob/master/string/StringReplaceDemo.java)
-* `String#replaceAll()` 데모 2 또는 정규표현식 데모
-  comma separated method parameter (method signature) 를 포맷하는 데모
+* `String#replaceAll()` 데모 2 또는 정규표현식 데모  
+  comma separated method parameter (method signature) 를 포맷하는 데모  
   @see [string/MethodParamterSignatureFormatter.java](https://github.com/jeix/java-snippet/blob/master/string/MethodParamterSignatureFormatter.java)
 
 ### Number
 
-* `Integer.parseInt()`는
-  디폴트 radix는 10이다
-  radix 파라미터에 의해 결정된 진수 체계에서 지원되는 수를 나타내는 문자가 아닌 문자가 있는 경우 `NumberFormatException`을 일으킨다
-  "010"처럼 선행되는 "0"은 결과적으로 무시된다
-  그래서
+* `Integer.parseInt()`는  
+  디폴트 radix는 10이다  
+  radix 파라미터에 의해 결정된 진수 체계에서 지원되는 수를 나타내는 문자가 아닌 문자가 있는 경우 `NumberFormatException`을 일으킨다  
+  "010"처럼 선행되는 "0"은 결과적으로 무시된다  
+  그래서  
   * `Integer.parseInt("010")`은 8이 아니고 10을 리턴한다
   * `Integer.parseInt("0x10")`은 `NumberFormatException`을 일으킨다
   * `Integer.parseInt("10", 8)`은 8을 리턴한다
-  * `Integer.parseInt("00FF", 16)`은 255를 리턴한다
+  * `Integer.parseInt("00FF", 16)`은 255를 리턴한다  
   @see [number/IntegerParseIntTest.java](https://github.com/jeix/java-snippet/blob/master/number/IntegerParseIntTest.java)
-* `Integer.valueOf()`도
-  디폴트 radix는 10이다
-  `Integer.parseInt()`와 비슷하다
+* `Integer.valueOf()`도  
+  디폴트 radix는 10이다  
+  `Integer.parseInt()`와 비슷하다  
   @see [number/IntegerValueOfTest.java](https://github.com/jeix/java-snippet/blob/master/number/IntegerValueOfTest.java)
 
 ### File
 
-* `java.io.RandomAccessFile` 데모
+* `java.io.RandomAccessFile` 데모  
   @see [file/RandomAccessFileDemo.java](https://github.com/jeix/java-snippet/blob/master/file/RandomAccessFileDemo.java)
-* `Class.getResourceAsStream()`은 절대 경로와 상대 경로를 모두 지원한다
-  `ClassLoader.getResourceAsStream()`는 절대 경로만 지원하는데 /로 시작해서는 안 된다
+* `Class.getResourceAsStream()`은 절대 경로와 상대 경로를 모두 지원한다  
+  `ClassLoader.getResourceAsStream()`는 절대 경로만 지원하는데 /로 시작해서는 안 된다  
   @see [file/ResourceAsStreamDemo.java](https://github.com/jeix/java-snippet/blob/master/file/ResourceAsStreamDemo.java)
 
 ### Other
 
-* `return`은 `finally` 블럭을 수행하고 리턴하지만
-  `Syatem.exit()`는 즉시 나간다
+* `return`은 `finally` 블럭을 수행하고 리턴하지만  
+  `Syatem.exit()`는 즉시 나간다  
   @see [lang/ReturnOExitDemo.java](https://github.com/jeix/java-snippet/blob/master/lang/ReturnOExitDemo.java)
-* `System.setProperty()`는 `System.out.println()`에 영향을 주지 못한다
-  출력을 redirection해서 Hexa 에디터로 확인해야 한다
+* `System.setProperty()`는 `System.out.println()`에 영향을 주지 못한다  
+  출력을 redirection해서 Hexa 에디터로 확인해야 한다  
   @see [lang/SystemSetPropertyDemo.java](https://github.com/jeix/java-snippet/blob/master/lang/SystemSetPropertyDemo.java)
 
 - 숫자를 휴먼 리더블하게 보이기
