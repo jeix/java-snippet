@@ -36,15 +36,46 @@ Contents
   radix 파라미터에 의해 결정된 진수 체계에서 지원되는 수를 나타내는 문자가 아닌 문자가 있는 경우 `NumberFormatException`을 일으킨다  
   "010"처럼 선행되는 "0"은 결과적으로 무시된다  
   그래서  
-  * `Integer.parseInt("010")`은 8이 아니고 10을 리턴한다
-  * `Integer.parseInt("0x10")`은 `NumberFormatException`을 일으킨다
-  * `Integer.parseInt("10", 8)`은 8을 리턴한다
-  * `Integer.parseInt("00FF", 16)`은 255를 리턴한다  
+    Integer.parseInt("010")       # 8이 아니고 10을 리턴한다
+    Integer.parseInt("0x10")      # NumberFormatException을 일으킨다
+    Integer.parseInt("10", 8)     # 8을 리턴한다
+    Integer.parseInt("00FF", 16)  # 255를 리턴한다
   @see [number/IntegerParseIntTest.java](https://github.com/jeix/java-snippet/blob/master/number/IntegerParseIntTest.java)
 * `Integer.valueOf()`도  
   디폴트 radix는 10이다  
   `Integer.parseInt()`와 비슷하다  
   @see [number/IntegerValueOfTest.java](https://github.com/jeix/java-snippet/blob/master/number/IntegerValueOfTest.java)
+* 숫자를 휴먼 리더블하게 보이기  
+  @see [number/HumanReadable.java](https://github.com/jeix/java-snippet/blob/master/number/HumanReadable.java)
+
+### Collection
+
+* 리스트/맵에서 요소들을 순회하면서 아이템을 삭제하기  
+  @see [collection/RemoveDuringIterationTest.java](https://github.com/jeix/java-snippet/blob/master/collection/RemoveDuringIterationTest.java)
+* `Arrays.sort()`를 사용하려면 요소들이 `Comparable` 이어야 한다  
+  @see [collection/ArraysSortTest.java](https://github.com/jeix/java-snippet/blob/master/collection/ArraysSortTest.java)
+* 자바 배열은 선언할 때 요소들을 알고 있거나 요소의 갯수라도 알고 있어야 한다  
+  @see [collection/ArrayInitializeTester.java](https://github.com/jeix/java-snippet/blob/master/collection/ArrayInitializeTester.java)
+* 제네릭 타입의 `List.toArray()`를 사용하면  
+  배열을 선언할 때 요소의 갯수를 몰라도 되지만  
+  이미 요소의 갯수를 알고 있다  
+  @see [collection/ListToArrayTester.java](https://github.com/jeix/java-snippet/blob/master/collection/ListToArrayTester.java)
+
+### Date
+
+* "yyyy-mm-dd" 스타일을 선호한다면 `java.sql.Date`를 사용하자  
+  - `java.util.Date#toString()`과 달리 java.sql.Date#toString()은  
+    "yyyy-mm-dd" 스타일로 날짜 문자열을 리턴한다
+  - `java.text.DateFormat#parse()`와 달리 `java.sql.Date#valueOf`()은  
+    "yyyy-mm-dd" 스타일만을 받아들인다 (내부적으로 deprecated된 `java.util.Date` 생성자를 사용한다)
+  - `DateFormat#format()`을 사용하지 않는
+    "yyyy-mm-dd" 스타일의 오늘/어제/올제, 저번주/다음주, 저번달/다음달  
+  @see [datetime/DateStringTest.java](https://github.com/jeix/java-snippet/blob/master/datetime/DateStringTest.java)  
+  @see [datetime/TimeStringTest.java](https://github.com/jeix/java-snippet/blob/master/datetime/TimeStringTest.java)
+* 몇 가지 날짜 유틸리티 : 어제/오늘/올제, 일주일 전/후, 한달 전/후  
+  @see [datetime/DateUtil.java](https://github.com/jeix/java-snippet/blob/master/datetime/DateUtil.java)
+* @see [datetime/DateUtilB.java](https://github.com/jeix/java-snippet/blob/master/datetime/DateUtilB.java)  
+  @see [datetime/TimeUtilB.java](https://github.com/jeix/java-snippet/blob/master/datetime/TimeUtilB.java)
 
 ### File
 
@@ -53,6 +84,8 @@ Contents
 * `Class.getResourceAsStream()`은 절대 경로와 상대 경로를 모두 지원한다  
   `ClassLoader.getResourceAsStream()`는 절대 경로만 지원하는데 /로 시작해서는 안 된다  
   @see [file/ResourceAsStreamDemo.java](https://github.com/jeix/java-snippet/blob/master/file/ResourceAsStreamDemo.java)
+* `FileChannel과 ByteBuffer`나 `MappedByteBuffer`를 이용한 nio
+  @see [file/NioRw.java](https://github.com/jeix/java-snippet/blob/master/file/NioRw.java)
 
 ### Other
 
@@ -63,35 +96,7 @@ Contents
   출력을 redirection해서 Hexa 에디터로 확인해야 한다  
   @see [lang/SystemSetPropertyDemo.java](https://github.com/jeix/java-snippet/blob/master/lang/SystemSetPropertyDemo.java)
 
-- 숫자를 휴먼 리더블하게 보이기
-  @see number/HumanReadable.java
-- 알고 있는 몇 가지 값들 중 하나와 일치하는가
-  @see lang/is_in/IsIn.java
-- 리스트/맵에서 요소들을 순회하면서 아이템을 삭제하기
-  @see collection/RemoveDuringIterationTest.java
-- Arrays.sort()를 사용하려면 요소들이 Comparable 이어야 한다
-  @see collection/ArraysSortTest.java
-- 자바 배열은 선언할 때 요소들을 알고 있거나 요소의 갯수라도 알고 있어야 한다
-  @see collection/ArrayInitializeTester.java
-- "yyyy-mm-dd" 스타일을 선호한다면 java.sql.Date를 사용하자
-  - java.util.Date#toString()과 달리 java.sql.Date#toString()은
-    "yyyy-mm-dd" 스타일로 날짜 문자열을 리턴한다
-  - java.text.DateFormat#parse()와 달리 java.sql.Date#valueOf()은
-    "yyyy-mm-dd" 스타일만을 받아들인다 (내부적으로 deprecated된 java.util.Date 생성자를 사용한다)
-  - DateFormat#format()을 사용하지 않는
-    "yyyy-mm-dd" 스타일의 오늘/어제/올제, 저번주/다음주, 저번달/다음달
-  @see datetime/DateStringTest.java
-  @see datetime/TimeStringTest.java
-- 몇 가지 날짜 유틸리티 : 어제/오늘/올제, 일주일 전/후, 한달 전/후
-  @see datetime/DateUtil.java
-- @see datetime/DateUtilB.java
-  @see datetime/TimeUtilB.java
-- FileChannel과 ByteBuffer나 MappedByteBuffer를 이용한 nio
-  @see file/NioRw.java
-- 제네릭 타입의 List.toArray()를 사용하면
-  배열을 선언할 때 요소의 갯수를 몰라도 되지만
-  이미 요소의 갯수를 알고 있다
-  @see collection/ListToArrayTester.java
+  
 - null is NOT an instance of the given type NOR Object.
   null is enable to be casted to any type in the inheritance hierarchy without ClassCastException.
     (to Object then to any type)
