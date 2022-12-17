@@ -8,92 +8,92 @@ Contents
 
 ### String
 
-* `java.util.Formatter#format()` µ¥¸ğ  
+* `java.util.Formatter#format()` ë°ëª¨  
   @see [string/FormatterFormatDemo.java](https://github.com/jeix/java-snippet/blob/master/string/FormatterFormatDemo.java)
-* `String#split()`°ú `java.util.StringTokenizer`´Â µÑ ´Ù  
-  ¹®ÀÚ¿­ÀÇ ³¡¿¡ ³ªÅ¸³ª´Â ±¸ºĞÀÚµéÀ» Àß¶ó³» ¹ö¸° ÈÄ ³ª´«´Ù  
-  ÇÏÁö¸¸ Áß°£¿¡ ³ªÅ¸³ª´Â ºó ¹®ÀÚ¿­Àº °¢°¢ ´Ù¸£°Ô Ã³¸®ÇÏ´Âµ¥  
-  `String#split()`Àº ³²°ÜµÎÁö¸¸ `java.util.StringTokenizer`´Â ¹ö¸°´Ù  
+* `String#split()`ê³¼ `java.util.StringTokenizer`ëŠ” ë‘˜ ë‹¤  
+  ë¬¸ìì—´ì˜ ëì— ë‚˜íƒ€ë‚˜ëŠ” êµ¬ë¶„ìë“¤ì„ ì˜ë¼ë‚´ ë²„ë¦° í›„ ë‚˜ëˆˆë‹¤  
+  í•˜ì§€ë§Œ ì¤‘ê°„ì— ë‚˜íƒ€ë‚˜ëŠ” ë¹ˆ ë¬¸ìì—´ì€ ê°ê° ë‹¤ë¥´ê²Œ ì²˜ë¦¬í•˜ëŠ”ë°  
+  `String#split()`ì€ ë‚¨ê²¨ë‘ì§€ë§Œ `java.util.StringTokenizer`ëŠ” ë²„ë¦°ë‹¤  
   @see [string/StringSplit.java](https://github.com/jeix/java-snippet/blob/master/string/StringSplit.java)
-* `String#split()`°ú `java.util.StringTokenizer`´Â µÑ ´Ù  
-  ±¸ºĞÀÚµé·Î¸¸ ÀÌ·ç¾îÁø ¹®ÀÚ¿­À» Ã³¸®ÇÏÁö ¸øÇÑ´Ù  
-  `String#split()`Àº ºó ¹®ÀÚ¿­À» Ã³¸®ÇÒ ¼ö ÀÖÁö¸¸  
-  `java.util.StringTokenizer`´Â Ã³¸®ÇÏÁö ¸øÇÏ´Ù  
+* `String#split()`ê³¼ `java.util.StringTokenizer`ëŠ” ë‘˜ ë‹¤  
+  êµ¬ë¶„ìë“¤ë¡œë§Œ ì´ë£¨ì–´ì§„ ë¬¸ìì—´ì„ ì²˜ë¦¬í•˜ì§€ ëª»í•œë‹¤  
+  `String#split()`ì€ ë¹ˆ ë¬¸ìì—´ì„ ì²˜ë¦¬í•  ìˆ˜ ìˆì§€ë§Œ  
+  `java.util.StringTokenizer`ëŠ” ì²˜ë¦¬í•˜ì§€ ëª»í•˜ë‹¤  
   @see [string/StringSplitDemo.java](https://github.com/jeix/java-snippet/blob/master/string/StringSplitDemo.java)
-* `String#replaceAll()`°ú `String#replace()`ÀÇ Â÷ÀÌ´Â  
-  ¹Ù²Ù´Â È½¼ö°¡ ¾Æ´Ï¶ó  
-  Ã£À» ¹®ÀÚ¿­·Î Á¤±Ô½ÄÀ» ¹Ş´À³Ä ¾Æ´Ï³ÄÀÌ´Ù  
+* `String#replaceAll()`ê³¼ `String#replace()`ì˜ ì°¨ì´ëŠ”  
+  ë°”ê¾¸ëŠ” íšŸìˆ˜ê°€ ì•„ë‹ˆë¼  
+  ì°¾ì„ ë¬¸ìì—´ë¡œ ì •ê·œì‹ì„ ë°›ëŠëƒ ì•„ë‹ˆëƒì´ë‹¤  
   @see [string/StringReplaceAllDemo.java](https://github.com/jeix/java-snippet/blob/master/string/StringReplaceAllDemo.java)  
   @see [string/StringReplaceDemo.java](https://github.com/jeix/java-snippet/blob/master/string/StringReplaceDemo.java)
-* `String#replaceAll()` µ¥¸ğ 2 ¶Ç´Â Á¤±ÔÇ¥Çö½Ä µ¥¸ğ  
-  comma separated method parameter (method signature) ¸¦ Æ÷¸ËÇÏ´Â µ¥¸ğ  
+* `String#replaceAll()` ë°ëª¨ 2 ë˜ëŠ” ì •ê·œí‘œí˜„ì‹ ë°ëª¨  
+  comma separated method parameter (method signature) ë¥¼ í¬ë§·í•˜ëŠ” ë°ëª¨  
   @see [string/MethodParamterSignatureFormatter.java](https://github.com/jeix/java-snippet/blob/master/string/MethodParamterSignatureFormatter.java)
 
 ### Number
 
-* `Integer.parseInt()`´Â  
-  µğÆúÆ® radix´Â 10ÀÌ´Ù  
-  radix ÆÄ¶ó¹ÌÅÍ¿¡ ÀÇÇØ °áÁ¤µÈ Áø¼ö Ã¼°è¿¡¼­ Áö¿øµÇ´Â ¼ö¸¦ ³ªÅ¸³»´Â ¹®ÀÚ°¡ ¾Æ´Ñ ¹®ÀÚ°¡ ÀÖ´Â °æ¿ì `NumberFormatException`À» ÀÏÀ¸Å²´Ù  
-  "010"Ã³·³ ¼±ÇàµÇ´Â "0"Àº °á°úÀûÀ¸·Î ¹«½ÃµÈ´Ù  
-  ±×·¡¼­  
-  . `Integer.parseInt("010")`Àº 8ÀÌ ¾Æ´Ï°í 10À» ¸®ÅÏÇÑ´Ù  
-  . `Integer.parseInt("0x10")`Àº NumberFormatExceptionÀ» ÀÏÀ¸Å²´Ù  
-  . `Integer.parseInt("10", 8)`Àº 8À» ¸®ÅÏÇÑ´Ù  
-  . `Integer.parseInt("00FF", 16)`Àº 255¸¦ ¸®ÅÏÇÑ´Ù  
+* `Integer.parseInt()`ëŠ”  
+  ë””í´íŠ¸ radixëŠ” 10ì´ë‹¤  
+  radix íŒŒë¼ë¯¸í„°ì— ì˜í•´ ê²°ì •ëœ ì§„ìˆ˜ ì²´ê³„ì—ì„œ ì§€ì›ë˜ëŠ” ìˆ˜ë¥¼ ë‚˜íƒ€ë‚´ëŠ” ë¬¸ìê°€ ì•„ë‹Œ ë¬¸ìê°€ ìˆëŠ” ê²½ìš° `NumberFormatException`ì„ ì¼ìœ¼í‚¨ë‹¤  
+  "010"ì²˜ëŸ¼ ì„ í–‰ë˜ëŠ” "0"ì€ ê²°ê³¼ì ìœ¼ë¡œ ë¬´ì‹œëœë‹¤  
+  ê·¸ë˜ì„œ  
+  . `Integer.parseInt("010")`ì€ 8ì´ ì•„ë‹ˆê³  10ì„ ë¦¬í„´í•œë‹¤  
+  . `Integer.parseInt("0x10")`ì€ NumberFormatExceptionì„ ì¼ìœ¼í‚¨ë‹¤  
+  . `Integer.parseInt("10", 8)`ì€ 8ì„ ë¦¬í„´í•œë‹¤  
+  . `Integer.parseInt("00FF", 16)`ì€ 255ë¥¼ ë¦¬í„´í•œë‹¤  
   @see [number/IntegerParseIntTest.java](https://github.com/jeix/java-snippet/blob/master/number/IntegerParseIntTest.java)
-* `Integer.valueOf()`µµ  
-  µğÆúÆ® radix´Â 10ÀÌ´Ù  
-  `Integer.parseInt()`¿Í ºñ½ÁÇÏ´Ù  
+* `Integer.valueOf()`ë„  
+  ë””í´íŠ¸ radixëŠ” 10ì´ë‹¤  
+  `Integer.parseInt()`ì™€ ë¹„ìŠ·í•˜ë‹¤  
   @see [number/IntegerValueOfTest.java](https://github.com/jeix/java-snippet/blob/master/number/IntegerValueOfTest.java)
-* ¼ıÀÚ¸¦ ÈŞ¸Õ ¸®´õºíÇÏ°Ô º¸ÀÌ±â  
+* ìˆ«ìë¥¼ íœ´ë¨¼ ë¦¬ë”ë¸”í•˜ê²Œ ë³´ì´ê¸°  
   @see [number/HumanReadable.java](https://github.com/jeix/java-snippet/blob/master/number/HumanReadable.java)
 
 ### Collection
 
-* ¸®½ºÆ®/¸Ê¿¡¼­ ¿ä¼ÒµéÀ» ¼øÈ¸ÇÏ¸é¼­ ¾ÆÀÌÅÛÀ» »èÁ¦ÇÏ±â  
+* ë¦¬ìŠ¤íŠ¸/ë§µì—ì„œ ìš”ì†Œë“¤ì„ ìˆœíšŒí•˜ë©´ì„œ ì•„ì´í…œì„ ì‚­ì œí•˜ê¸°  
   @see [collection/RemoveDuringIterationTest.java](https://github.com/jeix/java-snippet/blob/master/collection/RemoveDuringIterationTest.java)
-* `Arrays.sort()`¸¦ »ç¿ëÇÏ·Á¸é ¿ä¼ÒµéÀÌ `Comparable` ÀÌ¾î¾ß ÇÑ´Ù  
+* `Arrays.sort()`ë¥¼ ì‚¬ìš©í•˜ë ¤ë©´ ìš”ì†Œë“¤ì´ `Comparable` ì´ì–´ì•¼ í•œë‹¤  
   @see [collection/ArraysSortTest.java](https://github.com/jeix/java-snippet/blob/master/collection/ArraysSortTest.java)
-* ÀÚ¹Ù ¹è¿­Àº ¼±¾ğÇÒ ¶§ ¿ä¼ÒµéÀ» ¾Ë°í ÀÖ°Å³ª ¿ä¼ÒÀÇ °¹¼ö¶óµµ ¾Ë°í ÀÖ¾î¾ß ÇÑ´Ù  
+* ìë°” ë°°ì—´ì€ ì„ ì–¸í•  ë•Œ ìš”ì†Œë“¤ì„ ì•Œê³  ìˆê±°ë‚˜ ìš”ì†Œì˜ ê°¯ìˆ˜ë¼ë„ ì•Œê³  ìˆì–´ì•¼ í•œë‹¤  
   @see [collection/ArrayInitializeTester.java](https://github.com/jeix/java-snippet/blob/master/collection/ArrayInitializeTester.java)
-* Á¦³×¸¯ Å¸ÀÔÀÇ `List.toArray()`¸¦ »ç¿ëÇÏ¸é  
-  ¹è¿­À» ¼±¾ğÇÒ ¶§ ¿ä¼ÒÀÇ °¹¼ö¸¦ ¸ô¶óµµ µÇÁö¸¸  
-  ÀÌ¹Ì ¿ä¼ÒÀÇ °¹¼ö¸¦ ¾Ë°í ÀÖ´Ù  
+* ì œë„¤ë¦­ íƒ€ì…ì˜ `List.toArray()`ë¥¼ ì‚¬ìš©í•˜ë©´  
+  ë°°ì—´ì„ ì„ ì–¸í•  ë•Œ ìš”ì†Œì˜ ê°¯ìˆ˜ë¥¼ ëª°ë¼ë„ ë˜ì§€ë§Œ  
+  ì´ë¯¸ ìš”ì†Œì˜ ê°¯ìˆ˜ë¥¼ ì•Œê³  ìˆë‹¤  
   @see [collection/ListToArrayTester.java](https://github.com/jeix/java-snippet/blob/master/collection/ListToArrayTester.java)
 
 ### Date
 
-* "yyyy-mm-dd" ½ºÅ¸ÀÏÀ» ¼±È£ÇÑ´Ù¸é `java.sql.Date`¸¦ »ç¿ëÇÏÀÚ  
-  . `java.util.Date#toString()`°ú ´Ş¸® java.sql.Date#toString()Àº  
-    "yyyy-mm-dd" ½ºÅ¸ÀÏ·Î ³¯Â¥ ¹®ÀÚ¿­À» ¸®ÅÏÇÑ´Ù  
-  . `java.text.DateFormat#parse()`¿Í ´Ş¸® `java.sql.Date#valueOf`()Àº  
-    "yyyy-mm-dd" ½ºÅ¸ÀÏ¸¸À» ¹Ş¾ÆµéÀÎ´Ù (³»ºÎÀûÀ¸·Î deprecatedµÈ `java.util.Date` »ı¼ºÀÚ¸¦ »ç¿ëÇÑ´Ù)  
-  . `DateFormat#format()`À» »ç¿ëÇÏÁö ¾Ê´Â  
-    "yyyy-mm-dd" ½ºÅ¸ÀÏÀÇ ¿À´Ã/¾îÁ¦/¿ÃÁ¦, Àú¹øÁÖ/´ÙÀ½ÁÖ, Àú¹ø´Ş/´ÙÀ½´Ş  
+* "yyyy-mm-dd" ìŠ¤íƒ€ì¼ì„ ì„ í˜¸í•œë‹¤ë©´ `java.sql.Date`ë¥¼ ì‚¬ìš©í•˜ì  
+  . `java.util.Date#toString()`ê³¼ ë‹¬ë¦¬ java.sql.Date#toString()ì€  
+    "yyyy-mm-dd" ìŠ¤íƒ€ì¼ë¡œ ë‚ ì§œ ë¬¸ìì—´ì„ ë¦¬í„´í•œë‹¤  
+  . `java.text.DateFormat#parse()`ì™€ ë‹¬ë¦¬ `java.sql.Date#valueOf`()ì€  
+    "yyyy-mm-dd" ìŠ¤íƒ€ì¼ë§Œì„ ë°›ì•„ë“¤ì¸ë‹¤ (ë‚´ë¶€ì ìœ¼ë¡œ deprecatedëœ `java.util.Date` ìƒì„±ìë¥¼ ì‚¬ìš©í•œë‹¤)  
+  . `DateFormat#format()`ì„ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”  
+    "yyyy-mm-dd" ìŠ¤íƒ€ì¼ì˜ ì˜¤ëŠ˜/ì–´ì œ/ì˜¬ì œ, ì €ë²ˆì£¼/ë‹¤ìŒì£¼, ì €ë²ˆë‹¬/ë‹¤ìŒë‹¬  
   @see [datetime/DateStringTest.java](https://github.com/jeix/java-snippet/blob/master/datetime/DateStringTest.java)  
   @see [datetime/TimeStringTest.java](https://github.com/jeix/java-snippet/blob/master/datetime/TimeStringTest.java)
-* ¸î °¡Áö ³¯Â¥ À¯Æ¿¸®Æ¼ : ¾îÁ¦/¿À´Ã/¿ÃÁ¦, ÀÏÁÖÀÏ Àü/ÈÄ, ÇÑ´Ş Àü/ÈÄ  
+* ëª‡ ê°€ì§€ ë‚ ì§œ ìœ í‹¸ë¦¬í‹° : ì–´ì œ/ì˜¤ëŠ˜/ì˜¬ì œ, ì¼ì£¼ì¼ ì „/í›„, í•œë‹¬ ì „/í›„  
   @see [datetime/DateUtil.java](https://github.com/jeix/java-snippet/blob/master/datetime/DateUtil.java)
 * @see [datetime/DateUtilB.java](https://github.com/jeix/java-snippet/blob/master/datetime/DateUtilB.java)  
   @see [datetime/TimeUtilB.java](https://github.com/jeix/java-snippet/blob/master/datetime/TimeUtilB.java)
 
 ### File
 
-* `java.io.RandomAccessFile` µ¥¸ğ  
+* `java.io.RandomAccessFile` ë°ëª¨  
   @see [file/RandomAccessFileDemo.java](https://github.com/jeix/java-snippet/blob/master/file/RandomAccessFileDemo.java)
-* `Class.getResourceAsStream()`Àº Àı´ë °æ·Î¿Í »ó´ë °æ·Î¸¦ ¸ğµÎ Áö¿øÇÑ´Ù  
-  `ClassLoader.getResourceAsStream()`´Â Àı´ë °æ·Î¸¸ Áö¿øÇÏ´Âµ¥ /·Î ½ÃÀÛÇØ¼­´Â ¾È µÈ´Ù  
+* `Class.getResourceAsStream()`ì€ ì ˆëŒ€ ê²½ë¡œì™€ ìƒëŒ€ ê²½ë¡œë¥¼ ëª¨ë‘ ì§€ì›í•œë‹¤  
+  `ClassLoader.getResourceAsStream()`ëŠ” ì ˆëŒ€ ê²½ë¡œë§Œ ì§€ì›í•˜ëŠ”ë° /ë¡œ ì‹œì‘í•´ì„œëŠ” ì•ˆ ëœë‹¤  
   @see [file/ResourceAsStreamDemo.java](https://github.com/jeix/java-snippet/blob/master/file/ResourceAsStreamDemo.java)
-* `FileChannel°ú ByteBuffer`³ª `MappedByteBuffer`¸¦ ÀÌ¿ëÇÑ nio
+* `FileChannelê³¼ ByteBuffer`ë‚˜ `MappedByteBuffer`ë¥¼ ì´ìš©í•œ nio
   @see [file/NioRw.java](https://github.com/jeix/java-snippet/blob/master/file/NioRw.java)
 
 ### Other
 
-* `return`Àº `finally` ºí·°À» ¼öÇàÇÏ°í ¸®ÅÏÇÏÁö¸¸  
-  `Syatem.exit()`´Â Áï½Ã ³ª°£´Ù  
+* `return`ì€ `finally` ë¸”ëŸ­ì„ ìˆ˜í–‰í•˜ê³  ë¦¬í„´í•˜ì§€ë§Œ  
+  `Syatem.exit()`ëŠ” ì¦‰ì‹œ ë‚˜ê°„ë‹¤  
   @see [lang/ReturnOExitDemo.java](https://github.com/jeix/java-snippet/blob/master/lang/ReturnOExitDemo.java)
-* `System.setProperty()`´Â `System.out.println()`¿¡ ¿µÇâÀ» ÁÖÁö ¸øÇÑ´Ù  
-  Ãâ·ÂÀ» redirectionÇØ¼­ Hexa ¿¡µğÅÍ·Î È®ÀÎÇØ¾ß ÇÑ´Ù  
+* `System.setProperty()`ëŠ” `System.out.println()`ì— ì˜í–¥ì„ ì£¼ì§€ ëª»í•œë‹¤  
+  ì¶œë ¥ì„ redirectioní•´ì„œ Hexa ì—ë””í„°ë¡œ í™•ì¸í•´ì•¼ í•œë‹¤  
   @see [lang/SystemSetPropertyDemo.java](https://github.com/jeix/java-snippet/blob/master/lang/SystemSetPropertyDemo.java)
 
   
@@ -102,117 +102,122 @@ Contents
     (to Object then to any type)
   (maybe) because null has no type information even though it was declared as a type.
   @see lang/NullType.java
-- java.util.Properties µ¥¸ğ
+- java.util.Properties ë°ëª¨
   @see file/PropertiesTest.java
 - bounded wildcard
   @see lang/BoundedWildcard.java
 
-- Apache Commons HttpClient ½ºÆÄÀÌÅ©
+- Apache Commons HttpClient ìŠ¤íŒŒì´í¬
   @see demo/HttpClientGetTester.java
 
-- anonymous inner class µ¥¸ğ
+- anonymous inner class ë°ëª¨
   @see lang/AnonymousTester.java
-- ÀÌ½ºÄÉÀÌÇÁ ½ÃÄõ½º¸¦ \x ÇüÅÂ·Î º¯È¯ÇÏ·Á¸é
-  String#replace("\t", "\\t") ³ª
-  String#replaceAll("\\t", "\\\\t") °°ÀÌ ÇÏ¸é µÈ´Ù.
+- ì´ìŠ¤ì¼€ì´í”„ ì‹œì¿¼ìŠ¤ë¥¼ \x í˜•íƒœë¡œ ë³€í™˜í•˜ë ¤ë©´
+  String#replace("\t", "\\t") ë‚˜
+  String#replaceAll("\\t", "\\\\t") ê°™ì´ í•˜ë©´ ëœë‹¤.
   @see string/EscapeSequenceReplaceDemo.java
-  - String#replaceAll() Àº Matcher#replaceAll() À» È£ÃâÇÏ°í
-    Matcher#replaceAll() Àº Matcher#appendReplacement() À» È£ÃâÇÏ´Âµ¥
-    - Matcher#appendReplacement() ´Â '\\'¸¦ ¸¸³ª¸é skipÇÏ°í ´ÙÀ½ ¹®ÀÚ¸¦ ¾´´Ù.
-      ±× °á°ú "\\\\" °¡ "\\" ·Î ÁÙ¾îµç´Ù.
-  - String#replace() ´Â Matcher#replaceAll() À» È£ÃâÇÏ±â Àü¿¡
-    Matcher.quoteReplacement() À» È£ÃâÇÏ´Â µ¥
-    Matcher.quoteReplacement() ´Â "\\" ¸¦ "\\\\" ·Î ´ÃÀÎ´Ù.
-    - ±× °á°ú String#replace("\t", "\\t") ÇÏ¸é
-      Matcher#replaceAll("\\\\t") ÀÌ È£ÃâµÇ°í
-      ´Ù½Ã Matcher#quoteReplacement() ¿¡¼­´Â "\\t"·Î ÁÙ¾îµç´Ù.
+  - String#replaceAll() ì€ Matcher#replaceAll() ì„ í˜¸ì¶œí•˜ê³ 
+    Matcher#replaceAll() ì€ Matcher#appendReplacement() ì„ í˜¸ì¶œí•˜ëŠ”ë°
+    - Matcher#appendReplacement() ëŠ” '\\'ë¥¼ ë§Œë‚˜ë©´ skipí•˜ê³  ë‹¤ìŒ ë¬¸ìë¥¼ ì“´ë‹¤.
+      ê·¸ ê²°ê³¼ "\\\\" ê°€ "\\" ë¡œ ì¤„ì–´ë“ ë‹¤.
+  - String#replace() ëŠ” Matcher#replaceAll() ì„ í˜¸ì¶œí•˜ê¸° ì „ì—
+    Matcher.quoteReplacement() ì„ í˜¸ì¶œí•˜ëŠ” ë°
+    Matcher.quoteReplacement() ëŠ” "\\" ë¥¼ "\\\\" ë¡œ ëŠ˜ì¸ë‹¤.
+    - ê·¸ ê²°ê³¼ String#replace("\t", "\\t") í•˜ë©´
+      Matcher#replaceAll("\\\\t") ì´ í˜¸ì¶œë˜ê³ 
+      ë‹¤ì‹œ Matcher#quoteReplacement() ì—ì„œëŠ” "\\t"ë¡œ ì¤„ì–´ë“ ë‹¤.
 
-- Object#clone() ¿À¹ö¶óÀÌµå µ¥¸ğ
-  Object#equals() ¿À¹ö¶óÀÌµå µ¥¸ğ
+- Object#clone() ì˜¤ë²„ë¼ì´ë“œ ë°ëª¨
+  Object#equals() ì˜¤ë²„ë¼ì´ë“œ ë°ëª¨
   @see lang/CloneTester.java
 
-- public ÅÛÇÃ¸´ ¸Ş¼­µå¿¡¼­ private ¸Ş¼­µå¸¦ ºÎ¸¦ ¶§
-  private ¸Ş¼Òµå¸¸ ¿À¹ö¶óÀÌµåÇØ¼­´Â ¾È µÈ´Ù
-  - ÅÛÇÃ¸´ ¸Ş¼­µåµµ ¿À¹ö¶óÀÌµåÇÏ°Å³ª
+- public í…œí”Œë¦¿ ë©”ì„œë“œì—ì„œ private ë©”ì„œë“œë¥¼ ë¶€ë¥¼ ë•Œ
+  private ë©”ì†Œë“œë§Œ ì˜¤ë²„ë¼ì´ë“œí•´ì„œëŠ” ì•ˆ ëœë‹¤
+  - í…œí”Œë¦¿ ë©”ì„œë“œë„ ì˜¤ë²„ë¼ì´ë“œí•˜ê±°ë‚˜
     @see ood/template_method/OverridePrivateMethodOnlyTest.java
-    (abstract ÅÛÇÃ¸´ ¸Ş¼­µå·Î ¿À¹ö¶óÀÌµå¸¦ °­Á¦ÇÒ ¼ö´Â ÀÖ°Ú´Ù¸¸
-     ÅÛÇÃ¸´ ¸Ş¼­µå¸¦ ¸î ¹ø ¾¿ Áßº¹ÇØ¼­ ÀÛ¼ºÇÏ´Â °ÍÀº
-     ¾îÂ·µç ÁÁÀº »ı°¢ÀÌ ¾Æ´Ï´Ù - raison d'etre)
+    (abstract í…œí”Œë¦¿ ë©”ì„œë“œë¡œ ì˜¤ë²„ë¼ì´ë“œë¥¼ ê°•ì œí•  ìˆ˜ëŠ” ìˆê² ë‹¤ë§Œ
+     í…œí”Œë¦¿ ë©”ì„œë“œë¥¼ ëª‡ ë²ˆ ì”© ì¤‘ë³µí•´ì„œ ì‘ì„±í•˜ëŠ” ê²ƒì€
+     ì–´ì¨Œë“  ì¢‹ì€ ìƒê°ì´ ì•„ë‹ˆë‹¤ - raison d'etre)
     @see ood/template_method/OverrideTemplateMethodDemo.java
-  - ´ë½Å ÅÛÇÃ¸´ ¸Ş¼­µå¿¡¼­ »ç¿ëµÇ´Â ÀÛ¾÷ ¸Ş¼­µåµéÀ»
-    protected ¸Ş¼­µå·Î ¸¸µé¾î ¿À¹ö¶óÀÌµåÇØ¾ß ÇÑ´Ù
+  - ëŒ€ì‹  í…œí”Œë¦¿ ë©”ì„œë“œì—ì„œ ì‚¬ìš©ë˜ëŠ” ì‘ì—… ë©”ì„œë“œë“¤ì„
+    protected ë©”ì„œë“œë¡œ ë§Œë“¤ì–´ ì˜¤ë²„ë¼ì´ë“œí•´ì•¼ í•œë‹¤
     @see ood/template_method/OverrideWorkingMethodDemo.java
-  - abstract ÀÛ¾÷ ¸Ş¼­µå ¿À¹ö¶óÀÌµå¸¦ °­Á¦ÇÒ °ÍÀÌ ¾Æ´Ï¶ó
-    ÇÊ¿äÇÏ¸é ¾Ë¾Æ¼­ ¿À¹ö¶óÀÌµåÇÏ¸é µÈ´Ù¸é
+  - abstract ì‘ì—… ë©”ì„œë“œ ì˜¤ë²„ë¼ì´ë“œë¥¼ ê°•ì œí•  ê²ƒì´ ì•„ë‹ˆë¼
+    í•„ìš”í•˜ë©´ ì•Œì•„ì„œ ì˜¤ë²„ë¼ì´ë“œí•˜ë©´ ëœë‹¤ë©´
     @see ood/template_method/OverrideProtectedMethodTest.java
 
-- ¹®ÀÚ¿­À» ºñ±³ÇÒ ¶§
-  "string".equals(null) ÇüÅÂ¸¦ ¸¹ÀÌ ¾²´Âµ¥
-  ±×¿Í ´Ş¸®
-  "string".contains(null) ³ª "string".indexOf(null) ´Â
-  NullPointerException À» ÀÏÀ¸Å²´Ù
-  "string".endsWith(null) ¿Í "string".startsWith(null) ¿ª½Ã
+- ë¬¸ìì—´ì„ ë¹„êµí•  ë•Œ
+  "string".equals(null) í˜•íƒœë¥¼ ë§ì´ ì“°ëŠ”ë°
+  ê·¸ì™€ ë‹¬ë¦¬
+  "string".contains(null) ë‚˜ "string".indexOf(null) ëŠ”
+  NullPointerException ì„ ì¼ìœ¼í‚¨ë‹¤
+  "string".endsWith(null) ì™€ "string".startsWith(null) ì—­ì‹œ
   <<NO_SAMPLE>>
-- String ÀÇ ¸Ş¼­µå Áß¿¡¼­
-  NullPointerException À» ÀÏÀ¸Å°Áö ¾Ê´Â ¸Ş¼­µå´Â
-  equals(), equalsIgnoreCase(), valueOf() »ÓÀÌ´Ù.
-  <<NO_SAMPLE>>
+  - String ì˜ ë©”ì„œë“œ ì¤‘ì—ì„œ
+    NullPointerException ì„ ì¼ìœ¼í‚¤ì§€ ì•ŠëŠ” ë©”ì„œë“œëŠ”
+    equals(), equalsIgnoreCase(), valueOf() ë¿ì´ë‹¤
+    <<NO_SAMPLE>>
+  - í•œ ê°€ì§€ ë”.
+    "string".contains("") ë‚˜ "string".indexOf("") ëŠ”
+    true ë‚˜ 0 ì„ ë¦¬í„´í•˜ê¸° ë•Œë¬¸ì—
+    ì˜ë„í•˜ì§€ ì•Šì€ ë¬¸ì œë¥¼ ì¼ìœ¼í‚¬ ìˆ˜ ìˆë‹¤
+    <<NO_SAMPLE>>
 
-- ¿À·§¸¸¿¡ ÁÖ¹Îµî·Ï¹øÈ£ Ã¼Å©
+- ì˜¤ë«ë§Œì— ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸ ì²´í¬
   @see NpidCheck.java
 
-- Å°/°ª Â¦ ¸ğÀÓ¿¡¼­ ¼ø¼­°¡ ÀÇ¹ÌÀÖÀ» ¶§
-  - List¿Í MapÀ» ¾´
+- í‚¤/ê°’ ì§ ëª¨ì„ì—ì„œ ìˆœì„œê°€ ì˜ë¯¸ìˆì„ ë•Œ
+  - Listì™€ Mapì„ ì“´
     @see collection/OrderedKeyValPairsDemo.java
-  - 2°³ÀÇ List¸¦ ¾´
+  - 2ê°œì˜ Listë¥¼ ì“´
     @see collection/OrderedKeyValPairsDemo2.java
   - LinkedHashMap
     @see collection/LinkedHashMapDemo.java
-  - ±³ÈÆ : ¶óÀÌºê·¯¸®¸¦ ¾Ë°í ½á¶ó (47 Know and use the libraries, from Effective Java)
+  - êµí›ˆ : ë¼ì´ë¸ŒëŸ¬ë¦¬ë¥¼ ì•Œê³  ì¨ë¼ (47 Know and use the libraries, from Effective Java)
 
 - BigDecimal
   @see number/BigDecimalDemo.java
 
-- annotation µ¥¸ğ
+- annotation ë°ëª¨
   @see lang/annotation/Ann.java
 
-- ÇÊµå ¸®ÇÃ·º¼Ç µ¥¸ğ
+- í•„ë“œ ë¦¬í”Œë ‰ì…˜ ë°ëª¨
   @see lang/ReflectField.java
 
-- null check ÇÏ´Â ´ë½Å nullÀ» ¸®ÅÏÇÏÁö ¾Ê±â
+- null check í•˜ëŠ” ëŒ€ì‹  nullì„ ë¦¬í„´í•˜ì§€ ì•Šê¸°
   @see lang/void_/AvoidNullCheck.java
 
 {=
-- inner Å¬·¡½ºÀÇ ÀÎ½ºÅÏ½º¸¦ »ı¼ºÇÏ´Â Àû´çÇÑ ÀÌ¸§ÀÇ ¸Ş¼­µåµé µÎ±â
+- inner í´ë˜ìŠ¤ì˜ ì¸ìŠ¤í„´ìŠ¤ë¥¼ ìƒì„±í•˜ëŠ” ì ë‹¹í•œ ì´ë¦„ì˜ ë©”ì„œë“œë“¤ ë‘ê¸°
   @see lang/inner_class/InnerClassFactoryDemo.java
-- outer Å¬·¡½ºÀÇ ÀÎ½ºÅÏ½º¿Í ¿«ÀÎ´Ù¸é inner Å¬·¡½º·Î
-  ±×·¸Áö ¾Ê´Ù¸é static nested Å¬·¡½º·Î
+- outer í´ë˜ìŠ¤ì˜ ì¸ìŠ¤í„´ìŠ¤ì™€ ì—®ì¸ë‹¤ë©´ inner í´ë˜ìŠ¤ë¡œ
+  ê·¸ë ‡ì§€ ì•Šë‹¤ë©´ static nested í´ë˜ìŠ¤ë¡œ
 =}
-- outer Å¬·¡½ºÀÇ ÀÎ½ºÅÏ½º¿Í ¿«ÀÎ´Ù¸é inner Å¬·¡½º·Î
-  ±×·¸Áö ¾Ê´Ù¸é static nested Å¬·¡½º·Î
+- outer í´ë˜ìŠ¤ì˜ ì¸ìŠ¤í„´ìŠ¤ì™€ ì—®ì¸ë‹¤ë©´ inner í´ë˜ìŠ¤ë¡œ
+  ê·¸ë ‡ì§€ ì•Šë‹¤ë©´ static nested í´ë˜ìŠ¤ë¡œ
   @see lang/inner_class/InnerClassInstantiationDemo.java
 
-- instance ¸Ş¼­µå´Â ½ÇÁ¦ Å¸ÀÔÀÇ ¸Ş¼­µå°¡ È£ÃâµÇÁö¸¸
-  static ¸Ş¼­µå´Â ¼±¾ğµÈ Å¸ÀÔÀÌ³ª ¸í½ÃÀûÀ¸·Î Ä³½ºÆÃÇÑ Å¸ÀÔÀÇ ¸Ş¼­µå°¡ È£ÃâµÈ´Ù
-  ¶Ç´Â
-  static ¸Ş¼­µå´Â
-  Å¬·¡½º¸¦ ÅëÇØ¼­ Á¢±ÙÇØ¾ßÁö
-  ÀÎ½ºÅÏ½º¸¦ ÅëÇØ¼­ Á¢±ÙÇØ¼­´Â ¾È µÈ´Ù
+- instance ë©”ì„œë“œëŠ” ì‹¤ì œ íƒ€ì…ì˜ ë©”ì„œë“œê°€ í˜¸ì¶œë˜ì§€ë§Œ
+  static ë©”ì„œë“œëŠ” ì„ ì–¸ëœ íƒ€ì…ì´ë‚˜ ëª…ì‹œì ìœ¼ë¡œ ìºìŠ¤íŒ…í•œ íƒ€ì…ì˜ ë©”ì„œë“œê°€ í˜¸ì¶œëœë‹¤
+  ë˜ëŠ”
+  static ë©”ì„œë“œëŠ”
+  í´ë˜ìŠ¤ë¥¼ í†µí•´ì„œ ì ‘ê·¼í•´ì•¼ì§€
+  ì¸ìŠ¤í„´ìŠ¤ë¥¼ í†µí•´ì„œ ì ‘ê·¼í•´ì„œëŠ” ì•ˆ ëœë‹¤
   @see lang/StaticMethodCallDemo.java
 
 - line separator convert
   @see lsc.java
 
-- ÄÉ½ºÄÉÀÌµù ¿É¼Ç µ¥¸ğ
+- ì¼€ìŠ¤ì¼€ì´ë”© ì˜µì…˜ ë°ëª¨
   @see collection/CascadingOptionsBuilderDemo.java
 
-- enum µ¥¸ğ
+- enum ë°ëª¨
   @see lang/enum_/EnumDemo0.java
   @see lang/enum_/EnumDemo1.java
   @see lang/enum_/EnumDemo2.java
   @see lang/enum_/EnumDemo3.java
   @see lang/enum_/EnumDemo4.java
-- °¡º¯ ÀÎÀÚ µ¥¸ğ
+- ê°€ë³€ ì¸ì ë°ëª¨
   @see lang/VarArgsDemo
 - boxing, unboxing, autoboxing
   @see lang/Autoboxing.java
@@ -221,65 +226,65 @@ Contents
   @see [lang/void_/until_not_void/UntilNotVoid.java](https://github.com/jeix/java-snippet/blob/master/lang/void_/until_not_void/UntilNotVoid.java)
   @see [lang/void_/until_not_void/UntilNotVoidDemo.java](https://github.com/jeix/java-snippet/blob/master/lang/void_/until_not_void/UntilNotVoidDemo.java)
 
-- collection ¼Ó¼ºÀ» ³ëÃâÇÏÁö ¾Ê±â
-  - immutableÀ» °­Á¦ÇÏ·Á¸é ¿ÜºÎ¿¡´Â cloneÀ» ¼öÇàÇÏ´Â getter/setter¸¦ Á¦°øÇØ¾ß ÇÑ´Ù°íµé ÇÑ´Ù.
-  - ÇÏÁö¸¸ ³»ºÎ¿¡¼­ »ç¿ëÇÏ´Â °æ¿ì¿¡´Â gettter·Î collectionÀ» ¸®ÅÏ¹Ş¾Æ collection¿¡ Á÷Á¢ Ãß°¡/Á¦°ÅÇÏ´Â °Ô ´õ ÆíÇÏ´Ù.
-  - collection »Ó¸¸ ¾Æ´Ï¶ó ´Ù¸¥ °´Ã¼µµ ¸¶Âù°¡Áö´Ù.
-  - ¾Æ¸¶µµ ÇÑÂÊ ³¡¿¡´Â "Paranoid"°¡ ÀÖ°í, ´Ù¸¥ ÇÑÂÊ ³¡¿¡´Â "Play at Your Own Risk"°¡ ÀÖ´Â ½ÄÀÏ ÅÙµ¥
-    - cloneÀ» ¼öÇàÇÏ°Å³ª Àü´Ş¿ë Å¸ÀÔÀ¸·Î º¯È¯ÇÏ´Â getter¸¸ Á¦°øÇÏ°í setter´Â Á¦°øÇÏÁö ¾Ê±â
-    - setter¸¦ Á¦°øÇÏ±â´Â ÇÏµÇ cloneÀ» ¼öÇàÇÏ°Å³ª Å¸ÀÔÀ» º¯È¯ÇÏ±â
-      ¶Ç´Â setter ´ë½Å adder¸¦ Á¦°øÇÏ±â
-    - ³»ºÎÀÇ getter/setter´Â ½Å°æ¾µ °Í ¾øÀÌ cloneÀ» ¼öÇàÇÏ°Å³ª Å¸ÀÔÀ» º¯È¯ÇØ¼­ Àü´ŞÇÏ±â
-    - ±×³É Àü´ŞÇÏ±â (²À immutableÀÏ ÇÊ¿ä°¡ ÀÖ´Â°¡?)
-    - ±×³É Àü´ŞÇÏ±â (immutableÀÌ±ä ÇØ¾ß ÇÏÁö¸¸)
-  - ³»ºÎ¿¡¼­´Â collection ¼Ó¼ºÀ» ¹Ù·Î ¾µ ¼ö ÀÖ°Ô ÇÏ°í, ¿ÜºÎ¿¡´Â collection ¼Ó¼ºÀ» ³ëÃâÇÏÁö ¾ÊÀ¸·Á¸é ¾î¶»°Ô ÇØ¾ßÇÒ±î?
+- collection ì†ì„±ì„ ë…¸ì¶œí•˜ì§€ ì•Šê¸°
+  - immutableì„ ê°•ì œí•˜ë ¤ë©´ ì™¸ë¶€ì—ëŠ” cloneì„ ìˆ˜í–‰í•˜ëŠ” getter/setterë¥¼ ì œê³µí•´ì•¼ í•œë‹¤ê³ ë“¤ í•œë‹¤.
+  - í•˜ì§€ë§Œ ë‚´ë¶€ì—ì„œ ì‚¬ìš©í•˜ëŠ” ê²½ìš°ì—ëŠ” gettterë¡œ collectionì„ ë¦¬í„´ë°›ì•„ collectionì— ì§ì ‘ ì¶”ê°€/ì œê±°í•˜ëŠ” ê²Œ ë” í¸í•˜ë‹¤.
+  - collection ë¿ë§Œ ì•„ë‹ˆë¼ ë‹¤ë¥¸ ê°ì²´ë„ ë§ˆì°¬ê°€ì§€ë‹¤.
+  - ì•„ë§ˆë„ í•œìª½ ëì—ëŠ” "Paranoid"ê°€ ìˆê³ , ë‹¤ë¥¸ í•œìª½ ëì—ëŠ” "Play at Your Own Risk"ê°€ ìˆëŠ” ì‹ì¼ í…ë°
+    - cloneì„ ìˆ˜í–‰í•˜ê±°ë‚˜ ì „ë‹¬ìš© íƒ€ì…ìœ¼ë¡œ ë³€í™˜í•˜ëŠ” getterë§Œ ì œê³µí•˜ê³  setterëŠ” ì œê³µí•˜ì§€ ì•Šê¸°
+    - setterë¥¼ ì œê³µí•˜ê¸°ëŠ” í•˜ë˜ cloneì„ ìˆ˜í–‰í•˜ê±°ë‚˜ íƒ€ì…ì„ ë³€í™˜í•˜ê¸°
+      ë˜ëŠ” setter ëŒ€ì‹  adderë¥¼ ì œê³µí•˜ê¸°
+    - ë‚´ë¶€ì˜ getter/setterëŠ” ì‹ ê²½ì“¸ ê²ƒ ì—†ì´ cloneì„ ìˆ˜í–‰í•˜ê±°ë‚˜ íƒ€ì…ì„ ë³€í™˜í•´ì„œ ì „ë‹¬í•˜ê¸°
+    - ê·¸ëƒ¥ ì „ë‹¬í•˜ê¸° (ê¼­ immutableì¼ í•„ìš”ê°€ ìˆëŠ”ê°€?)
+    - ê·¸ëƒ¥ ì „ë‹¬í•˜ê¸° (immutableì´ê¸´ í•´ì•¼ í•˜ì§€ë§Œ)
+  - ë‚´ë¶€ì—ì„œëŠ” collection ì†ì„±ì„ ë°”ë¡œ ì“¸ ìˆ˜ ìˆê²Œ í•˜ê³ , ì™¸ë¶€ì—ëŠ” collection ì†ì„±ì„ ë…¸ì¶œí•˜ì§€ ì•Šìœ¼ë ¤ë©´ ì–´ë–»ê²Œ í•´ì•¼í• ê¹Œ?
   - "Paranoid" version
     @see ood/immutable/WrapperOverCollection_3.java
   - "Play at Your Own Risk" or "copied value object" version
     @see ood/immutable/WrapperOverCollection_1.java
-  - JSON-like map ¸®ÅÏ
+  - JSON-like map ë¦¬í„´
     @see ood/immutable/WrapperOverCollection_2.java
   - "freeze" version
     @see ood/immutable/WrapperOverCollection_4.java
-- collection ¼Ó¼ºÀ» ³ëÃâÇÏÁö ¾Ê±â revisited
-  - ¹ŞÀ» ¶§µµ ÁÙ ¶§µµ ½Å°æ ²ô±â
-    cuz ³Î ¹Ï¾î
+- collection ì†ì„±ì„ ë…¸ì¶œí•˜ì§€ ì•Šê¸° revisited
+  - ë°›ì„ ë•Œë„ ì¤„ ë•Œë„ ì‹ ê²½ ë„ê¸°
+    cuz ë„ ë¯¿ì–´
     @see ood/immutable/WrapperOverCollection_1_Nothing
-  - ¹ŞÀ» ¶§´Â ±×³É ¹Ş°í, ÁÙ ¶§´Â JSON-like mapÀ¸·Î
-    cuz ¿ÜºÎ¿¡¼± ¹ŞÀ» ÀÏ ¾ø¾î or ÀÌ»óÇÑ °É ÁÖ¸é ³× Å¿ÀÌ¾ß
+  - ë°›ì„ ë•ŒëŠ” ê·¸ëƒ¥ ë°›ê³ , ì¤„ ë•ŒëŠ” JSON-like mapìœ¼ë¡œ
+    cuz ì™¸ë¶€ì—ì„  ë°›ì„ ì¼ ì—†ì–´ or ì´ìƒí•œ ê±¸ ì£¼ë©´ ë„¤ íƒ“ì´ì•¼
     @see ood/immutable/WrapperOverCollection_2_Map
-  - ¹ŞÀ» ¶§´Â ±×³É ¹Ş°í, ÁÙ ¶§´Â JSONÀ¸·Î
-    ¹ŞÀ» ¶§ JSONÀÌ³ª MapÀ» ¹ŞÀ» ¼öµµ ÀÖ°Ú´Ù
+  - ë°›ì„ ë•ŒëŠ” ê·¸ëƒ¥ ë°›ê³ , ì¤„ ë•ŒëŠ” JSONìœ¼ë¡œ
+    ë°›ì„ ë•Œ JSONì´ë‚˜ Mapì„ ë°›ì„ ìˆ˜ë„ ìˆê² ë‹¤
     @see ood/immutable/WrapperOverCollection_2_JSON
-  - ¹ŞÀ» ¶§µµ clone, ÁÙ ¶§µµ clone
+  - ë°›ì„ ë•Œë„ clone, ì¤„ ë•Œë„ clone
     @see ood/immutable/WrapperOverCollection_3_Clone
-  - ¹ŞÀ» ¶§ freeze
+  - ë°›ì„ ë•Œ freeze
     @see ood/immutable/WrapperOverCollection_4_Freeze
 
 - x in (p,q,r)
   @see lang/is_in/IsIn.java
   @see lang/is_in/IsInDemo.java
 
-- null-proof µ¥¸ğ
+- null-proof ë°ëª¨
   - trim(), string(), nada()
   - Nil<T>
   @see lang/void_/NullProof.java
 
-- Á¤¼öºÎ/¼Ò¼öºÎ
+- ì •ìˆ˜ë¶€/ì†Œìˆ˜ë¶€
   @see number/DecimalPoint.java
-- NumberFormat µ¥¸ğ
+- NumberFormat ë°ëª¨
   @see number/NumberFormatDemo.java
 
 - forEach, filter, map
   @see lang/for_each/ForEachDemo.java
 
-- ³¯Â¥ ºñ±³
+- ë‚ ì§œ ë¹„êµ
   @see datetime/DateDiff.java
 
-- ½ÉÇÃ ÅØ½ºÆ® ÆÄÀÏ ÀĞ°í ¾²±â
+- ì‹¬í”Œ í…ìŠ¤íŠ¸ íŒŒì¼ ì½ê³  ì“°ê¸°
   @see file/TextFileReader.java
   @see file/TextFileWriter.java
 
-- ºó ¸ÊÀº null Å°¸¦ Æ÷ÇÔÇÏÁö ¾Ê´Â´Ù  // false <-- map.containsKey(null)
-  ºó ¸®½ºÆ®´Â nullÀ» Æ÷ÇÔÇÏÁö ¾Ê´Â´Ù // false <-- list.contains(null)
+- ë¹ˆ ë§µì€ null í‚¤ë¥¼ í¬í•¨í•˜ì§€ ì•ŠëŠ”ë‹¤  // false <-- map.containsKey(null)
+  ë¹ˆ ë¦¬ìŠ¤íŠ¸ëŠ” nullì„ í¬í•¨í•˜ì§€ ì•ŠëŠ”ë‹¤ // false <-- list.contains(null)
   <<NO_SAMPLE>>
