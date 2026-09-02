@@ -1,78 +1,90 @@
 package modern.java21.lang.void_.until_not_void;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class UntilNotVoid {
-	public static String until_not_void(String... args) {
-		String maybe_last = null;
-		for (String arg : args) {
-			maybe_last = arg;
-			if (arg != null && arg.length() > 0) {
-				return arg;
-			}
-		}
-		return maybe_last;
-	}
-
-	public static BigDecimal until_not_void(BigDecimal... args) {
-		BigDecimal maybe_last = null;
-		for (BigDecimal arg : args) {
-			maybe_last = arg;
-			if (arg != null && ! BigDecimal.ZERO.equals(arg)) {
-				return arg;
-			}
-		}
-		return maybe_last;
-	}
-
-	public static Object unv(Object... args) {
-		Object maybe_last = null;
-		for (Object arg : args) {
-			maybe_last = arg;
-			if (arg != null) {
-				if (arg instanceof String) {
-					if (((String) arg).length() > 0) return arg;
-				} else if (arg instanceof Integer) {
-					if (((Integer) arg) != 0) return arg;
-				} else if (arg instanceof Long) {
-					if (((Long) arg) != 0L) return arg;
-				} else if (arg instanceof Float) {
-					if (((Float) arg) != 0.0f) return arg;
-				} else if (arg instanceof Double) {
-					if (((Double) arg) != 0.0) return arg;
-				} else if (arg instanceof Boolean) {
-					if (((Boolean) arg) != false) return arg;
-				} else if (arg instanceof BigDecimal) {
-					if (! BigDecimal.ZERO.equals(((BigDecimal) arg))) return arg;
-				} else {
-					return arg;
-				}
-			}
-		}
-		return maybe_last;
-	}
-
-	public static String unv(String... args) {
-		//return until_not_void(args);
-		return (String) unv((Object[]) args);
-	}
-	public static Integer unv(Integer... args) {
-		return (Integer) unv((Object[]) args);
-	}
-	public static Long unv(Long... args) {
-		return (Long) unv((Object[]) args);
-	}
-	public static Float unv(Float... args) {
-		return (Float) unv((Object[]) args);
-	}
-	public static Double unv(Double... args) {
-		return (Double) unv((Object[]) args);
-	}
-	public static Boolean unv(Boolean... args) {
-		return (Boolean) unv((Object[]) args);
-	}
-	public static BigDecimal unv(BigDecimal... args) {
-		//return until_not_void(args);
-		return (BigDecimal) unv((Object[]) args);
-	}
+    
+    public static String until_not_void(String... args) {
+        return Arrays.stream(args)
+            .filter(Objects::nonNull)
+            .filter(s -> !s.isBlank())
+            .findFirst()
+            .orElse(args.length > 0 ? args[args.length - 1] : null);
+    }
+    
+    public static BigDecimal until_not_void(BigDecimal... args) {
+        return Arrays.stream(args)
+            .filter(Objects::nonNull)
+            .filter(bd -> !BigDecimal.ZERO.equals(bd))
+            .findFirst()
+            .orElse(args.length > 0 ? args[args.length - 1] : null);
+    }
+    
+    // Original overloaded methods (kept for compatibility)
+    public static String unv(String... args) {
+        for (String arg : args) {
+            if (arg != null && !arg.isBlank()) return arg;
+        }
+        return args.length > 0 ? args[args.length - 1] : null;
+    }
+    
+    public static Integer unv(Integer... args) {
+        for (Integer arg : args) {
+            if (arg != null && arg != 0) return arg;
+        }
+        return args.length > 0 ? args[args.length - 1] : null;
+    }
+    
+    public static Long unv(Long... args) {
+        for (Long arg : args) {
+            if (arg != null && arg != 0L) return arg;
+        }
+        return args.length > 0 ? args[args.length - 1] : null;
+    }
+    
+    public static Float unv(Float... args) {
+        for (Float arg : args) {
+            if (arg != null && arg != 0.0f) return arg;
+        }
+        return args.length > 0 ? args[args.length - 1] : null;
+    }
+    
+    public static Double unv(Double... args) {
+        for (Double arg : args) {
+            if (arg != null && arg != 0.0) return arg;
+        }
+        return args.length > 0 ? args[args.length - 1] : null;
+    }
+    
+    public static Boolean unv(Boolean... args) {
+        for (Boolean arg : args) {
+            if (arg != null && arg != false) return arg;
+        }
+        return args.length > 0 ? args[args.length - 1] : null;
+    }
+    
+    public static BigDecimal unv(BigDecimal... args) {
+        for (BigDecimal arg : args) {
+            if (arg != null && !BigDecimal.ZERO.equals(arg)) return arg;
+        }
+        return args.length > 0 ? args[args.length - 1] : null;
+    }
+    
+    // Modern: Generic method for any type with predicate
+    @FunctionalInterface
+    public interface NonVoidPredicate<T> {
+        boolean test(T t);
+    }
+    
+    @SafeVarargs
+    public static <T> T firstNonVoid(NonVoidPredicate<T> predicate, T... args) {
+        for (T arg : args) {
+            if (arg != null && predicate.test(arg)) {
+                return arg;
+            }
+        }
+        return args.length > 0 ? args[args.length - 1] : null;
+    }
 }

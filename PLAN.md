@@ -14,7 +14,7 @@
 | **Phase 1** | Date/Time API | `datetime/` | `Calendar`/`SimpleDateFormat`/`Date` → `LocalDate`/`LocalTime`/`LocalDateTime`/`DateTimeFormatter`/`TemporalAdjusters`/`ChronoUnit`/`Period`/`Duration` | ✅ **완료** |
 | **Phase 2** | File I/O | `file/` | 수동 `FileChannel`/`ByteBuffer`/명시적 `close()` → `Files.readAllBytes`/`Files.write`/`Files.newBufferedReader`/`Files.readString`/`Files.writeString`/try-with-resources | ✅ **완료** |
 | **Phase 3** | Collections & Streams | `collection/` | `removeIf`, `stream().filter().collect()`, `List.of`, `toArray(IntFunction)`, `Comparator.comparing`, `Map.ofEntries` | ✅ **완료** |
-| **Phase 4** | Language Features | `lang/` (단, `enum_` 제외) | Lambdas, method references, `record`, `Optional`, `StringBuilder`, `Objects.requireNonNullElse`, pattern matching, `switch` expressions | ⬜ 대기 |
+| **Phase 4** | Language Features | `lang/` (단, `enum_` 제외) | Lambdas, method references, `record`, `Optional`, `StringBuilder`, `Objects.requireNonNullElse`, pattern matching, `switch` expressions | ✅ **완료** |
 | **Phase 5** | OOD Patterns | `ood/` | `record`, `List.copyOf`/`Map.copyOf`/`Collections.unmodifiableList`, `sealed` classes, interface default methods | ⬜ 대기 |
 | **Phase 6** | String, Number, Root Utilities | `string/`, `number/`, 루트 파일들 | Text blocks, `switch` expressions, pattern matching, `StandardCharsets` | ⬜ 대기 |
 
@@ -87,9 +87,40 @@
 
 ---
 
-## Phase 4~6: 상세 계획 (추후 세분화)
+## Phase 4 상세: Language Features (완료)
 
-> Phase 3 완료 후 각 단계별로 별도 세부 계획 수립 예정
+### 대상 파일 (20개)
+| 파일 | Legacy → Modern 주요 변경 |
+|------|---------------------------|
+| `AnonymousTester.java` | 익명 클래스 → 람다 표현식 + 메서드 레퍼런스 |
+| `CloneTester.java` | 수동 clone → `record` (불변) + 깊은 복사 예시 |
+| `NullProof.java` | 수동 null 체크 → `Objects.requireNonNullElse`, `isBlank()`, `record` |
+| `AvoidNullCheck.java` | 수동 null 체크 → `Objects.requireNonNullElse`, `Optional` |
+| `VarArgsDemo.java` | 가변 인자 사용 예시 + `var` (Java 10+) |
+| `ReflectField.java` | 리플렉션 + 패턴 매칭 switch + `record` 리플렉션 |
+| `BoundedWildcard.java` | 바운디드 와일드카드 + PECS + `forEach` 메서드 레퍼런스 |
+| `StaticMethodCallDemo.java` | 정적 메서드 호출 + 메서드 레퍼런스 |
+| `ReturnOExitDemo.java` | `StringBuilder` + `StackWalker` (Java 9+) |
+| `NullType.java` | `instanceof` 패턴 매칭 (Java 16+) |
+| `SystemSetPropertyDemo.java` | `System.lineSeparator()` |
+| `Autoboxing.java` | 오토박싱 + `var` 타입 추론 |
+| `IsIn.java` / `IsInDemo.java` | 스트림 API (`anyMatch`, `stream`) |
+| `ForEachDemo.java` / `Array.java` | 스트림 API (`forEach`, `map`, `filter`, `reduce`, `allMatch`, `anyMatch`) |
+| `Ann.java` / `Target.java` / `BisInDie.java` | 애노테이션 + `record`에 애노테이션 |
+| `InnerClassFactory.java` / `InnerClassInstantiationDemo.java` / `InnerClassFactoryDemo.java` | 내부 클래스 + `record` 중첩 |
+| `UntilNotVoid.java` / `UntilNotVoidDemo.java` | 스트림 API + 함수형 인터페이스 + 제네릭 메서드 |
+
+### 검증 완료 사항
+- [x] `modern/java21/lang/**/*.java` 모두 컴파일 성공
+- [x] 각 클래스의 `main()` 실행 시 에러 없음
+- [x] Legacy 버전과 동일 기능 동작 확인
+- [x] Java 21+ 기능(람다, 메서드 레퍼런스, `record`, `Optional`, `Objects.requireNonNullElse`, 패턴 매칭, `switch` 표현식, `var`, `StackWalker`, 스트림 API) 적용 검증
+
+---
+
+## Phase 5~6: 상세 계획 (추후 세분화)
+
+> Phase 4 완료 후 각 단계별로 별도 세부 계획 수립 예정
 
 ---
 
@@ -123,9 +154,9 @@ java -cp out/modern modern.java21.datetime.DateUtil  # Modern
 
 ## 진행 현황 요약
 
-- **완료**: Phase 1 (datetime/ — 6개 파일), Phase 2 (file/ — 6개 파일), Phase 3 (collection/ — 8개 파일)
-- **진행 예정**: Phase 4 (lang/ — enum_ 제외)
-- **대기**: Phase 5~6
+- **완료**: Phase 1 (datetime/ — 6개 파일), Phase 2 (file/ — 6개 파일), Phase 3 (collection/ — 8개 파일), Phase 4 (lang/ — 20개 파일, enum_ 제외)
+- **진행 예정**: Phase 5 (ood/)
+- **대기**: Phase 6
 
 > 마지막 업데이트: 2026-09-02  
-> 다음 세션 인수인계: Phase 4 Language Features 리팩토링부터 시작 (lang/ 패키지, enum_ 제외)
+> 다음 세션 인수인계: Phase 5 OOD Patterns 리팩토링부터 시작 (ood/ 패키지)
