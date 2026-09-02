@@ -50,10 +50,10 @@ java -cp out/modern modern.java21.lang.enum_.EnumDemo0
 
 | 단계 | 영역 | 상태 | 대상 파일 |
 |------|------|------|-----------|
-| 1 | Date/Time API | ⏳ 대기 | datetime/*.java |
-| 2 | File I/O | ⏳ 대기 | file/*.java |
-| 3 | Collections & Streams | ⏳ 대기 | collection/*.java |
-| 4 | Language Features | ⏳ 대기 | lang/* (enum_ 제외) |
+| 1 | Date/Time API | ✅ 완료 | datetime/*.java (6개) |
+| 2 | File I/O | ✅ 완료 | file/*.java (6개) |
+| 3 | Collections & Streams | ✅ 완료 | collection/*.java (8개) |
+| 4 | Language Features | ✅ 완료 | lang/* (20개, enum_ 제외) |
 | 5 | OOD Patterns | ⏳ 대기 | ood/*.java |
 | 6 | String, Number, Root | ⏳ 대기 | string/, number/, lsc.java, NpidCheck.java |
 
