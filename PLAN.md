@@ -69,7 +69,7 @@ javac -encoding UTF-8 -d out/modern -sourcepath .            $(find modern      
   - [x] 4-5. ood
   - [x] 4-6. number/string
   - [x] 4-7. test 하네스 + 최상위 (`ExpectTest`, `Expect2Test`, `lsc`, `NpidCheck`)
-- [ ] 5. 시리즈에 새 단계 추가 (아래 표, "Java 21에서 정말 새 답이 생긴 경우"만)
+- [x] 5. 시리즈에 새 단계 추가 (아래 표, "Java 21에서 정말 새 답이 생긴 경우"만)
 - [x] 6a. 루트 `README.md` 초안 작성 (구조·컴파일법·진행 상황 표). 이후 영역별 모던화 커밋마다
       진행 상황을 갱신한다 (D12).
 - [ ] 6b. 전체 완료 후 legacy↔modern 대응표 완성, `legacy/java8/README.md`의 GitHub 링크 경로를
@@ -117,9 +117,9 @@ Claude Code 계획 파일)에 있다. 4단계 진행 시 그 문구를 그대로
 | 신규 파일 | 보여줄 것 | 상태 |
 |---|---|---|
 | `ood/immutable/ImmutableRuleSetDemo.java` | record + `List.copyOf`가 9가지 캡슐화 전략을 한 번에 대체한다는 것 | 완료 |
-| `lang/enum_/EnumDemo5.java` | `switch(this)` → switch expression(`->`) | 예정 |
-| `collection/SequencedMapDemo.java` | `SequencedCollection`/`SequencedMap` | 예정 |
-| `ood/template_method/SealedTemplateMethodDemo.java` | sealed interface + permits + 패턴 매칭 switch | 예정 |
+| `lang/enum_/EnumDemo5.java` | `switch(this)` → switch expression(`->`) | 완료 |
+| `collection/SequencedMapDemo.java` | `SequencedCollection`/`SequencedMap` | 완료 |
+| `ood/template_method/SealedTemplateMethodDemo.java` | sealed interface + permits + 패턴 매칭 switch | 완료 |
 
 ## 검증 방법
 

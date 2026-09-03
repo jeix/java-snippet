@@ -328,3 +328,23 @@ import도 더 이상 필요 없어져서 지웠다. 나머지 `StringBuffer` →
 `main()`의 9번 반복되던 `if (! is_valid_jumin_no(npid)) System.out.println(npid);` 패턴은
 검사할 주민등록번호 목록을 text block으로 두고 `String#lines().filter(...).forEach(...)`로
 바꿨다.
+
+## D30. 시리즈 새 단계 3개(`EnumDemo5`/`SequencedMapDemo`/`SealedTemplateMethodDemo`) 추가
+
+PLAN.md D 표에 예정돼 있던 나머지 세 파일을 만들었다(`ImmutableRuleSetDemo`는 D22에서 이미
+완료).
+- `EnumDemo5`: `EnumDemo4`의 상수별 클래스 본문은 그대로 두고, 마지막까지 switch 문으로
+  남아 있던 `toString()`만 switch 식으로 바꿨다. 모든 상수를 다루면 컴파일러가 완전하다고
+  판단해서 `EnumDemo3/4`에 있던 "그 외의 경우" `return ""`이 필요 없다. `EnumDemo4`와
+  출력이 완전히 같은 것으로 확인했다(값 자체는 안 바뀌고 문법만 바뀌었으니 당연하다).
+- `SequencedMapDemo`: `OrderedKeyValPairsDemo`/`Demo2`/`LinkedHashMapDemo` 시리즈의
+  Java 21 판. `LinkedHashMap`이 이미 `SequencedMap`(JEP 431)을 구현하고 있어서
+  `firstEntry()`/`lastEntry()`/`putFirst()`/`putLast()`/`reversed()`/`sequencedKeySet()`이
+  전부 표준 라이브러리만으로 된다 — 원본 세 파일이 인덱스나 별도 자료구조로 직접 구현하던
+  것들이다.
+- `SealedTemplateMethodDemo`: template_method 시리즈의 Java 21 판이지만, 앞의 네 파일과
+  같은 "오버라이드로 확장 지점 열기" 축이 아니라 다른 축을 보여준다 — sealed interface로
+  확장 지점을 닫힌 목록으로 못박고, 템플릿 메서드 쪽에서 패턴 매칭 switch(JEP 441)로
+  분기한다. 새 변형을 추가하면 switch가 컴파일 타임에 다 다뤘는지 검사해 준다는 점이
+  오버라이드 방식과의 차이다. `OverrideWorkingMethodDemo`와 같은 출력 흐름(템플릿→작업→
+  private 순서)을 내는 것으로 확인했다.
