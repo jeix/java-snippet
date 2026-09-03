@@ -3,7 +3,7 @@
 ## 현재 상태
 
 - 현재 브랜치: `modern-codex` (`master`의 `37978fe412d0b91f9502b213b58c5d18dc5d92da`에서 생성)
-- 작업 트리: 2단계 완료 상태
+- 작업 트리: 3단계 완료 상태
 - Java 소스: 83개
 - 빌드 시스템: 없음; `javac`/`java` 직접 사용
 - 로컬 JDK: `javac 21.0.11`
@@ -11,7 +11,7 @@
   - class 파일 230개 생성
   - removal, rawtypes, unchecked, overrides, static, cast 항목에서 경고 40건
 - `refactoring_a_case.txt`: UTF-8 변환 및 LF 정규화 완료
-- legacy 구조 분리: 완료; modern 소스 구성과 현대화는 미착수
+- legacy 구조 분리 및 modern 기준 트리 구성: 완료; 예제 관계 분석과 동작 현대화는 미착수
 
 ## 작업 단계
 
@@ -32,12 +32,14 @@
 - Java 소스 83개를 `javac --release 8 -encoding UTF-8 -Xlint:all`로 컴파일해 class 파일 234개 생성을 확인했다.
 - 기존 코드 및 JDK 21의 Java 8 대상 옵션에서 경고 42건이 발생하지만 컴파일은 성공했다.
 
-### 3. modern 기준 트리 구성 — 대기
+### 3. modern 기준 트리 구성 — 완료
 
-- legacy 기준선을 `modern/java21/`에 복제한다.
-- Java 소스를 `modern.java21.*` package로 변경한다.
-- import, static import와 리소스 경로를 정리한다.
-- 동작 리팩터링을 섞지 않은 상태에서 Java 21 전체 컴파일을 통과시킨다.
+- legacy README를 제외한 소스와 자료 87개를 `modern/java21/`에 복제했다.
+- Java 소스 83개를 `modern.java21.*` package로 변경하고 내부 import와 static import를 정리했다.
+- modern 트리의 텍스트 파일을 LF로 정규화하고 trailing whitespace를 제거했다.
+- `ResourceAsStreamDemo`의 절대·class loader 리소스 경로를 새 package에 맞췄다.
+- `javac --release 21 -encoding UTF-8 -Xlint:all` 컴파일에 성공해 class 파일 230개 생성을 확인했다. 기존 코드 경고는 40건이다.
+- `modern.java21.ExpectTest`와 `modern.java21.file.ResourceAsStreamDemo` 실행에 성공했다. 리소스 예제의 의도된 null 사례도 3건으로 유지됐다.
 
 ### 4. 예제 관계 분석 및 분류 — 대기
 
@@ -67,4 +69,4 @@
 
 ## 다음 단계
 
-3단계 modern 기준 트리 구성을 진행한다.
+4단계 예제 관계 분석 및 분류를 진행한다.

@@ -38,6 +38,18 @@
 - 결정: `refactoring_a_case.txt`를 UTF-8로 변환하면서 CRLF를 LF로 정규화하고 trailing whitespace를 제거한다.
 - 근거: 텍스트 내용은 유지하면서 저장소 diff 및 후속 UTF-8 검증을 안정적으로 만든다.
 
+## D-007: modern 기준 트리에서 legacy README를 제외
+
+- 상태: 확정
+- 결정: `legacy/java8/README.md`는 legacy에만 보존하고, 나머지 소스와 자료를 modern 트리에 복제한다. modern README는 파일별 분류가 확정된 뒤 별도로 작성한다.
+- 근거: 기존 README는 legacy 경로와 내용에 국한되어 있어 modern 기준 트리에 그대로 복제하면 역할이 혼동된다.
+
+## D-008: modern 리소스 경로를 package와 함께 이동
+
+- 상태: 확정
+- 결정: 상대 경로 동작을 설명하는 사례는 유지하고, 성공해야 하는 절대 경로 및 class loader 경로만 `modern/java21` package 위치에 맞춘다.
+- 근거: package 이동 후에도 `ResourceAsStreamDemo`가 설명하는 성공·실패 차이를 동일하게 재현해야 한다.
+
 ## 추후 결정 필요
 
 - 각 단계형 묶음에 Java 21 후속 예제를 추가할 실질적 가치가 있는지
