@@ -8,7 +8,7 @@ import java.io.IOException;
 public class ResourceAsStreamDemo {
 	
 	private void test_Class_getResourceAsStream() {
-		Class cls = getClass();
+		Class<?> cls = getClass();
 		System.out.println(1);
 		print(cls.getResourceAsStream("/modern/java21/file/cfg/foo.txt")); // absoulute
 		System.out.println(2);

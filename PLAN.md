@@ -63,7 +63,7 @@ javac -encoding UTF-8 -d out/modern -sourcepath .            $(find modern      
 - [x] 3. `modern/java21/` 이동 (내용 무변경, 패키지만 `modern.java21.*`) — 커밋 `eb1f74a`.
 - [ ] 4. 모던화 커밋 (영역별로 진행, 그 영역의 원형 유지 파일에 유지 사유 주석도 같은 커밋에 포함)
   - [x] 4-1. datetime — 커밋 `c765a51`
-  - [ ] 4-2. file
+  - [x] 4-2. file
   - [ ] 4-3. lang (함수형·null 처리·기타)
   - [ ] 4-4. collection
   - [ ] 4-5. ood

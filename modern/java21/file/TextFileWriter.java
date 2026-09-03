@@ -1,18 +1,21 @@
 package modern.java21.file;
 
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 
 public class TextFileWriter {
 
 	private BufferedWriter out;
 
 	public void open(String dir_path, String file_name) throws IOException {
-		File f = new File(dir_path, file_name);
+		Path path = Path.of(dir_path, file_name);
 		try {
-			out = new BufferedWriter(new FileWriter(f, false));
+			out = Files.newBufferedWriter(path, StandardCharsets.UTF_8,
+					StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
 		} catch (IOException e) {
 			close(true);
 			throw e;
@@ -50,7 +53,7 @@ public class TextFileWriter {
 			}
 		}
 	}
-	
+
 	public static void main(String[] args) throws Exception {
 		TextFileWriter writer = new TextFileWriter();
 		writer.open(".", "file.txt");

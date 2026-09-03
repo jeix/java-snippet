@@ -41,7 +41,7 @@ java -cp out/modern modern.java21.<package>.<Class>
 | 영역 | 상태 |
 |---|---|
 | datetime | 완료 |
-| file | 진행 예정 |
+| file | 완료 |
 | lang | 진행 예정 |
 | collection | 진행 예정 |
 | ood | 진행 예정 |

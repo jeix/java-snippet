@@ -1,33 +1,31 @@
 package modern.java21.file;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Iterator;
+import java.util.stream.Stream;
 
 public class TextFileReader {
 
-	private BufferedReader in;
+	private Stream<String> lines;
+	private Iterator<String> it;
 
 	public void open(String dir_path, String file_name) throws IOException {
-		File f = new File(dir_path, file_name);
+		Path path = Path.of(dir_path, file_name);
 		try {
-			in = new BufferedReader(new FileReader(f));
-			//out.close(); // TODO DeleteMe
+			lines = Files.lines(path, StandardCharsets.UTF_8);
+			it = lines.iterator();
 		} catch (IOException e) {
 			close(true);
 			throw e;
 		}
 	}
 
-	public String read_line() throws IOException {
-		try {
-			if (in.ready()) {
-				return in.readLine();
-			}
-		} catch (IOException e) {
-			close(true);
-			throw e;
+	public String read_line() {
+		if (it != null && it.hasNext()) {
+			return it.next();
 		}
 		return null;
 	}
@@ -37,17 +35,13 @@ public class TextFileReader {
 	}
 
 	public void close(boolean quiet) throws IOException {
-		if (in != null) {
-			try {
-				in.close();
-			} catch (IOException e) {
-				if (! quiet) throw e;
-			} finally {
-				in = null;
-			}
+		if (lines != null) {
+			lines.close();
+			lines = null;
+			it = null;
 		}
 	}
-	
+
 	public static void main(String[] args) throws Exception {
 		TextFileReader reader = new TextFileReader();
 		reader.open(".", "file.txt");

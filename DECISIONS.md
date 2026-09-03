@@ -101,3 +101,24 @@ PLAN.md 초안과 D3에서 legacy의 시리즈/개별 파일들을 "낡은 코�
 원래 계획(PLAN.md 6단계)은 모든 영역 모던화가 끝난 뒤 대응표까지 완성해서 README.md를 한 번에
 쓰는 것이었다. 사용자 요청으로 지금 초안을 만들고, 이후 영역별 모던화 커밋마다 진행 상황 표를
 갱신하기로 했다. 완전한 legacy↔modern 대응표는 여전히 6단계에서 마무리한다.
+
+## D13. file 영역: 저수준 API가 주제인 파일은 그 API 자체를 유지하고 자원 관리만 모던화한다
+
+`NioRw`(FileChannel/ByteBuffer 저수준 NIO)와 `RandomAccessFileDemo`(seek·파일 포인터 추적)는
+API 자체가 주제라서 `Files.readAllBytes()` 같은 상위 레벨 API로 뭉뚱그리지 않았다. 대신:
+- `NioRw`: `File`+`FileInputStream/RandomAccessFile`로 채널을 여는 부분만
+  `FileChannel.open(Path, StandardOpenOption...)` + try-with-resources로 교체했다. 버퍼 연산
+  로직(direct `ByteBuffer`, mapped read/write)은 그대로 뒀다.
+- `RandomAccessFileDemo`: `RandomAccessFile`을 `FileChannel`로 바꿨다. `channel.position(long)`/
+  `channel.position()`이 `raf.seek()`/`raf.getFilePointer()`와 동일한 의미론을 가지므로 출력이
+  legacy와 완전히 일치한다(대조 완료).
+`TextFileReader`/`TextFileWriter`(단순 텍스트 파일 읽고 쓰기)는 주제가 API가 아니라 "파일 다루는
+법"이라, `Files.lines()`/`Files.newBufferedWriter()` 기반으로 더 크게 손봤다. 두 파일 다 문자
+인코딩을 플랫폼 기본값 대신 명시적 UTF-8로 지정했다 — 이건 동작이 달라질 수 있는 변경이지만
+(플랫폼 기본 인코딩에 의존하던 잠재적 지뢰를 없앤 것), Java 9+ 권장 관행이라 반영했다.
+`PropertiesTest`는 `Properties` API는 그대로 두고 `File`/`FileInputStream`/`FileWriter`만
+`Path`/`Files`로 교체했다.
+검증: 6개 파일 전부 legacy와 modern을 같은 임시 디렉터리 구조에서 실행해 대조했다 —
+`RandomAccessFileDemo` 표준출력 완전 일치, `TextFileWriter`+`TextFileReader` 라운드트립 결과
+파일 바이트 동일, `PropertiesTest`는 최초 생성 경로와 기존 파일 로드 경로 둘 다 파일 내용 동일,
+`NioRw`는 6가지 모드(`b`/`bm`/`t`/`tm`/`tu`/`tum`) 전부 결과 파일 바이트 동일.
