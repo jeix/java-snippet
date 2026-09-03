@@ -48,11 +48,11 @@
 - enum, collection iteration, anonymous/lambda, clone/copy, for-each/stream, reflection delegation, immutable collection에 후속 예제를 추가하기로 했다.
 - 전체 분류, 변경 방향과 보존 근거를 `modern/java21/README.md`에 기록했다.
 
-### 5. 영역별 현대화 — 대기
+### 5. 영역별 현대화 — 진행 중
 
 다음 순서로 작은 검증 단위로 진행한다.
 
-1. `datetime/`
+1. `datetime/` — 완료
 2. `file/`
 3. `collection/`
 4. `lang/`
@@ -60,6 +60,13 @@
 6. `string/`, `number/`, 루트와 `test/`
 
 각 영역에서 deprecated API 제거 자체보다 예제의 원래 주제 보존을 우선한다. 저수준 API가 주제인 `NioRw.java`나 `RandomAccessFileDemo.java` 등은 상위 편의 API로 단순 치환하지 않는다.
+
+#### datetime 완료 결과
+
+- 6개 파일을 `java.time` 기반으로 변경하고 legacy 날짜/시간 API 의존성을 제거했다.
+- 전체 Java 21 컴파일과 datetime 6개 main 실행에 성공했다.
+- `DateDiff`, `DateUtil`, 월 단위 기간 출력이 legacy 기준선과 일치함을 확인했다.
+- 윤년, 월말 보정, 일수 차이, 자정 순환 및 잘못된 입력 실패를 별도 경계 검증으로 확인했다.
 
 ### 6. README와 최종 검증 — 대기
 
@@ -69,4 +76,4 @@
 
 ## 다음 단계
 
-4단계 분류 문서를 검토하고 커밋한 뒤 5단계 영역별 현대화를 `datetime/`부터 진행한다.
+datetime 변경을 검토하고 커밋한 뒤 `file/` 현대화를 진행한다.

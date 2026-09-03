@@ -1,147 +1,103 @@
 package modern.java21.datetime;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 class TimeUtilB {
-
 	private static final String DEFAULT_FORMAT = "HH:mm:ss";
 
-	private DateFormat formatter;
-	private Calendar cal;
-	private Date base;
+	private final DateTimeFormatter formatter;
+	private final LocalTime base;
 
 	public TimeUtilB() {
-		this(DEFAULT_FORMAT);
+		this(DEFAULT_FORMAT, LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
 	}
+
 	public TimeUtilB(String format) {
-		this(format, null);
-	}
-	public TimeUtilB(Date date_base) {
-		this(DEFAULT_FORMAT, date_base);
-	}
-	public TimeUtilB(String format, Date date_base) {
-		formatter = new SimpleDateFormat(format);
-		cal = Calendar.getInstance();
-		if (date_base != null) {
-			base = date_base;
-		} else {
-			base = cal.getTime();
-		}
+		this(format, LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
 	}
 
-	public static TimeUtilB from_string(String format, String date_str) throws ParseException {
-		TimeUtilB instance = new TimeUtilB(format, null);
-		instance.base = instance.parse(date_str);
-		return instance;
+	public TimeUtilB(LocalTime timeBase) {
+		this(DEFAULT_FORMAT, timeBase);
 	}
 
-	public String format(Date time) {
+	public TimeUtilB(String format, LocalTime timeBase) {
+		formatter = DateTimeFormatter.ofPattern(format);
+		base = Objects.requireNonNullElseGet(
+			timeBase,
+			() -> LocalTime.now().truncatedTo(ChronoUnit.SECONDS)
+		);
+	}
+
+	public static TimeUtilB from_string(String format, String timeString) {
+		var instance = new TimeUtilB(format);
+		return new TimeUtilB(format, instance.parse(timeString));
+	}
+
+	public String format(LocalTime time) {
 		return formatter.format(time);
 	}
 
-	public Date parse(String time_str) throws ParseException {
-		return formatter.parse(time_str);
-	}
-
-	// private static Date new_util_date() {
-	// 	return new java.util.Date();
-	// }
-
-	private static class SqlTime {
-		private SqlTime() {}
-
-		// private static java.sql.Time new_sql_time() {
-		// 	return new_sql_time(new_util_date());
-		// }
-		// private static java.sql.Time new_sql_time(java.util.Date util_date) {
-		// 	return new java.sql.Time(util_date.getTime());
-		// }
-
-		private static String format(java.sql.Time sql_time) {
-			return sql_time.toString();
+	public LocalTime parse(String timeString) {
+		LocalTime parsed = LocalTime.parse(timeString, formatter);
+		if (!format(parsed).equals(timeString)) {
+			throw new DateTimeParseException("Invalid time", timeString, 0);
 		}
-
-		private static java.sql.Time parse(String time_str) {
-			return java.sql.Time.valueOf(time_str);
-		}
-
-		// private static String now() {
-		// 	return format(new_sql_time());
-		// }
+		return parsed;
 	}
 
 	private void test_convert_time_string() {
-
-		Calendar cal = Calendar.getInstance();
-		cal.set(2010, 10, 17, 15, 26, 48);
-		Date util_date = cal.getTime();
-		System.out.println("java.util.Date#toString() : " + util_date); // => Wed Nov 17 15:26:48 KST 2010
-		System.out.println("java.text.DateFormat#format() : " + format(util_date)); // => 15:26:48
-		try {
-			System.out.println("java.text.DateFormat#parse() : " + parse(format(util_date))); // => Thu Jan 01 15:26:48 KST 1970
-		} catch (ParseException pe) {
-			pe.printStackTrace();
-		}
-
-		java.sql.Time sql_date = SqlTime.parse("15:26:48");
-		System.out.println("java.sql.Time#toString() : " + SqlTime.format(sql_date)); // => 15:26:48
-		System.out.println("java.sql.Time.valueOf() : " + sql_date); // => 15:26:48
-
-		// System.out.println(SqlTime.now());
-	}
-
-	private void reset() {
-		cal.setTime(base);
+		LocalTime time = LocalTime.of(15, 26, 48);
+		System.out.println("LocalTime#toString() : " + time);
+		System.out.println("DateTimeFormatter#format() : " + format(time));
+		System.out.println("LocalTime#parse() : " + parse(format(time)));
 	}
 
 	public String now() {
-		reset();
-		return format(cal.getTime());
+		return format(base);
 	}
-	private String minutes_go(int n) {
-		reset();
-		cal.add(Calendar.MINUTE, n);
-		return format(cal.getTime());
+
+	private String minutes_go(int minutes) {
+		return format(base.plusMinutes(minutes));
 	}
-	private String hours_go(int n) {
-		reset();
-		cal.add(Calendar.HOUR, n);
-		return format(cal.getTime());
+
+	private String hours_go(int hours) {
+		return format(base.plusHours(hours));
 	}
 
 	private static void test_twelve_forty() {
-		TimeUtilB util = new TimeUtilB("HH.mm.ss", SqlTime.parse("12:40:05"));
-		if (! "12.40.05".equals(util.now())) System.err.println("today() failed");
-		if (! "12.41.05".equals(util.minutes_go(1))) System.err.println("minutes_go(1) failed");
-		if (! "12.39.05".equals(util.minutes_go(-1))) System.err.println("minutes_go(-1) failed");
-		if (! "12.55.05".equals(util.minutes_go(15))) System.err.println("minutes_go(15) failed");
-		if (! "12.25.05".equals(util.minutes_go(-15))) System.err.println("minutes_go(-15) failed");
-		if (! "13.10.05".equals(util.minutes_go(30))) System.err.println("minutes_go(30) failed");
-		if (! "12.10.05".equals(util.minutes_go(-30))) System.err.println("minutes_go(-30) failed");
-		if (! "13.40.05".equals(util.hours_go(1))) System.err.println("hours_go(1) failed");
-		if (! "11.40.05".equals(util.hours_go(-1))) System.err.println("hours_go(-1) failed");
-		if (! "18.40.05".equals(util.hours_go(6))) System.err.println("hours_go(6) failed");
-		if (! "06.40.05".equals(util.hours_go(-6))) System.err.println("hours_go(-6) failed");
-		if (! "00.40.05".equals(util.hours_go(12))) System.err.println("hours_go(12) failed");
-		if (! "00.40.05".equals(util.hours_go(-12))) System.err.println("hours_go(-12) failed");
+		var util = new TimeUtilB("HH.mm.ss", LocalTime.of(12, 40, 5));
+		assertTime("12.40.05", util.now(), "now");
+		assertTime("12.41.05", util.minutes_go(1), "minutes_go(1)");
+		assertTime("12.39.05", util.minutes_go(-1), "minutes_go(-1)");
+		assertTime("12.55.05", util.minutes_go(15), "minutes_go(15)");
+		assertTime("12.25.05", util.minutes_go(-15), "minutes_go(-15)");
+		assertTime("13.10.05", util.minutes_go(30), "minutes_go(30)");
+		assertTime("12.10.05", util.minutes_go(-30), "minutes_go(-30)");
+		assertTime("13.40.05", util.hours_go(1), "hours_go(1)");
+		assertTime("11.40.05", util.hours_go(-1), "hours_go(-1)");
+		assertTime("18.40.05", util.hours_go(6), "hours_go(6)");
+		assertTime("06.40.05", util.hours_go(-6), "hours_go(-6)");
+		assertTime("00.40.05", util.hours_go(12), "hours_go(12)");
+		assertTime("00.40.05", util.hours_go(-12), "hours_go(-12)");
 	}
 
-	private void test_nothing() {
-		System.out.println(":wq");
+	private static void assertTime(String expected, String actual, String operation) {
+		if (!expected.equals(actual)) {
+			throw new AssertionError(operation + ": expected " + expected + " but was " + actual);
+		}
 	}
 
 	public void test() {
 		test_convert_time_string();
 		test_twelve_forty();
-		test_nothing();
+		System.out.println(":wq");
 	}
 
 	public static void main(String[] args) {
-		TimeUtilB worker = new TimeUtilB();
-		worker.test();
+		new TimeUtilB().test();
 	}
 }

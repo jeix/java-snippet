@@ -62,6 +62,13 @@
 - 결정: enum, collection iteration, anonymous/lambda, clone/copy, for-each/stream, reflection delegation, immutable collection 묶음에 기존 파일을 변경하지 않는 후속 예제를 추가한다.
 - 근거: 이 영역은 기존 단계의 실패나 한계가 학습 내용이므로 직접 치환보다 다음 단계를 나란히 제시하는 편이 비교에 적합하다.
 
+## D-011: datetime 기준값과 파싱 정책
+
+- 상태: 확정
+- 결정: 유틸리티 인스턴스는 생성 시점의 immutable `LocalDate` 또는 초 단위 `LocalTime`을 기준값으로 보관한다. 사용자 지정 pattern 파싱은 round-trip이 일치하지 않는 입력을 거부한다.
+- 검토한 대안: 호출할 때마다 현재 시각 조회, `DateTimeFormatter.ofPattern`의 기본 SMART resolver 유지.
+- 기각 근거: 호출 중 날짜/시간이 바뀌면 한 인스턴스의 결과가 불일치할 수 있고, SMART resolver는 존재하지 않는 날짜나 `24:00:00`을 조용히 보정한다.
+
 ## 추후 결정 필요
 
 - 빌드 스크립트 또는 테스트 프레임워크를 추가할지, 직접 `javac` 실행을 유지할지

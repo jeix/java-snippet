@@ -39,6 +39,14 @@
 | `DateUtil.java`, `DateUtilB.java`, `TimeUtilB.java` | 기존 파일 변경 | `Date`, `Calendar`, `SimpleDateFormat`을 적절한 `java.time` 타입으로 교체하고 월말 등 경계 동작을 고정한다. |
 | `DateDiff.java` | 기존 파일 변경 | millisecond 나눗셈 대신 `ChronoUnit`, `Period`, 필요 시 `Duration`으로 단위를 명시한다. |
 
+### datetime 완료 결과
+
+- 여섯 파일에서 `Date`, `Calendar`, `java.sql.Date/Time`, `DateFormat`, `SimpleDateFormat` 의존성을 제거했다.
+- `DateUtil`과 `DateUtilB`는 immutable `LocalDate`, `TimeUtilB`와 `TimeStringTest`는 초 단위 `LocalTime`을 기준값으로 사용한다.
+- `DateDiff`는 `LocalDate`를 보관하는 record로 바꾸고 `ChronoUnit.DAYS` 기반 `daysUntil`을 제공한다.
+- 입력 문자열은 parse 후 format 결과가 원문과 다르면 `DateTimeParseException`을 던져 SMART resolver의 자동 보정을 허용하지 않는다.
+- 3월 31일의 이전/다음 달, 윤년 2월, 자정 순환, 잘못된 날짜·시간 입력을 검증했다.
+
 ## file
 
 | 파일 또는 묶음 | 처리 | 변경 방향과 근거 |
