@@ -1,62 +1,49 @@
 package modern.java21.file;
 
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-public class TextFileWriter {
+public class TextFileWriter implements AutoCloseable {
 
 	private BufferedWriter out;
 
 	public void open(String dir_path, String file_name) throws IOException {
-		File f = new File(dir_path, file_name);
-		try {
-			out = new BufferedWriter(new FileWriter(f, false));
-		} catch (IOException e) {
-			close(true);
-			throw e;
-		}
+		close();
+		out = Files.newBufferedWriter(Path.of(dir_path, file_name), StandardCharsets.UTF_8);
 	}
 
 	public void write_line(String line) throws IOException {
-		try {
-			out.write(line);
-			out.newLine();
-		} catch (IOException e) {
-			close(true);
-			throw e;
-		}
+		if (out == null) throw new IllegalStateException("Writer is not open");
+		out.write(line);
+		out.newLine();
 	}
 
+	@Override
 	public void close() throws IOException {
-		try {
-			out.flush();
-		} catch (IOException e) {
-			close(true);
-			throw e;
-		}
 		close(false);
 	}
 
 	public void close(boolean quiet) throws IOException {
-		if (out != null) {
-			try {
-				out.close();
-			} catch (IOException e) {
-				if (! quiet) throw e;
-			} finally {
-				out = null;
-			}
+		if (out == null) return;
+
+		try {
+			out.close();
+		} catch (IOException exception) {
+			if (!quiet) throw exception;
+		} finally {
+			out = null;
 		}
 	}
 
-	public static void main(String[] args) throws Exception {
-		TextFileWriter writer = new TextFileWriter();
-		writer.open(".", "file.txt");
-		writer.write_line("고구마");
-		writer.write_line("고등어");
-		writer.write_line("고사리");
-		writer.close();
+	public static void main(String[] args) throws IOException {
+		try (var writer = new TextFileWriter()) {
+			writer.open(".", "file.txt");
+			writer.write_line("고구마");
+			writer.write_line("고등어");
+			writer.write_line("고사리");
+		}
 	}
 }

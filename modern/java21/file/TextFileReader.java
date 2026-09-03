@@ -1,60 +1,49 @@
 package modern.java21.file;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-public class TextFileReader {
+public class TextFileReader implements AutoCloseable {
 
 	private BufferedReader in;
 
 	public void open(String dir_path, String file_name) throws IOException {
-		File f = new File(dir_path, file_name);
-		try {
-			in = new BufferedReader(new FileReader(f));
-			//out.close(); // TODO DeleteMe
-		} catch (IOException e) {
-			close(true);
-			throw e;
-		}
+		close();
+		in = Files.newBufferedReader(Path.of(dir_path, file_name), StandardCharsets.UTF_8);
 	}
 
 	public String read_line() throws IOException {
-		try {
-			if (in.ready()) {
-				return in.readLine();
-			}
-		} catch (IOException e) {
-			close(true);
-			throw e;
-		}
-		return null;
+		if (in == null) throw new IllegalStateException("Reader is not open");
+		return in.readLine();
 	}
 
+	@Override
 	public void close() throws IOException {
 		close(false);
 	}
 
 	public void close(boolean quiet) throws IOException {
-		if (in != null) {
-			try {
-				in.close();
-			} catch (IOException e) {
-				if (! quiet) throw e;
-			} finally {
-				in = null;
-			}
+		if (in == null) return;
+
+		try {
+			in.close();
+		} catch (IOException exception) {
+			if (!quiet) throw exception;
+		} finally {
+			in = null;
 		}
 	}
 
-	public static void main(String[] args) throws Exception {
-		TextFileReader reader = new TextFileReader();
-		reader.open(".", "file.txt");
-		String line = null;
-		while ((line = reader.read_line()) != null) {
-			System.out.println("[" + line + "]");
+	public static void main(String[] args) throws IOException {
+		try (var reader = new TextFileReader()) {
+			reader.open(".", "file.txt");
+			String line;
+			while ((line = reader.read_line()) != null) {
+				System.out.println("[" + line + "]");
+			}
 		}
-		reader.close();
 	}
 }

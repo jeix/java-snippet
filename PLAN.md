@@ -3,7 +3,7 @@
 ## 현재 상태
 
 - 현재 브랜치: `modern-codex` (`master`의 `37978fe412d0b91f9502b213b58c5d18dc5d92da`에서 생성)
-- 작업 트리: 3단계 완료 상태
+- 작업 트리: 5단계 `file/` 완료 상태
 - Java 소스: 83개
 - 빌드 시스템: 없음; `javac`/`java` 직접 사용
 - 로컬 JDK: `javac 21.0.11`
@@ -11,7 +11,8 @@
   - class 파일 230개 생성
   - removal, rawtypes, unchecked, overrides, static, cast 항목에서 경고 40건
 - `refactoring_a_case.txt`: UTF-8 변환 및 LF 정규화 완료
-- legacy 구조 분리 및 modern 기준 트리 구성: 완료; 예제 관계 분석과 동작 현대화는 미착수
+- legacy 구조 분리, modern 기준 트리 구성과 예제 관계 분석: 완료
+- 영역별 동작 현대화: `datetime/`, `file/` 완료
 
 ## 작업 단계
 
@@ -53,7 +54,7 @@
 다음 순서로 작은 검증 단위로 진행한다.
 
 1. `datetime/` — 완료
-2. `file/`
+2. `file/` — 완료
 3. `collection/`
 4. `lang/`
 5. `ood/`
@@ -68,6 +69,14 @@
 - `DateDiff`, `DateUtil`, 월 단위 기간 출력이 legacy 기준선과 일치함을 확인했다.
 - 윤년, 월말 보정, 일수 차이, 자정 순환 및 잘못된 입력 실패를 별도 경계 검증으로 확인했다.
 
+#### file 완료 결과
+
+- 6개 Java 파일에 `Path`, `Files`, 명시적 UTF-8과 try-with-resources를 적용했다.
+- `NioRw`는 `FileChannel`, direct `ByteBuffer`, memory mapping 학습 목적을 유지하면서 partial write, 빈 mapped file, 기존 출력 파일 축소와 2 GiB 초과 입력을 안전하게 처리한다.
+- `RandomAccessFileDemo`는 파일 포인터 출력은 유지하고 임시 파일을 항상 정리하며, `ResourceAsStreamDemo`는 `Class`와 `ClassLoader`의 성공·실패 경로를 그대로 보존한다.
+- `PropertiesTest`의 최초 파일 생성과 재로딩, `TextFileReader`/`TextFileWriter`의 한글 왕복을 임시 디렉토리에서 검증했다.
+- 전체 Java 21 컴파일과 `NioRw` 6개 모드의 바이트 동일성 및 빈 파일 처리를 확인했다.
+
 ### 6. README와 최종 검증 — 대기
 
 - 기존 README를 `legacy/java8/README.md`로 보존한다.
@@ -76,4 +85,4 @@
 
 ## 다음 단계
 
-datetime 변경을 검토하고 커밋한 뒤 `file/` 현대화를 진행한다.
+`file/` 변경을 검토하고 커밋한 뒤 `collection/` 현대화를 진행한다.

@@ -1,50 +1,44 @@
 package modern.java21.file;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class ResourceAsStreamDemo {
 
 	private void test_Class_getResourceAsStream() {
-		Class cls = getClass();
+		Class<?> cls = getClass();
 		System.out.println(1);
-		print(cls.getResourceAsStream("/modern/java21/file/cfg/foo.txt")); // absoulute
+		print(cls.getResourceAsStream("/modern/java21/file/cfg/foo.txt")); // absolute
 		System.out.println(2);
-		print(cls.getResourceAsStream("modern/java21/file/cfg/foo.txt")); // not start with '/' -- not works
+		print(cls.getResourceAsStream("modern/java21/file/cfg/foo.txt")); // package-relative: not found
 		System.out.println(3);
-		print(cls.getResourceAsStream("cfg/foo.txt")); // relative to package
+		print(cls.getResourceAsStream("cfg/foo.txt")); // package-relative
 	}
 
 	private void test_ClassLoader_getResourceAsStream() {
-		ClassLoader cl = getClass().getClassLoader();
+		var class_loader = getClass().getClassLoader();
 		System.out.println(4);
-		print(cl.getResourceAsStream("/modern/java21/file/cfg/foo.txt")); // absoulute -- not works
+		print(class_loader.getResourceAsStream("/modern/java21/file/cfg/foo.txt")); // leading '/': not found
 		System.out.println(5);
-		print(cl.getResourceAsStream("modern/java21/file/cfg/foo.txt")); // not start with '/'
+		print(class_loader.getResourceAsStream("modern/java21/file/cfg/foo.txt")); // classpath-root-relative
 		System.out.println(6);
-		print(cl.getResourceAsStream("cfg/foo.txt")); // relative to package -- not works
+		print(class_loader.getResourceAsStream("cfg/foo.txt")); // classpath-root-relative: not found
 	}
 
-	private void print(InputStream is) {
-		try {
-			if (null == is) throw new IllegalArgumentException("InputStream is null");
-		} catch (IllegalArgumentException iae) {
-			iae.printStackTrace();
+	private void print(InputStream input) {
+		if (input == null) {
+			new IllegalArgumentException("InputStream is null").printStackTrace();
 			return;
 		}
-		InputStreamReader isr = new InputStreamReader(is);
-		BufferedReader br = new BufferedReader(isr);
-		String line = null;
-		try {
-			while (null != (line = br.readLine())) {
-				System.out.println(line);
-			}
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		} finally {
-			try { br.close(); } catch (IOException ioe) { ioe.printStackTrace(); }
+
+		try (var reader = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8))) {
+			String line;
+			while ((line = reader.readLine()) != null) System.out.println(line);
+		} catch (IOException exception) {
+			exception.printStackTrace();
 		}
 	}
 
@@ -59,7 +53,6 @@ public class ResourceAsStreamDemo {
 	}
 
 	public static void main(String[] args) {
-		ResourceAsStreamDemo worker = new ResourceAsStreamDemo();
-		worker.test();
+		new ResourceAsStreamDemo().test();
 	}
 }

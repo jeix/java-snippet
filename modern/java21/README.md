@@ -58,6 +58,15 @@
 | `TextFileReader.java`, `TextFileWriter.java` | 기존 파일 변경 | `Files.newBufferedReader/newBufferedWriter`와 명시적 UTF-8을 사용한다. |
 | `cfg/foo.txt` | 유지 | `ResourceAsStreamDemo` 실행 자료다. |
 
+### file 완료 결과
+
+- `NioRw.java`는 채널, direct buffer와 memory mapping 구조를 유지하고 `Path`, `FileChannel.open`, try-with-resources를 적용했다. partial write를 끝까지 처리하고 mapped 출력의 기존 잔여 바이트와 빈 파일 경계도 바로잡았다.
+- `RandomAccessFileDemo.java`는 기존 파일 포인터 순서와 최종 내용을 유지하되 격리된 임시 파일을 사용하고 항상 삭제한다.
+- `ResourceAsStreamDemo.java`는 성공하는 세 경로와 실패하는 세 경로를 그대로 두고 generic `Class<?>`, UTF-8과 try-with-resources를 적용했다.
+- `PropertiesTest.java`는 없는 `.cfg`/`.xml` 파일을 생성한 뒤 저장·재로딩하는 동작을 유지하고 I/O 실패를 `IOException`으로 전파한다.
+- `TextFileReader.java`, `TextFileWriter.java`는 기존 메서드 이름을 유지하면서 `AutoCloseable`, `Files.newBufferedReader/newBufferedWriter`와 UTF-8을 사용한다. `read_line()`은 `ready()`를 EOF 판정으로 오용하지 않고 `readLine()` 결과를 직접 반환한다.
+- `cfg/foo.txt`는 리소스 경로 비교에 필요한 빈 fixture이므로 변경하지 않았다.
+
 ## lang
 
 | 파일 또는 묶음 | 처리 | 변경 방향과 근거 |

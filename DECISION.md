@@ -69,6 +69,13 @@
 - 검토한 대안: 호출할 때마다 현재 시각 조회, `DateTimeFormatter.ofPattern`의 기본 SMART resolver 유지.
 - 기각 근거: 호출 중 날짜/시간이 바뀌면 한 인스턴스의 결과가 불일치할 수 있고, SMART resolver는 존재하지 않는 날짜나 `24:00:00`을 조용히 보정한다.
 
+## D-012: file 예제의 저수준 API와 오류 전파 정책
+
+- 상태: 확정
+- 결정: `FileChannel`, direct `ByteBuffer`, memory mapping, `RandomAccessFile`은 각 예제의 학습 주제이므로 유지한다. 텍스트 변환에는 UTF-8을 명시하고 모든 close는 try-with-resources 또는 `AutoCloseable`로 관리하며, I/O 실패는 null이나 로그로 숨기지 않고 `IOException`으로 호출자에게 전파한다.
+- 검토한 대안: `Files.readAllBytes`/`write`로 저수준 구현 전체 치환, 기존의 null 반환과 `printStackTrace` 유지.
+- 기각 근거: 편의 API 치환은 채널과 random access의 동작을 가리고, 실패를 정상적인 null 결과로 표현하면 호출자가 원인을 구분하거나 복구하기 어렵다.
+
 ## 추후 결정 필요
 
 - 빌드 스크립트 또는 테스트 프레임워크를 추가할지, 직접 `javac` 실행을 유지할지
