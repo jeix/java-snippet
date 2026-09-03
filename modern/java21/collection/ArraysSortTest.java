@@ -1,7 +1,6 @@
 package modern.java21.collection;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ArraysSortTest {
@@ -50,15 +49,13 @@ public class ArraysSortTest {
 	}
 	
 	private List<Tomato> sort_tomato(List<Tomato> list){
-		Tomato[] oa = new Tomato[] {};
-		oa = list.toArray(oa);
-		Arrays.sort(oa);
+		// 복사본을 정렬한다 - list.sort(null)은 실패 시 원본 리스트의 배열을 제자리에서
+		// 부분적으로 정렬된 채 남기지만(ArrayList#sort()는 backing array를 직접 정렬한다),
+		// 원본은 예외가 나면 원본 리스트를 건드리지 않아야 한다.
+		List<Tomato> sorted = new ArrayList<Tomato>(list);
+		sorted.sort(null); // natural ordering - Comparable이 아니면 여기서 ClassCastException
 		list.clear();
-		Tomato t = null;
-		for(int i = 0; i < oa.length; i++) {
-			t = oa[i];
-			list.add(t);
-		}
+		list.addAll(sorted);
 		return list;
 	}
 	
@@ -179,33 +176,6 @@ public class ArraysSortTest {
 			}
 			if (t_name == null) return 1;
 			return name.compareTo(t.getName());
-			
-			//if (t == null) {
-			//	System.out.println("compareTo::"+this+"::"+t+"::"+"a");
-			//	return 1;
-			//} else if (this == t) {
-			//	System.out.println("compareTo::"+this+"::"+t+"::"+"b");
-			//	return 0;
-			//} else {
-			//	String t_name = t.getName();
-			//	if (name == null) {
-			//		if (t_name == null) {
-			//			System.out.println("compareTo::"+this+"::"+t+"::"+"c");
-			//			return 0;
-			//		} else {
-			//			System.out.println("compareTo::"+this+"::"+t+"::"+"d");
-			//			return -1;
-			//		}
-			//	} else {
-			//		if (t_name == null) {
-			//			System.out.println("compareTo::"+this+"::"+t+"::"+"e");
-			//			return 1;
-			//		} else {
-			//			System.out.println("compareTo::"+this+"::"+t+"::"+"f");
-			//			return name.compareTo(t.getName());
-			//		}
-			//	}
-			//}
 		}
 	}
 	

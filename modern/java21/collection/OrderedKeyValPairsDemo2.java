@@ -3,6 +3,11 @@ package modern.java21.collection;
 import java.util.ArrayList;
 import java.util.List;
 
+// 원형 유지: 키 순서를 보존하는 맵을 List<K>+List<V> 조합(인덱스 동기화)으로 직접 구현하는
+// 단계다. OrderedKeyValPairsDemo.java(List+Map 조합), LinkedHashMapDemo.java(표준 라이브러리)와
+// 함께 "라이브러리를 알고 써라"(Effective Java 47)는 흐름을 보여주는 시리즈다.
+// Java 21 판: collection/SequencedMapDemo.java
+
 public class OrderedKeyValPairsDemo2 {
 	
 	class OrderedKeyValPairs<K,V> {

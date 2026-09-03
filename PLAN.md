@@ -65,7 +65,7 @@ javac -encoding UTF-8 -d out/modern -sourcepath .            $(find modern      
   - [x] 4-1. datetime — 커밋 `c765a51`
   - [x] 4-2. file
   - [x] 4-3. lang (함수형·null 처리·기타)
-  - [ ] 4-4. collection
+  - [x] 4-4. collection
   - [ ] 4-5. ood
   - [ ] 4-6. number/string
   - [ ] 4-7. test 하네스 + 최상위 (`ExpectTest`, `Expect2Test`, `lsc`, `NpidCheck`)

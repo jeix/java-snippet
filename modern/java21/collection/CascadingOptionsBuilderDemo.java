@@ -1,8 +1,6 @@
 package modern.java21.collection;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -10,112 +8,69 @@ import java.util.Map;
 import java.util.Set;
 
 public class CascadingOptionsBuilderDemo {
-	
+
 	class CascadingOptionsBuilder {
-		
+
 		private static final String ROOT = "";
-		
+
 		private Map<String,Set<String>> kmap;
 		private Map<String,List<Option>> map;
-		
+
 		public CascadingOptionsBuilder() {
 			kmap = new HashMap<String,Set<String>>();
 			map = new HashMap<String,List<Option>>();
 		}
-		
+
 		public void put(String p, Option option) {
-			if (option == null || option.getK() == null) return;
-			Set<String> ks = kmap.get(p);
-			if (ks == null) {
-				ks = new HashSet<String>();
-				kmap.put(p, ks);
-			}
-			String k = option.getK();
-			if (! ks.contains(k)) {
-				ks.add(k);
+			if (option == null || option.k() == null) return;
+			Set<String> ks = kmap.computeIfAbsent(p, x -> new HashSet<>());
+			if (ks.add(option.k())) { // avoid key duplication
 				add(p, option);
 			}
 		}
-		
+
 		public void add(String p, Option option) {
 			List<Option> options = options_for(p);
 			if (! options.contains(option)) {
 				options.add(option);
 			}
 		}
-		
+
 		public List<Option> options_for(String p) {
-			List<Option> options = map.get(p);
-			if (options == null) {
-				options = new ArrayList<Option>();
-				map.put(p, options);
-			}
-			return options;
+			return map.computeIfAbsent(p, x -> new ArrayList<>());
 		}
-		
+
 		public String p(String... ks) {
-			StringBuffer sb = new StringBuffer(ROOT);
-			int i = 0;
-			for (String k : ks) {
-				if (i++ > 0) sb.append("_");
-				sb.append(k);
-			}
-			return sb.toString();
+			return ROOT + String.join("_", ks);
 		}
-		
+
 		public List<Option> sorted_options_for(String p) {
-			// List<Option> options = options_for(p);
-			// Collections.sort(options);
-			// return options;
-			return sort(options_for(p));
-		}
-		
-		private List<Option> sort(List<Option> options){
-			Option[] a = new Option[] {};
-			a = options.toArray(a);
-			Arrays.sort(a);
-			options.clear();
-			for(Option option : a) {
-				options.add(option);
-			}
+			List<Option> options = options_for(p);
+			options.sort(null); // Option#compareTo() 기준 natural ordering
 			return options;
 		}
 	}
-	
-	class Option implements Comparable<Option> {
-		
-		private final String k;
-		private final String v;
-		
-		public Option(String k, String v) {
-			this.k = k;
-			this.v = v;
-		}
-		
-		public String getK() {
-			return k;
-		}
-		public String getV() {
-			return v;
-		}
-		
+
+	record Option(String k, String v) implements Comparable<Option> {
+
+		@Override
 		public String toString() {
 			return "{'" + k + "':'" + v + "'}";
 		}
-		
+
+		@Override
 		public int compareTo(Option o) {
 			if (o == null) return 1;
 			if (this == o) return 0;
-			String o_k = o.getK();
+			String o_k = o.k();
 			if (k == null) {
-				if (o_k == null) return 0;
-				return -1;
+				return o_k == null ? 0 : -1;
 			}
 			if (o_k == null) return 1;
 			return k.compareTo(o_k);
 		}
 	}
-	
+
 	private void print_options(String p, List<Option> options) {
 		System.out.println("'" + p + "':[");
 		int i = 0;
@@ -128,13 +83,13 @@ public class CascadingOptionsBuilderDemo {
 		}
 		System.out.println("]");
 	}
-	
+
 	private void test_builder() {
 		test_builder_from_hierarchy();
 		test_builder_from_matrix();
 		test_builder_sort();
 	}
-	
+
 	private void test_builder_from_hierarchy() {
 		String[][] levels_1 = {
 			{"1", "X1"},
@@ -164,9 +119,9 @@ public class CascadingOptionsBuilderDemo {
 			{"321", "X3Y2Z1"},
 			{"322", "X3Y2Z2"}
 		};
-		
+
 		CascadingOptionsBuilder builder = new CascadingOptionsBuilder();
-		
+
 		for (String[] level_1 : levels_1) {
 			builder.add(builder.p(), new Option(level_1[0], level_1[1]));
 			for (String[] level_2 : levels_2) {
@@ -180,17 +135,17 @@ public class CascadingOptionsBuilderDemo {
 				}
 			}
 		}
-		
+
 		String p = builder.p();
 		print_options(p, builder.options_for(p));
-		
+
 		p = builder.p("1");
 		print_options(p, builder.options_for(p));
-		
+
 		p = builder.p("1", "12");
 		print_options(p, builder.options_for(p));
 	}
-	
+
 	private void test_builder_from_matrix() {
 		String[][] rows = {
 			{"1", "X1", "11", "X1Y1", "111", "X1Y1Z1"},
@@ -207,25 +162,25 @@ public class CascadingOptionsBuilderDemo {
 			{"3", "X3", "32", "X3Y2", "321", "X3Y2Z1"},
 			{"3", "X3", "32", "X3Y2", "322", "X3Y2Z2"}
 		};
-		
+
 		CascadingOptionsBuilder builder = new CascadingOptionsBuilder();
-		
+
 		for (String[] row : rows) {
 			builder.put(builder.p(), new Option(row[0], row[1]));
 			builder.put(builder.p(row[0]), new Option(row[2], row[3]));
 			builder.put(builder.p(row[0], row[2]), new Option(row[4], row[5]));
 		}
-		
+
 		String p = builder.p();
 		print_options(p, builder.options_for(p));
-		
+
 		p = builder.p("3");
 		print_options(p, builder.options_for(p));
-		
+
 		p = builder.p("3", "32");
 		print_options(p, builder.options_for(p));
 	}
-	
+
 	private void test_builder_sort() {
 		CascadingOptionsBuilder builder = new CascadingOptionsBuilder();
 		String p = builder.p("2", "21");
@@ -234,16 +189,16 @@ public class CascadingOptionsBuilderDemo {
 		builder.add(p, new Option("212", "X2Y1Z2"));
 		print_options(p, builder.sorted_options_for(p));
 	}
-	
+
 	private void test_nothing() {
 		System.out.println(":wq");
 	}
-	
+
 	public void test() {
 		test_builder();
 		test_nothing();
 	}
-	
+
 	public static void main(String[] args) {
 		CascadingOptionsBuilderDemo worker = new CascadingOptionsBuilderDemo();
 		worker.test();

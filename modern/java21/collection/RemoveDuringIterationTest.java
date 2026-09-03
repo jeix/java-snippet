@@ -19,6 +19,7 @@ public class RemoveDuringIterationTest {
 			test_with_counting_then_ArrayList_remove(prepare());
 			test_with_toArray_then_for_each_then_ArrayList_remove(prepare());
 			test_with_Iterator_then_Iterator_remove(prepare());
+			test_with_removeIf(prepare());
 		}
 		
 		private List<String> prepare() {
@@ -98,8 +99,19 @@ public class RemoveDuringIterationTest {
 			}
 			System.out.println(items.size() + " items remained");
 		}
+
+		// Java 8+ 정답: Collection#removeIf() - 안에서 무엇이 지워지는지는 감춰지지만
+		// ConcurrentModificationException 없이 안전하게 조건부 삭제가 된다.
+		private void test_with_removeIf(List<String> items) {
+			items.removeIf(item -> {
+				boolean remove = item.length() > 0; // assume selective deletion
+				if (remove) System.out.println("removed: " + item); // -> 고구마, 고도리, 고사리
+				return remove;
+			});
+			System.out.println(items.size() + " items remained");
+		}
 	}
-	
+
 	class MapTest {
 		private void test() {
 			// not works
@@ -112,8 +124,9 @@ public class RemoveDuringIterationTest {
 			test_with_keySet_then_toArray_then_for_each_then_HashMap_remove(prepare());
 			test_with_entrySet_then_Iterator_then_Iterator_remove(prepare());
 			test_with_keySet_then_Iterator_then_Iterator_remove(prepare());
+			test_with_entrySet_removeIf(prepare());
 		}
-		
+
 		private Map<String,String> prepare() {
 			Map<String,String> items = new HashMap<String,String>();
 			items.put("고구마","고구마");
@@ -248,8 +261,19 @@ public class RemoveDuringIterationTest {
 			}
 			System.out.println(items.size() + " items remained");
 		}
+
+		// Java 8+ 정답: Map#entrySet()의 removeIf() - ConcurrentModificationException 없이
+		// 안전하게 조건부 삭제가 된다.
+		private void test_with_entrySet_removeIf(Map<String,String> items) {
+			items.entrySet().removeIf(entry -> {
+				boolean remove = entry.getValue().length() > 0; // assume selective deletion
+				if (remove) System.out.println("removed: " + entry.getKey()); // -> 고구마, 고도리, 고사리
+				return remove;
+			});
+			System.out.println(items.size() + " items remained");
+		}
 	}
-	
+
 	private void test_nothing() {
 		System.out.println(":wq");
 	}

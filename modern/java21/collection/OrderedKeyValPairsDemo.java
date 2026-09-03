@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// 원형 유지: 키 순서를 보존하는 맵을 List<K>+Map<K,V> 조합으로 직접 구현하는 단계다.
+// OrderedKeyValPairsDemo2.java(List+List 조합), LinkedHashMapDemo.java(표준 라이브러리)와
+// 함께 "라이브러리를 알고 써라"(Effective Java 47)는 흐름을 보여주는 시리즈다.
+// Java 21 판: collection/SequencedMapDemo.java
+
 public class OrderedKeyValPairsDemo {
 	
 	class OrderedKeyValPairs<K,V> {

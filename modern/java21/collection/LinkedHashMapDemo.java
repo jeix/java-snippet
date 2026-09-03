@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+// 원형 유지: 키 순서를 보존하는 맵을 직접 구현하지 않고 표준 라이브러리(LinkedHashMap)를
+// 쓰면 된다는 결론이다. OrderedKeyValPairsDemo.java, OrderedKeyValPairsDemo2.java와 함께
+// "라이브러리를 알고 써라"(Effective Java 47)는 흐름을 보여주는 시리즈의 마지막 단계다.
+// Java 21 판: collection/SequencedMapDemo.java
+
 public class LinkedHashMapDemo {
 	
 	class Code {

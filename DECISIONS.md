@@ -180,3 +180,39 @@ record는 모든 필드가 final이라 `Field#set()`으로 값을 바꿀 수 없
 modern의 출력은 legacy보다 구분선(`"----------"`/`"--------------------"`) 줄 수가 적다(의도된
 차이). `expect()` 실패 출력은 legacy·modern 둘 다 없어서(모든 값이 기대와 일치) 패턴 매칭 switch
 버전이 원본과 동일하게 동작함을 확인했다.
+
+## D19. collection 영역: `list.sort(null)`이 `Arrays.sort()`+수동 재조립과 예외 상황에서
+      다르게 동작한다는 걸 발견해서 복사본에 정렬하는 방식으로 고쳤다
+
+`ArraysSortTest.sort_tomato()`를 처음에는 `list.sort(null);`로 단순화했는데, legacy 대비 대조
+과정에서 실제 동작 차이를 발견했다: 원본은 `list.toArray()`로 뜬 별도 배열을 `Arrays.sort()`로
+정렬하다 예외(Comparable을 구현하지 않은 원소)가 나면 원본 `list`는 전혀 건드리지 않은 채
+남는다. 반면 `ArrayList#sort()`는 리스트의 backing array를 직접(제자리) 정렬하므로, 정렬 도중
+예외가 나면 원본 리스트가 부분적으로 뒤섞인 상태로 남는다 — 즉 같은 "정렬 실패" 상황에서 두
+구현이 서로 다른 사후 상태를 남긴다. 이 파일은 정렬 실패 자체(병합 정렬이 계약 위반을 어떻게
+다루는지)를 보여주는 게 목적이라 이 차이가 무시할 수 없었다. 그래서 `new ArrayList<>(list)`로
+복사본을 만들어 그 복사본만 정렬하고, 성공하면 원본에 반영하는 방식으로 고쳤다 — 원본이
+`toArray()` 스냅숏을 정렬하던 것과 같은 "실패 시 원본 무변경" 성질을 유지하면서도 수동 배열
+재조립보다 짧다. 값(정렬 결과, 예외 발생 지점의 부분 상태)은 legacy와 완전히 일치하는 것으로
+확인했다 — 스택트레이스의 내부 프레임과 줄 번호만 구현이 달라져서 다르다(의도된 차이).
+이 경험 때문에, `list.sort(null)`/`Collections.sort()`처럼 "제자리 정렬"을 쓰는 다른 파일에서도
+예외 경로의 사후 상태가 바뀔 수 있다는 걸 유념하기로 했다.
+
+## D20. collection 영역: `Option`은 record로, `CascadingOptionsBuilder`는 그대로 둔다
+
+`CascadingOptionsBuilderDemo`의 `Option`(불변 k/v 쌍, `Comparable`)은 record로 바꿨다 —
+`toString()`/`compareTo()`를 record 본문에서 오버라이드하고, 접근자는 `getK()`/`getV()` 대신
+표준 `k()`/`v()`로 바꿨다. `CascadingOptionsBuilder`는 두 개의 `HashMap`을 계속 채워나가는
+가변 빌더라 `Map.of()`로 바꿀 수 없어 그대로 뒀지만, `null` 체크 후 새로 만들어 넣는 관용구는
+`Map#computeIfAbsent()`로, 배열 왕복 정렬은 `List#sort(null)`로 단순화했다(이쪽은 예외 시
+원본이 훼손돼도 되는 자리라 D19의 우려가 적용되지 않는다 — 정렬 실패를 시연하는 목적이 아니라
+그냥 정렬이 잘 되는 경우만 쓰인다).
+
+## D21. collection 영역: `RemoveDuringIterationTest`는 기존 케이스를 그대로 두고 `removeIf` 를
+      새 케이스로 추가한다
+
+이 파일은 반복 중 삭제가 안 되는 경우("not works")와 되는 경우("works")를 여러 방식으로
+나열하는 게 목적이라, 기존 메서드는 하나도 고치지 않고 `List#removeIf()`/
+`Map#entrySet().removeIf()`(둘 다 Java 8+, `ConcurrentModificationException` 없이 안전하게
+조건부 삭제)를 "works" 그룹 끝에 새 메서드로 추가했다. legacy 대비 modern 출력은 그만큼 뒤에
+줄이 늘어난 것 말고는 완전히 같다.

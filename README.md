@@ -43,7 +43,7 @@ java -cp out/modern modern.java21.<package>.<Class>
 | datetime | 완료 |
 | file | 완료 |
 | lang | 완료 |
-| collection | 진행 예정 |
+| collection | 완료 |
 | ood | 진행 예정 |
 | number/string | 진행 예정 |
 | test 하네스 + 최상위 | 진행 예정 |
