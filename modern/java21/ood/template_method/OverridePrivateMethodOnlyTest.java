@@ -1,5 +1,10 @@
 package modern.java21.ood.template_method;
 
+// 원형 유지: public 템플릿 메서드에서 부르는 private 메서드만 오버라이드하면 다형성이
+// 통하지 않는다는 문제 제기다. OverrideTemplateMethodDemo.java(대안 1),
+// OverrideWorkingMethodDemo.java(권장), OverrideProtectedMethodTest.java(변형)와 함께
+// "이렇게 하면 안 된다 → 이렇게 하면 된다"는 흐름을 보여주는 시리즈다.
+
 public class OverridePrivateMethodOnlyTest {
 	
 	class Foo {

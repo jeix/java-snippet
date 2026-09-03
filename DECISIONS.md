@@ -216,3 +216,34 @@ modern의 출력은 legacy보다 구분선(`"----------"`/`"--------------------
 `Map#entrySet().removeIf()`(둘 다 Java 8+, `ConcurrentModificationException` 없이 안전하게
 조건부 삭제)를 "works" 그룹 끝에 새 메서드로 추가했다. legacy 대비 modern 출력은 그만큼 뒤에
 줄이 늘어난 것 말고는 완전히 같다.
+
+## D22. `ood/immutable/WrapperOverCollection_*` 9개는 전부 원형 유지로 뒤집는다
+
+PLAN.md 초안은 이 9개 파일의 도메인 클래스(`ChangeOverview`/`BizRuleSet`/`BizRuleGroup`/
+`BizRuleType`)를 각 파일에서 개별적으로 record + `List.copyOf`로 바꾸는 것으로 정했었다.
+실제로 9개를 전부 읽어 보니 문제가 있었다: 이 시리즈는 "내부 컬렉션을 어떻게 보호할까"에 대한
+네 가지 서로 다른 전략을 비교하는 게 목적이다 — `_1`(그대로 노출), `_2`(Map/JSON 파생 뷰만
+노출), `_3`(getter/setter 호출마다 방어적으로 clone), `_4`(다 만든 뒤 freeze). record로
+통일하면 `_1`은 자연스럽게 유지되지만(record도 방어적 복사 없이 그대로 저장/반환할 수 있다),
+`_3`(매번 clone)과 `_4`(freeze)는 애초에 record가 불변이라 그 전략 자체가 필요 없어져서
+구현이 서로 거의 똑같아진다 — "네 가지 전략을 비교한다"는 시리즈의 존재 이유가 사라진다.
+사용자에게 확인해서(PLAN.md의 "열어둔 판단"에 이미 예정돼 있던 재상의) 9개 전부 원형 그대로
+두기로 뒤집었다. 대신 Java 21 판은 9개 중 하나를 고치는 게 아니라 별도 신규 파일
+`ood/immutable/ImmutableRuleSetDemo.java`로 만들어서, record + `List.copyOf`가 네 전략을
+어떻게 한 번에 대체하는지 보여준다(`BizRuleType`에 값을 바꾸는 setter 대신 새 인스턴스를
+돌려주는 "wither" 메서드 `asSelected()`를 두고, `List.copyOf()`로 감싼 리스트가
+`UnsupportedOperationException`을 던지는 것까지 실제로 시연한다).
+덧붙여 `_4_Freeze.java`에는 원작자가 스스로 `// TODO not works cuz already frozen`이라고
+남긴 실제 버그(그룹에 타입을 추가하면서 개별 타입을 바로 freeze해버려서, 그 뒤의
+`markAsSelected()` 호출이 반영되지 않는다)가 있는데, legacy 원형 보존이 우선이라 고치지
+않고 헤더 주석에만 남겼다.
+
+## D23. `ood/delegation/InstancelessDelegation`: raw `Class` → `Class<?>`, 배열 복사·다중
+      catch 정리
+
+리플렉션으로 인스턴스 없이 static 필드/메서드에 접근하는 데모라 리플렉션 API 자체는 그대로
+두고, raw `Class`를 `Class<?>`로 고쳤다. `callMethod()`의 `String... params`를
+`Object[] varargs`로 한 칸씩 복사하던 루프는 불필요했다 — 배열은 공변이라(`String[]`은
+`Object[]`의 하위 타입) `params`를 그대로 넘기면 된다. `invoke()`의
+`IllegalAccessException`/`InvocationTargetException` catch 블록은 본문이 똑같아서
+멀티 catch로 합쳤다.

@@ -3,6 +3,12 @@ package modern.java21.ood.immutable;
 import java.util.ArrayList;
 import java.util.List;
 
+// 원형 유지: getter/setter를 부를 때마다 방어적으로 clone()해서 내부 상태를 보호하는
+// "Paranoid" 전략이다. 9가지 캡슐화 전략을 비교하는 시리즈의 한 단계라 개별적으로 고치지
+// 않는다. record + List.copyOf()를 쓰면 생성 시점에 한 번만 방어하면 되므로 이 전략
+// 자체가 필요 없어진다 - 그게 Java 21 판이 보여주는 것이다.
+// Java 21 판: ood/immutable/ImmutableRuleSetDemo.java
+
 public class WrapperOverCollection_3 {
 	
 	static class ChangeOverview {

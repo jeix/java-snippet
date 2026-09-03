@@ -3,6 +3,12 @@ package modern.java21.ood.immutable;
 import java.util.ArrayList;
 import java.util.List;
 
+// 원형 유지: 내부 컬렉션을 그대로 노출하는 "보호 없음"("Play at Your Own Risk") 전략이다.
+// _1_Nothing/_2*/_3*/_4*와 함께 캡슐화 전략 9가지를 비교하는 시리즈라 개별적으로 고치지
+// 않는다. record로 바꾸면 이 전략과 다른 전략들의 차이가 사라진다(record도 방어적 복사
+// 없이 그대로 저장/반환하면 "보호 없음"과 똑같아지기 때문이다).
+// Java 21 판: ood/immutable/ImmutableRuleSetDemo.java
+
 public class WrapperOverCollection_1 {
 	
 	static class ChangeOverview {

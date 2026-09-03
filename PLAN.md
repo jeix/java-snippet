@@ -66,7 +66,7 @@ javac -encoding UTF-8 -d out/modern -sourcepath .            $(find modern      
   - [x] 4-2. file
   - [x] 4-3. lang (함수형·null 처리·기타)
   - [x] 4-4. collection
-  - [ ] 4-5. ood
+  - [x] 4-5. ood
   - [ ] 4-6. number/string
   - [ ] 4-7. test 하네스 + 최상위 (`ExpectTest`, `Expect2Test`, `lsc`, `NpidCheck`)
 - [ ] 5. 시리즈에 새 단계 추가 (아래 표, "Java 21에서 정말 새 답이 생긴 경우"만)
@@ -98,7 +98,7 @@ Claude Code 계획 파일)에 있다. 4단계 진행 시 그 문구를 그대로
 | lang null 처리 (3) | `void_/AvoidNullCheck` `void_/NullProof` `void_/until_not_void/*` | `Optional`, `Stream.findFirst()` |
 | lang 기타 (3) | `is_in/IsIn`(+Demo) `CloneTester` `ReflectField` | `Set.of().contains()`; `clone()` → record/복사 생성자; 리플렉션 → record. `IsIn`의 `Integer` 참조 비교 버그도 수정 |
 | collection (6) | `ArrayExtendTester` `ArrayInitializeTester` `ArraysSortTest` `CascadingOptionsBuilderDemo` `ListToArrayTester` `RemoveDuringIterationTest` | `List.of`, `Comparator.comparing`, record, `removeIf` |
-| ood/immutable (9) | `WrapperOverCollection_*` | 도메인 5클래스 → record + `List.copyOf`. 9개 파일의 도메인 중복은 의도적으로 유지 (각 파일 독립 실행 가능해야 전략 비교가 됨) |
+| ood/immutable (9) | `WrapperOverCollection_*` | **[변경]** 9개 전부 원형 유지로 결정 (D22). record로 통일하면 4가지 보호 전략(_1 없음/_2 파생뷰/_3 매번 clone/_4 freeze)의 차이가 사라져서 비교 자체가 무의미해진다. Java 21 판은 별도 파일 `ImmutableRuleSetDemo.java`(D 표) |
 | ood/delegation (1) | `InstancelessDelegation` | raw `Class` → `Class<?>` |
 | number/string 표현 (4) | `HumanReadable` `DecimalPoint` `FormatterFormatDemo` `MethodParamterSignatureFormatter` | `StringBuffer` → `formatted`/text block. `new Float(10.4)`(제거 예정 API) 교체 |
 | test 하네스 (4) | `test/Expect` `test/Expect2` `ExpectTest` `Expect2Test` | `Objects.equals` 기반 NPE 안전화. `Expect`의 BigDecimal 메시지 버그 수정 |
@@ -114,11 +114,12 @@ Claude Code 계획 파일)에 있다. 4단계 진행 시 그 문구를 그대로
 
 ### D. 시리즈에 추가할 새 단계
 
-| 신규 파일 | 보여줄 것 |
-|---|---|
-| `lang/enum_/EnumDemo5.java` | `switch(this)` → switch expression(`->`) |
-| `collection/SequencedMapDemo.java` | `SequencedCollection`/`SequencedMap` |
-| `ood/template_method/SealedTemplateMethodDemo.java` | sealed interface + permits + 패턴 매칭 switch |
+| 신규 파일 | 보여줄 것 | 상태 |
+|---|---|---|
+| `ood/immutable/ImmutableRuleSetDemo.java` | record + `List.copyOf`가 9가지 캡슐화 전략을 한 번에 대체한다는 것 | 완료 |
+| `lang/enum_/EnumDemo5.java` | `switch(this)` → switch expression(`->`) | 예정 |
+| `collection/SequencedMapDemo.java` | `SequencedCollection`/`SequencedMap` | 예정 |
+| `ood/template_method/SealedTemplateMethodDemo.java` | sealed interface + permits + 패턴 매칭 switch | 예정 |
 
 ## 검증 방법
 

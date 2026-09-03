@@ -1,5 +1,10 @@
 package modern.java21.ood.template_method;
 
+// 원형 유지: 템플릿 메서드 자체를 abstract로 두고 강제로 오버라이드하게 하는 대안이다.
+// (동작은 하지만 템플릿 메서드를 서브클래스마다 중복 작성해야 해서 권장되지 않는다 -
+// OverrideWorkingMethodDemo.java가 권장하는 방식이다.) OverridePrivateMethodOnlyTest.java와
+// 함께 보는 시리즈의 한 단계다.
+
 public class OverrideTemplateMethodDemo {
 	
 	abstract class AbstractFoo {

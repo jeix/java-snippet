@@ -3,6 +3,12 @@ package modern.java21.ood.immutable;
 import java.util.ArrayList;
 import java.util.List;
 
+// 원형 유지: WrapperOverCollection_3.java와 같은 "Paranoid"(매번 방어적 clone) 전략의
+// 변형이다. deep_dive()로 재구성한 값이 원본과 같은지 지문을 남겨 확인한다. 9가지 캡슐화
+// 전략을 비교하는 시리즈의 한 단계라 개별적으로 고치지 않는다. record + List.copyOf()를
+// 쓰면 이 전략 자체가 필요 없어진다 - 그게 Java 21 판이 보여주는 것이다.
+// Java 21 판: ood/immutable/ImmutableRuleSetDemo.java
+
 public class WrapperOverCollection_3_Clone {
 	
 	static class ChangeOverview {

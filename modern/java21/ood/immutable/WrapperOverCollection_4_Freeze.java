@@ -3,6 +3,15 @@ package modern.java21.ood.immutable;
 import java.util.ArrayList;
 import java.util.List;
 
+// 원형 유지: WrapperOverCollection_4.java와 같은 "freeze" 전략의 변형이다(setter 대신
+// addXxx()를 두고, 추가되는 시점에 개별 원소를 바로 freeze한다). 9가지 캡슐화 전략을
+// 비교하는 시리즈의 한 단계라 개별적으로 고치지 않는다.
+// ⚠ 원작자가 스스로 남긴 버그가 있다: BizRuleSetBuilder.build()의
+// `other_1.getTypes().get(2).markAsSelected();`는 그 타입이 addType()에서 이미
+// freeze되어 있어 아무 효과가 없다("TODO not works cuz already frozen" 주석 참고).
+// legacy 원본 그대로 보존하는 게 우선이라 고치지 않았다.
+// Java 21 판: ood/immutable/ImmutableRuleSetDemo.java
+
 public class WrapperOverCollection_4_Freeze {
 	
 	static class ChangeOverview {

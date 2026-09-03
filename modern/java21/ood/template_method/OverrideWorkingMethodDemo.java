@@ -1,5 +1,9 @@
 package modern.java21.ood.template_method;
 
+// 원형 유지: 템플릿 메서드는 public final로 고정하고, 서브클래스가 오버라이드할 지점만
+// protected abstract 작업 메서드로 빼는 권장 방식이다. 이 시리즈(OverridePrivateMethodOnlyTest,
+// OverrideTemplateMethodDemo, OverrideProtectedMethodTest)의 결론이다.
+
 public class OverrideWorkingMethodDemo {
 	
 	abstract class Foo {

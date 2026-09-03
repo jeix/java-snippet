@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// 원형 유지: WrapperOverCollection_2.java와 같은 "JSON-like map" 전략의 변형이다
+// ("받을 때는 그냥 받고, 줄 때는 JSON-like map으로"). 9가지 캡슐화 전략을 비교하는
+// 시리즈의 한 단계라 개별적으로 고치지 않는다.
+// Java 21 판: ood/immutable/ImmutableRuleSetDemo.java
+
 public class WrapperOverCollection_2_Map {
 	
 	static class ChangeOverview {

@@ -1,5 +1,8 @@
 package modern.java21.ood.template_method;
 
+// 원형 유지: OverrideWorkingMethodDemo.java와 같은 구조지만 작업 메서드를 abstract로
+// 강제하지 않는 변형이다 - 강제할 필요가 없다면 이 정도로 충분하다는 것을 보여준다.
+
 public class OverrideProtectedMethodTest {
 	
 	class Foo {

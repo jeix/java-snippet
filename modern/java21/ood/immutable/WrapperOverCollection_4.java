@@ -3,6 +3,12 @@ package modern.java21.ood.immutable;
 import java.util.ArrayList;
 import java.util.List;
 
+// 원형 유지: 다 만든 뒤 freeze()를 불러야 잠기는 "freeze" 전략이다. 9가지 캡슐화 전략을
+// 비교하는 시리즈의 한 단계라 개별적으로 고치지 않는다. record + List.copyOf()를 쓰면
+// 만들 때부터 불변이라 "잠그는 시점"이라는 개념 자체가 필요 없어진다 - 그게 Java 21
+// 판이 보여주는 것이다.
+// Java 21 판: ood/immutable/ImmutableRuleSetDemo.java
+
 public class WrapperOverCollection_4 {
 	
 	static class ChangeOverview {

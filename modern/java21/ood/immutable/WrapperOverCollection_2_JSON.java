@@ -5,8 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// 원형 유지: WrapperOverCollection_2.java의 "JSON-like map" 전략을 실제 JSON 문자열로
+// 더 밀어붙인 변형이다. 9가지 캡슐화 전략을 비교하는 시리즈의 한 단계라 개별적으로
+// 고치지 않는다.
+// Java 21 판: ood/immutable/ImmutableRuleSetDemo.java
+
 public class WrapperOverCollection_2_JSON {
-	
+
 	private static final String Q = "\"";
 	private static final String C = ":";
 	

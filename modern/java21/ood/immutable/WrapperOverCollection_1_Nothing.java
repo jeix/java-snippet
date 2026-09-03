@@ -3,6 +3,11 @@ package modern.java21.ood.immutable;
 import java.util.ArrayList;
 import java.util.List;
 
+// 원형 유지: WrapperOverCollection_1.java와 같은 "보호 없음" 전략의 변형이다("받을 때도
+// 줄 때도 신경 끄기 — cuz 널 믿어"). deep_dive()로 재구성한 값이 원본과 같은지 지문을
+// 남겨 확인한다. 9가지 캡슐화 전략을 비교하는 시리즈의 한 단계라 개별적으로 고치지 않는다.
+// Java 21 판: ood/immutable/ImmutableRuleSetDemo.java
+
 public class WrapperOverCollection_1_Nothing {
 	
 	static class ChangeOverview {
