@@ -50,7 +50,18 @@
 - 결정: 상대 경로 동작을 설명하는 사례는 유지하고, 성공해야 하는 절대 경로 및 class loader 경로만 `modern/java21` package 위치에 맞춘다.
 - 근거: package 이동 후에도 `ResourceAsStreamDemo`가 설명하는 성공·실패 차이를 동일하게 재현해야 한다.
 
+## D-009: 현대화 처리를 네 종류로 분류
+
+- 상태: 확정
+- 결정: 파일 또는 묶음을 `유지`, `제한 변경`, `기존 파일 변경`, `후속 추가`로 분류하고 상세 목록은 `modern/java21/README.md`에서 관리한다.
+- 근거: 경고 제거와 최신 문법 적용을 일률적으로 수행하면 언어 동작이나 API 차이를 의도적으로 보여주는 예제를 훼손할 수 있다.
+
+## D-010: 단계형 묶음의 Java 21 후속 예제
+
+- 상태: 확정
+- 결정: enum, collection iteration, anonymous/lambda, clone/copy, for-each/stream, reflection delegation, immutable collection 묶음에 기존 파일을 변경하지 않는 후속 예제를 추가한다.
+- 근거: 이 영역은 기존 단계의 실패나 한계가 학습 내용이므로 직접 치환보다 다음 단계를 나란히 제시하는 편이 비교에 적합하다.
+
 ## 추후 결정 필요
 
-- 각 단계형 묶음에 Java 21 후속 예제를 추가할 실질적 가치가 있는지
 - 빌드 스크립트 또는 테스트 프레임워크를 추가할지, 직접 `javac` 실행을 유지할지

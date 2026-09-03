@@ -41,12 +41,12 @@
 - `javac --release 21 -encoding UTF-8 -Xlint:all` 컴파일에 성공해 class 파일 230개 생성을 확인했다. 기존 코드 경고는 40건이다.
 - `modern.java21.ExpectTest`와 `modern.java21.file.ResourceAsStreamDemo` 실행에 성공했다. 리소스 예제의 의도된 null 사례도 3건으로 유지됐다.
 
-### 4. 예제 관계 분석 및 분류 — 대기
+### 4. 예제 관계 분석 및 분류 — 완료
 
-- README 설명과 같은 package의 소스를 함께 읽는다.
-- 각 파일 또는 묶음을 `유지`, `기존 파일 변경`, `후속 단계 추가`로 분류한다.
-- 단계형 예제는 묶음 전체의 서사와 실행 결과를 기록한다.
-- 분류와 이유를 `modern/java21/README.md` 및 `DECISION.md`에 반영한다.
+- legacy README 설명과 같은 package의 선언, 테스트 메서드와 사용 API를 함께 검토했다.
+- 각 파일 또는 묶음을 `유지`, `제한 변경`, `기존 파일 변경`, `후속 추가`로 분류했다.
+- enum, collection iteration, anonymous/lambda, clone/copy, for-each/stream, reflection delegation, immutable collection에 후속 예제를 추가하기로 했다.
+- 전체 분류, 변경 방향과 보존 근거를 `modern/java21/README.md`에 기록했다.
 
 ### 5. 영역별 현대화 — 대기
 
@@ -69,4 +69,4 @@
 
 ## 다음 단계
 
-4단계 예제 관계 분석 및 분류를 진행한다.
+4단계 분류 문서를 검토하고 커밋한 뒤 5단계 영역별 현대화를 `datetime/`부터 진행한다.
