@@ -1,99 +1,71 @@
 package modern.java21.datetime;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class DateUtil {
-	
+
 	private static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
-	
-	private DateFormat df;
-	private Calendar cal;
-	private Date std_dt;
-	
+
+	private final DateTimeFormatter formatter;
+	private LocalDate std_dt;
+
 	public DateUtil() {
 		this(DEFAULT_DATE_FORMAT);
 	}
 	public DateUtil(String date_format) {
-		df = new SimpleDateFormat(date_format);
-		cal = Calendar.getInstance();
-		std_dt = cal.getTime();
+		formatter = DateTimeFormatter.ofPattern(date_format);
+		std_dt = LocalDate.now();
 	}
-	public DateUtil(Date dt) {
+	public DateUtil(LocalDate dt) {
 		this(DEFAULT_DATE_FORMAT);
 		set_date(dt);
 	}
-	public DateUtil(String date_format, Date dt) {
+	public DateUtil(String date_format, LocalDate dt) {
 		this(date_format);
 		set_date(dt);
 	}
-	
-	private void set_date(String dt) throws ParseException {
-		set_date(df.parse(dt));
+
+	private void set_date(String dt) {
+		set_date(LocalDate.parse(dt, formatter));
 	}
-	private void set_date(Date dt) {
+	private void set_date(LocalDate dt) {
 		if (dt != null) {
 			std_dt = dt;
 		}
 	}
-	
-	private void reset_cal_date() {
-		cal.setTime(std_dt);
-	}
-	
+
 	public String today() {
-		reset_cal_date();
-		return df.format(cal.getTime());
+		return formatter.format(std_dt);
 	}
 	public String yesterday() {
-		reset_cal_date();
-		cal.add(Calendar.DATE, -1);
-		return df.format(cal.getTime());
+		return formatter.format(std_dt.minusDays(1));
 	}
 	public String tomorrow() {
-		reset_cal_date();
-		cal.add(Calendar.DATE, 1);
-		return df.format(cal.getTime());
+		return formatter.format(std_dt.plusDays(1));
 	}
-	
+
 	public String a_week_ago() {
-		reset_cal_date();
-		cal.add(Calendar.DATE, -7);
-		return df.format(cal.getTime());
+		return formatter.format(std_dt.minusWeeks(1));
 	}
 	public String a_week_after() {
-		reset_cal_date();
-		cal.add(Calendar.DATE, 7);
-		return df.format(cal.getTime());
+		return formatter.format(std_dt.plusWeeks(1));
 	}
-	
+
 	public String a_month_ago() {
-		reset_cal_date();
-		cal.add(Calendar.MONTH, -1);
-		return df.format(cal.getTime());
+		return formatter.format(std_dt.minusMonths(1));
 	}
 	public String a_month_after() {
-		reset_cal_date();
-		cal.add(Calendar.MONTH, 1);
-		return df.format(cal.getTime());
+		return formatter.format(std_dt.plusMonths(1));
 	}
-	
+
 	private String a_month_ago_tomorrow() {
-		reset_cal_date();
-		cal.add(Calendar.MONTH, -1);
-		cal.add(Calendar.DATE, 1);
-		return df.format(cal.getTime());
+		return formatter.format(std_dt.minusMonths(1).plusDays(1));
 	}
 	private String a_month_after_yesterday() {
-		reset_cal_date();
-		cal.add(Calendar.MONTH, 1);
-		cal.add(Calendar.DATE, -1);
-		return df.format(cal.getTime());
+		return formatter.format(std_dt.plusMonths(1).minusDays(1));
 	}
-	
+
 	public String[] for_a_month_until_yesterday() {
 		return new String[] {a_month_ago(), yesterday()};
 	}
@@ -106,7 +78,7 @@ public class DateUtil {
 	public String[] for_a_month_from_tomorrow() {
 		return new String[] {tomorrow(), a_month_after()};
 	}
-	
+
 	public void print_daies() {
 		System.out.println("today=" + today());
 		System.out.println("yesterday=" + yesterday());
@@ -124,8 +96,8 @@ public class DateUtil {
 		period = for_a_month_from_tomorrow();
 		System.out.println("for a month from tomorrow=" + period[0] + " ~ " + period[1]);
 	}
-	
-	public void test_oneday() throws Exception {
+
+	public void test_oneday() {
 		set_date("20091105");
 		if (! "20091105".equals(today())) System.err.println("today() failed");
 		if (! "20091104".equals(yesterday())) System.err.println("yesterday() failed");
@@ -135,8 +107,8 @@ public class DateUtil {
 		if (! "20091005".equals(a_month_ago())) System.err.println("a_month_ago() failed");
 		if (! "20091205".equals(a_month_after())) System.err.println("a_month_after() failed");
 	}
-	
-	public void test_march_31() throws Exception {
+
+	public void test_march_31() {
 		set_date("20090331");
 		if (! "20090331".equals(today())) System.err.println("today() failed");
 		if (! "20090330".equals(yesterday())) System.err.println("yesterday() failed");
@@ -146,18 +118,17 @@ public class DateUtil {
 		if (! "20090228".equals(a_month_ago())) System.err.println("a_month_ago() failed");
 		if (! "20090430".equals(a_month_after())) System.err.println("a_month_after() failed");
 	}
-	
-	public static void main(String[] args) throws Exception {
+
+	public static void main(String[] args) {
 		DateUtil worker = new DateUtil("yyyyMMdd");
 		//worker.print_daies();
 		worker.test_oneday();
 		worker.test_march_31();
-		
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.MONTH, 1);
-		System.out.println(new SimpleDateFormat(DateUtil.DEFAULT_DATE_FORMAT).format(cal.getTime()));
-		System.out.println(cal.get(Calendar.MONTH) + 1);
-		System.out.println(cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-		System.out.println(java.sql.Date.valueOf(cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1 < 10 ? "0" : "") + (cal.get(Calendar.MONTH) + 1) + "-" + (cal.getActualMaximum(Calendar.DAY_OF_MONTH) < 10 ? "0" : "") + cal.getActualMaximum(Calendar.DAY_OF_MONTH)).toString());
+
+		LocalDate next_month = LocalDate.now().plusMonths(1);
+		System.out.println(DateTimeFormatter.ofPattern(DateUtil.DEFAULT_DATE_FORMAT).format(next_month));
+		System.out.println(next_month.getMonthValue());
+		System.out.println(next_month.lengthOfMonth());
+		System.out.println(next_month.withDayOfMonth(next_month.lengthOfMonth()));
 	}
 }
