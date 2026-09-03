@@ -72,8 +72,13 @@ javac -encoding UTF-8 -d out/modern -sourcepath .            $(find modern      
 - [x] 5. 시리즈에 새 단계 추가 (아래 표, "Java 21에서 정말 새 답이 생긴 경우"만)
 - [x] 6a. 루트 `README.md` 초안 작성 (구조·컴파일법·진행 상황 표). 이후 영역별 모던화 커밋마다
       진행 상황을 갱신한다 (D12).
-- [ ] 6b. 전체 완료 후 legacy↔modern 대응표 완성, `legacy/java8/README.md`의 GitHub 링크 경로를
+- [x] 6b. 전체 완료 후 legacy↔modern 대응표 완성, `legacy/java8/README.md`의 GitHub 링크 경로를
       새 위치에 맞게 조정.
+
+## 완료
+
+모든 단계가 끝났다. 최종 상태는 루트 [README.md](README.md)의 legacy↔modern 대응표,
+판단 근거는 [DECISIONS.md](DECISIONS.md) 참고.
 
 ## 파일별 분류 (요약)
 

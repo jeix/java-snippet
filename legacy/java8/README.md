@@ -9,25 +9,25 @@ Contents
 ### String
 
 * `java.util.Formatter#format()` 데모  
-  @see [string/FormatterFormatDemo.java](https://github.com/jeix/java-snippet/blob/master/string/FormatterFormatDemo.java)
+  @see [string/FormatterFormatDemo.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/string/FormatterFormatDemo.java)
 * `String#split()`과 `java.util.StringTokenizer`는 둘 다  
   문자열의 끝에 나타나는 구분자들을 잘라내 버린 후 나눈다  
   하지만 중간에 나타나는 빈 문자열은 각각 다르게 처리하는데  
   `String#split()`은 남겨두지만 `java.util.StringTokenizer`는 버린다  
-  @see [string/StringSplit.java](https://github.com/jeix/java-snippet/blob/master/string/StringSplit.java)
+  @see [string/StringSplit.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/string/StringSplit.java)
 * `String#split()`과 `java.util.StringTokenizer`는 둘 다  
   구분자들로만 이루어진 문자열을 처리하지 못한다  
   `String#split()`은 빈 문자열을 처리할 수 있지만  
   `java.util.StringTokenizer`는 처리하지 못하다  
-  @see [string/StringSplitDemo.java](https://github.com/jeix/java-snippet/blob/master/string/StringSplitDemo.java)
+  @see [string/StringSplitDemo.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/string/StringSplitDemo.java)
 * `String#replaceAll()`과 `String#replace()`의 차이는  
   바꾸는 횟수가 아니라  
   찾을 문자열로 정규식을 받느냐 아니냐이다  
-  @see [string/StringReplaceAllDemo.java](https://github.com/jeix/java-snippet/blob/master/string/StringReplaceAllDemo.java)  
-  @see [string/StringReplaceDemo.java](https://github.com/jeix/java-snippet/blob/master/string/StringReplaceDemo.java)
+  @see [string/StringReplaceAllDemo.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/string/StringReplaceAllDemo.java)  
+  @see [string/StringReplaceDemo.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/string/StringReplaceDemo.java)
 * `String#replaceAll()` 데모 2 또는 정규표현식 데모  
   comma separated method parameter (method signature) 를 포맷하는 데모  
-  @see [string/MethodParamterSignatureFormatter.java](https://github.com/jeix/java-snippet/blob/master/string/MethodParamterSignatureFormatter.java)
+  @see [string/MethodParamterSignatureFormatter.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/string/MethodParamterSignatureFormatter.java)
 
 ### Number
 
@@ -40,26 +40,26 @@ Contents
   . `Integer.parseInt("0x10")`은 NumberFormatException을 일으킨다  
   . `Integer.parseInt("10", 8)`은 8을 리턴한다  
   . `Integer.parseInt("00FF", 16)`은 255를 리턴한다  
-  @see [number/IntegerParseIntTest.java](https://github.com/jeix/java-snippet/blob/master/number/IntegerParseIntTest.java)
+  @see [number/IntegerParseIntTest.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/number/IntegerParseIntTest.java)
 * `Integer.valueOf()`도  
   디폴트 radix는 10이다  
   `Integer.parseInt()`와 비슷하다  
-  @see [number/IntegerValueOfTest.java](https://github.com/jeix/java-snippet/blob/master/number/IntegerValueOfTest.java)
+  @see [number/IntegerValueOfTest.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/number/IntegerValueOfTest.java)
 * 숫자를 휴먼 리더블하게 보이기  
-  @see [number/HumanReadable.java](https://github.com/jeix/java-snippet/blob/master/number/HumanReadable.java)
+  @see [number/HumanReadable.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/number/HumanReadable.java)
 
 ### Collection
 
 * 리스트/맵에서 요소들을 순회하면서 아이템을 삭제하기  
-  @see [collection/RemoveDuringIterationTest.java](https://github.com/jeix/java-snippet/blob/master/collection/RemoveDuringIterationTest.java)
+  @see [collection/RemoveDuringIterationTest.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/collection/RemoveDuringIterationTest.java)
 * `Arrays.sort()`를 사용하려면 요소들이 `Comparable` 이어야 한다  
-  @see [collection/ArraysSortTest.java](https://github.com/jeix/java-snippet/blob/master/collection/ArraysSortTest.java)
+  @see [collection/ArraysSortTest.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/collection/ArraysSortTest.java)
 * 자바 배열은 선언할 때 요소들을 알고 있거나 요소의 갯수라도 알고 있어야 한다  
-  @see [collection/ArrayInitializeTester.java](https://github.com/jeix/java-snippet/blob/master/collection/ArrayInitializeTester.java)
+  @see [collection/ArrayInitializeTester.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/collection/ArrayInitializeTester.java)
 * 제네릭 타입의 `List.toArray()`를 사용하면  
   배열을 선언할 때 요소의 갯수를 몰라도 되지만  
   이미 요소의 갯수를 알고 있다  
-  @see [collection/ListToArrayTester.java](https://github.com/jeix/java-snippet/blob/master/collection/ListToArrayTester.java)
+  @see [collection/ListToArrayTester.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/collection/ListToArrayTester.java)
 
 ### Date
 
@@ -70,31 +70,31 @@ Contents
     "yyyy-mm-dd" 스타일만을 받아들인다 (내부적으로 deprecated된 `java.util.Date` 생성자를 사용한다)  
   . `DateFormat#format()`을 사용하지 않는  
     "yyyy-mm-dd" 스타일의 오늘/어제/올제, 저번주/다음주, 저번달/다음달  
-  @see [datetime/DateStringTest.java](https://github.com/jeix/java-snippet/blob/master/datetime/DateStringTest.java)  
-  @see [datetime/TimeStringTest.java](https://github.com/jeix/java-snippet/blob/master/datetime/TimeStringTest.java)
+  @see [datetime/DateStringTest.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/datetime/DateStringTest.java)  
+  @see [datetime/TimeStringTest.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/datetime/TimeStringTest.java)
 * 몇 가지 날짜 유틸리티 : 어제/오늘/올제, 일주일 전/후, 한달 전/후  
-  @see [datetime/DateUtil.java](https://github.com/jeix/java-snippet/blob/master/datetime/DateUtil.java)
-* @see [datetime/DateUtilB.java](https://github.com/jeix/java-snippet/blob/master/datetime/DateUtilB.java)  
-  @see [datetime/TimeUtilB.java](https://github.com/jeix/java-snippet/blob/master/datetime/TimeUtilB.java)
+  @see [datetime/DateUtil.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/datetime/DateUtil.java)
+* @see [datetime/DateUtilB.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/datetime/DateUtilB.java)  
+  @see [datetime/TimeUtilB.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/datetime/TimeUtilB.java)
 
 ### File
 
 * `java.io.RandomAccessFile` 데모  
-  @see [file/RandomAccessFileDemo.java](https://github.com/jeix/java-snippet/blob/master/file/RandomAccessFileDemo.java)
+  @see [file/RandomAccessFileDemo.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/file/RandomAccessFileDemo.java)
 * `Class.getResourceAsStream()`은 절대 경로와 상대 경로를 모두 지원한다  
   `ClassLoader.getResourceAsStream()`는 절대 경로만 지원하는데 /로 시작해서는 안 된다  
-  @see [file/ResourceAsStreamDemo.java](https://github.com/jeix/java-snippet/blob/master/file/ResourceAsStreamDemo.java)
+  @see [file/ResourceAsStreamDemo.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/file/ResourceAsStreamDemo.java)
 * `FileChannel과 ByteBuffer`나 `MappedByteBuffer`를 이용한 nio
-  @see [file/NioRw.java](https://github.com/jeix/java-snippet/blob/master/file/NioRw.java)
+  @see [file/NioRw.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/file/NioRw.java)
 
 ### Other
 
 * `return`은 `finally` 블럭을 수행하고 리턴하지만  
   `Syatem.exit()`는 즉시 나간다  
-  @see [lang/ReturnOExitDemo.java](https://github.com/jeix/java-snippet/blob/master/lang/ReturnOExitDemo.java)
+  @see [lang/ReturnOExitDemo.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/lang/ReturnOExitDemo.java)
 * `System.setProperty()`는 `System.out.println()`에 영향을 주지 못한다  
   출력을 redirection해서 Hexa 에디터로 확인해야 한다  
-  @see [lang/SystemSetPropertyDemo.java](https://github.com/jeix/java-snippet/blob/master/lang/SystemSetPropertyDemo.java)
+  @see [lang/SystemSetPropertyDemo.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/lang/SystemSetPropertyDemo.java)
 
   
 - null is NOT an instance of the given type NOR Object.
@@ -223,8 +223,8 @@ Contents
   @see lang/Autoboxing.java
 
 - x = p || q || "";
-  @see [lang/void_/until_not_void/UntilNotVoid.java](https://github.com/jeix/java-snippet/blob/master/lang/void_/until_not_void/UntilNotVoid.java)
-  @see [lang/void_/until_not_void/UntilNotVoidDemo.java](https://github.com/jeix/java-snippet/blob/master/lang/void_/until_not_void/UntilNotVoidDemo.java)
+  @see [lang/void_/until_not_void/UntilNotVoid.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/lang/void_/until_not_void/UntilNotVoid.java)
+  @see [lang/void_/until_not_void/UntilNotVoidDemo.java](https://github.com/jeix/java-snippet/blob/master/legacy/java8/lang/void_/until_not_void/UntilNotVoidDemo.java)
 
 - collection 속성을 노출하지 않기
   - immutable을 강제하려면 외부에는 clone을 수행하는 getter/setter를 제공해야 한다고들 한다.

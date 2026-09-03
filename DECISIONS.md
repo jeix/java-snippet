@@ -346,5 +346,19 @@ PLAN.md D 표에 예정돼 있던 나머지 세 파일을 만들었다(`Immutabl
   같은 "오버라이드로 확장 지점 열기" 축이 아니라 다른 축을 보여준다 — sealed interface로
   확장 지점을 닫힌 목록으로 못박고, 템플릿 메서드 쪽에서 패턴 매칭 switch(JEP 441)로
   분기한다. 새 변형을 추가하면 switch가 컴파일 타임에 다 다뤘는지 검사해 준다는 점이
-  오버라이드 방식과의 차이다. `OverrideWorkingMethodDemo`와 같은 출력 흐름(템플릿→작업→
+  오버라이드 방식과의 차이다. `OverrideWorkingMethodDemo`와 같은 출력 흐름(템플릿, 작업,
   private 순서)을 내는 것으로 확인했다.
+
+## D31. 6단계 마무리: `legacy/java8/README.md` 링크 경로 수정, 루트 README에 전체 대응표 작성
+
+`legacy/java8/README.md`의 GitHub blob 링크 25개가 전부 저장소 루트 기준 옛 경로
+(`blob/master/<path>`)를 가리키고 있어서 파일이 옮겨진 뒤로는 깨진 링크였다. `blob/master/`
+뒤에 `legacy/java8/`를 일괄로 끼워 넣어 고쳤다. 링크가 아닌 `@see <path>` 형태의 맨 텍스트
+언급은 고치지 않았다 - 이 문서 자체가 `legacy/java8/`로 옮겨졌으니 그 상대 경로가 이미 맞다.
+이미 깨져 있던 `@see demo/HttpClientGetTester.java`(존재한 적 없는 파일)는 이번 이동과
+무관한 원래부터의 문제라 손대지 않았다.
+루트 `README.md`의 "진행 상황" 표는 83개 legacy 파일과 86개 modern 파일(신규 4개, 삭제 1개,
+이름 변경 2개) 전체를 훑는 legacy-modern 대응표로 바꿨다. 시리즈처럼 여러 파일이 정확히 같은
+사유("원형 유지")를 공유하면 한 줄로 묶었고(`lang/enum_/EnumDemo0~4`, `lang/inner_class/*`
+등), 그 외에는 파일마다 한 줄씩 뒀다. 각 줄에서 자세한 근거가 필요하면 해당 D번호로
+DECISIONS.md를 찾아가게 했다.
