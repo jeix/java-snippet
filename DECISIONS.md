@@ -264,3 +264,67 @@ import도 더 이상 필요 없어져서 지웠다. 나머지 `StringBuffer` →
 `Float(double)` 생성자는 Java 9부터 deprecated, 제거 예정(`for removal`) 표시가 붙어 있다.
 `Formatter#format()`이 받는 `Object...`에는 float 리터럴 `10.4f`를 그대로 넘겨도 자동으로
 박싱되므로, 생성자를 쓸 이유가 없었다.
+
+## D26. `test/Expect2`: 주석 한 줄로만 남아 있던 매처 8개를 구현한다
+
+`to_match`/`to_be_null`/`to_be_truthy`/`to_be_falsy`/`to_be_less_than`/`to_be_greater_than`/
+`to_be_close_to`/`to_throw` — Jasmine/Jest 스타일 매처 이름만 주석으로 적혀 있고 본문은
+없던 8개를 사용자 요청으로 구현했다(`Expect2Test.java`에도 각각을 호출하는 코드를 추가).
+- `to_be_truthy`/`to_be_falsy`는 `UntilNotVoid.unv()`(D18)와 같은 결의 패턴 매칭 switch로
+  "falsy" 판정을 구현했다(null/빈 문자열/0/false/BigDecimal.ZERO는 falsy, 나머지는 truthy).
+- `to_be_less_than`/`to_be_greater_than`은 `val`을 raw `Comparable`로 캐스팅해서 비교한다
+  (`@SuppressWarnings("unchecked")` — 이 저장소의 다른 곳(`NullProof.Nil.compareTo()`)과
+  같은 관용구다).
+- `to_be_close_to(x, precision)`는 Jasmine의 실제 정의(`|actual - expected| <
+  10^-precision / 2`)를 따랐다.
+- `to_throw(Class)`는 `val`을 `Runnable`로 캐스팅해 실행해 보고 지정한 예외가 나오는지
+  확인한다 — 이 매처만 "실행 가능한 값"을 요구한다는 걸 호출부에서
+  `(Runnable) () -> {...}`로 명시해야 한다.
+- 구현하면서 버그를 하나 발견했다: `to_match`를 처음에 `String#matches()`로 구현했더니
+  `expect("hello world").to_match("^hello")`가 실패했다 — `matches()`는 정규식이 문자열
+  전체에 매치해야 한다는(암묵적 앵커링) Java 고유의 동작 때문이다. JS의 부분 일치와
+  같은 의미를 내려면 `Pattern.compile(regex).matcher(val).find()`를 써야 한다. 대조
+  실행으로 이 버그를 실행 중에 잡아서 고쳤다.
+- 새로 추가한 호출까지 포함해 `Expect2Test`는 legacy와 마찬가지로 `:wq`만 찍고 조용히
+  통과하는 것으로 확인했다(모든 매처 호출이 기대한 대로 통과한다는 뜻이다).
+
+## D27. `test/Expect`: `Objects.equals()`로 NPE 안전화, `BigDecimal` 메시지 버그 수정
+
+`Object`/`String`/`BigDecimal` 오버로드가 전부 `expected.equals(result)`를 직접 불러서
+`expected`가 null이면 NPE가 났다. `java.util.Objects.equals(expected, result)`로 바꿔서
+둘 중 하나 또는 둘 다 null이어도 안전하게 비교하게 했다. 조사 때 이미 알려진 버그도
+고쳤다 — `BigDecimal` 오버로드의 실패 메시지가 `expected` 대신 `result`를 두 번
+찍고 있었다(`"[" + result + "] expected BUT [" + result + "]"` → `expected`/`result`
+각각 찍도록 수정).
+
+## D28. `lsc.java` → `LineSeparatorConverter.java`: ISO-8859-1 왕복으로 바이트를 보존하며
+      `String#replace()`로 다시 쓴다
+
+원래 구현은 CR/NL 바이트를 직접 스캔하면서 리플렉션 기반 `Array.newInstance()`로 배열을
+한 바이트씩 늘려나가는 방식이었다. `Files.readAllBytes()`로 파일 전체를 읽어 문자열로
+만들고 `String#replace()`로 개행을 바꾼 뒤 다시 쓰는 방식으로 단순화했다 — 단, UTF-8 같은
+가변 길이 인코딩으로 디코딩하면 알 수 없는 바이트가 깨질 수 있어서, 바이트 하나가 코드
+포인트 하나에 정확히 대응하는 ISO-8859-1(Latin-1)로 디코딩/인코딩해서 원본 바이트를
+그대로 보존했다. u2d(LF→CRLF)는 먼저 전부 LF로 통일한 뒤 CRLF로 바꾸는 2단계로 만들었다
+— 그렇지 않으면 이미 CRLF인 자리의 개행이 "\r\r\n"으로 겹친다(원본은 `src[i-1] != CR`
+조건으로 이걸 피했다). LF만 있는 파일/CRLF만 있는 파일/이미 CRLF인 파일에 u2d를 다시
+적용하는 경우(멱등성 확인)/LF와 CRLF가 섞인 파일/맨 앞이 LF로 시작하는 파일/빈 파일/UTF-8
+한글이 있는 파일까지 7가지 시나리오를 legacy와 바이트 단위로 대조해서 전부 동일함을
+확인했다.
+파일이 없을 때의 동작은 의도적으로 다르게 뒀다: 원본은 빈 catch로 `FileNotFoundException`을
+삼키고 이후 `null` 스트림에 접근하면서 알아보기 어려운 `NullPointerException`으로 죽는데,
+`Files.readAllBytes()`는 `NoSuchFileException`(체크 예외)을 던지므로 이를 잡아
+`UncheckedIOException`으로 감싸 원인이 분명한 예외로 바꿨다 — 이건 명백한 개선이라
+원본 동작을 재현하지 않았다.
+
+## D29. `NpidCheck`: `IntStream` + text block, `MULTIPLIERS` 상수 공유
+
+두 검증 메서드(`is_valid_jumin_no`, `is_valid_foreign_jumin_no`)가 각자 갖고 있던 동일한
+`MULTIPLIERS`/`PRIME_NUMBER` 리터럴을 클래스 상수로 뽑아 공유했다. 한 글자씩
+`Integer.parseInt(jumin_no.substring(i, i+1))`으로 뽑던 관용구는
+`Character.getNumericValue(jumin_no.charAt(i))`로 바꿔서 부분 문자열 할당을 없앴다.
+체크섬 합산 루프는 `IntStream.range(...).map(...).sum()`으로 바꿨다(람다 안에서 재할당된
+파라미터를 캡처할 수 없어서 `final String no = jumin_no;`로 한 번 복사해 캡처했다).
+`main()`의 9번 반복되던 `if (! is_valid_jumin_no(npid)) System.out.println(npid);` 패턴은
+검사할 주민등록번호 목록을 text block으로 두고 `String#lines().filter(...).forEach(...)`로
+바꿨다.

@@ -46,8 +46,8 @@ java -cp out/modern modern.java21.<package>.<Class>
 | collection | 완료 |
 | ood | 완료 |
 | number/string | 완료 |
-| test 하네스 + 최상위 | 진행 예정 |
-| 시리즈 새 단계 추가 (EnumDemo5 등) | 진행 예정 |
+| test 하네스 + 최상위 | 완료 |
+| 시리즈 새 단계 추가 (EnumDemo5 등) | 진행 예정 (ImmutableRuleSetDemo는 완료) |
 
 전체가 끝나면 이 표 대신 legacy↔modern 파일별 대응표로 바꾼다. 지금까지의 단계별 실행 기록은
 [PLAN.md](PLAN.md)의 체크리스트를 참고.
