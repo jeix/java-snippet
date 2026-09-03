@@ -54,7 +54,7 @@ java -cp out/modern modern.java21.lang.enum_.EnumDemo0
 | 2 | File I/O | ✅ 완료 | file/*.java (6개) |
 | 3 | Collections & Streams | ✅ 완료 | collection/*.java (8개) |
 | 4 | Language Features | ✅ 완료 | lang/* (20개, enum_ 제외) |
-| 5 | OOD Patterns | ⏳ 대기 | ood/*.java |
+| 5 | OOD Patterns | ✅ 완료 | ood/immutable/*.java (7개), template_method/*.java |
 | 6 | String, Number, Root | ⏳ 대기 | string/, number/, lsc.java, NpidCheck.java |
 
 ## ⚠️ 수정 금지 (교육용 진행 과정 보존)
