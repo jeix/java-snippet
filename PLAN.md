@@ -3,15 +3,15 @@
 ## 현재 상태
 
 - 현재 브랜치: `modern-codex` (`master`의 `37978fe412d0b91f9502b213b58c5d18dc5d92da`에서 생성)
-- 작업 트리: 문서 생성 전 깨끗함
+- 작업 트리: 2단계 완료 상태
 - Java 소스: 83개
 - 빌드 시스템: 없음; `javac`/`java` 직접 사용
 - 로컬 JDK: `javac 21.0.11`
-- 현재 전체 소스: `javac 21.0.11 -encoding UTF-8 -Xlint:all` 컴파일 성공
+- 구조 변경 전 기준선 전체 소스: `javac 21.0.11 -encoding UTF-8 -Xlint:all` 컴파일 성공
   - class 파일 230개 생성
   - removal, rawtypes, unchecked, overrides, static, cast 항목에서 경고 40건
-- `refactoring_a_case.txt`: UTF-8이 아니며 EUC-KR 바이트 범위로 확인됨
-- 구조 분리와 소스 현대화: 미착수
+- `refactoring_a_case.txt`: UTF-8 변환 및 LF 정규화 완료
+- legacy 구조 분리: 완료; modern 소스 구성과 현대화는 미착수
 
 ## 작업 단계
 
@@ -24,13 +24,13 @@
 - 파일별 SHA-256 목록 파일의 SHA-256은 `7919537a6e86b526bc8fc1da542d3a1e6e0101845b32f312a7d0b9ac9af17b52`다.
 - 기준선 전체가 Java 21에서 컴파일되며 경고 40건이 있음을 확인했다. 경고는 현대화 대상 판단에 활용하되, 교육 목적상 의도된 코드는 무조건 제거하지 않는다.
 
-### 2. 인코딩 및 legacy 구성 — 대기
+### 2. 인코딩 및 legacy 구성 — 완료
 
-- `refactoring_a_case.txt`를 EUC-KR에서 UTF-8로 변환한다.
-- 변환 전후 텍스트와 줄바꿈 정책을 확인한다.
-- 기존 README, 소스와 자료를 `legacy/java8/`로 이동한다.
-- 파일 목록 또는 checksum으로 누락 여부를 검사한다.
-- `javac --release 8 -encoding UTF-8`로 검증한다.
+- `refactoring_a_case.txt`를 EUC-KR에서 UTF-8로 변환하고 LF로 정규화했다.
+- 기존 README, 소스와 자료 88개를 `legacy/java8/`로 이동했다.
+- 기준선과 비교해 파일 누락이 없고, 인코딩 대상 외 87개 파일의 내용이 동일함을 확인했다.
+- Java 소스 83개를 `javac --release 8 -encoding UTF-8 -Xlint:all`로 컴파일해 class 파일 234개 생성을 확인했다.
+- 기존 코드 및 JDK 21의 Java 8 대상 옵션에서 경고 42건이 발생하지만 컴파일은 성공했다.
 
 ### 3. modern 기준 트리 구성 — 대기
 
@@ -67,4 +67,4 @@
 
 ## 다음 단계
 
-2단계에서 `refactoring_a_case.txt` 인코딩을 변환하고 `legacy/java8/` 구조를 생성한다. 변환 전 CRLF 유지 여부를 결정하고, 이동 전후 파일 목록과 checksum으로 누락을 검사한다.
+3단계 modern 기준 트리 구성을 진행한다.
