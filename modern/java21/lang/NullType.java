@@ -3,6 +3,10 @@ package modern.java21.lang;
 import java.util.ArrayList;
 import java.util.List;
 
+// 원형 유지: null이 어떤 타입의 instanceof에도 해당하지 않으면서도 어떤 타입으로든 캐스팅이
+// 통과한다는 것이 주제다. raw List/ArrayList도 컴파일 시점 타입 검사를 피해 null String을
+// 넣었다가 다른 타입으로 캐스팅해 꺼내는 데 필요한 부분이라 그대로 둔다.
+
 public class NullType {
 	
 	class Something {}

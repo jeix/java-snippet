@@ -2,6 +2,9 @@ package modern.java21.lang.enum_;
 
 import java.util.EnumSet;
 
+// 원형 유지: enum에 필드·생성자·메서드를 추가하는 단계를 보여주는 시리즈의 한 단계다.
+// Java 21 판: lang/enum_/EnumDemo5.java
+
 public class EnumDemo2 {
 	
 	enum Day {

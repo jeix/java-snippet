@@ -2,9 +2,10 @@ package modern.java21.lang.void_;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class AvoidNullCheck {
-	
+
 	class ReturnNull {
 		private String s;
 		public String getString() {
@@ -13,7 +14,7 @@ public class AvoidNullCheck {
 		public void setString(String s) {
 			this.s = s;
 		}
-		
+
 		private List<String> items;
 		public List<String> getList() {
 			return items;
@@ -22,33 +23,33 @@ public class AvoidNullCheck {
 			this.items = items;
 		}
 	}
-	
+
 	class ReturnEmpty {
 		private String s;
 		public String getString() {
-			return (s != null ? s : "");
+			return Optional.ofNullable(s).orElse("");
 		}
 		public void setString(String s) {
 			this.s = s;
 		}
-		
+
 		private List<String> items;
 		public List<String> getList() {
-			return (items != null ? items : new ArrayList<String>());
+			return Optional.ofNullable(items).orElseGet(ArrayList::new);
 		}
 		public void setList(List<String> items) {
 			this.items = items;
 		}
 	}
-	
+
 	public String empty_if_null(String s) {
-		return (s != null ? s : "");
+		return Optional.ofNullable(s).orElse("");
 	}
-	
+
 	public String trim_or_empty(String s) {
-		return (s != null ? s.trim() : "");
+		return Optional.ofNullable(s).map(String::trim).orElse("");
 	}
-	
+
 	public void test_null_check() {
 		ReturnNull obj = new ReturnNull();
 		if (obj.getString() != null) {
@@ -64,7 +65,7 @@ public class AvoidNullCheck {
 			}
 		}
 	}
-	
+
 	public void test_no_null_check() {
 		ReturnEmpty obj = new ReturnEmpty();
 		System.out.println("[" + obj.getString().trim() + "]");
@@ -79,7 +80,7 @@ public class AvoidNullCheck {
 		List<String> items = new ArrayList<String>();
 		items.add("not null");
 		obj.setList(items);
-		
+
 		contaminate(obj);
 
 		for (String str : obj.getList()) {
@@ -99,18 +100,18 @@ public class AvoidNullCheck {
 			items.set(0, null);
 		}
 	}
-	
+
 	private void test_nothing() {
 		System.out.println(":wq");
 	}
-	
+
 	public void test() {
 		test_null_check();
 		test_no_null_check();
 		test_failed_no_null_check();
 		test_nothing();
 	}
-	
+
 	public static void main(String[] args) {
 		AvoidNullCheck worker = new AvoidNullCheck();
 		worker.test();

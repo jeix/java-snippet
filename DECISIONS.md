@@ -122,3 +122,61 @@ API 자체가 주제라서 `Files.readAllBytes()` 같은 상위 레벨 API로 �
 `RandomAccessFileDemo` 표준출력 완전 일치, `TextFileWriter`+`TextFileReader` 라운드트립 결과
 파일 바이트 동일, `PropertiesTest`는 최초 생성 경로와 기존 파일 로드 경로 둘 다 파일 내용 동일,
 `NioRw`는 6가지 모드(`b`/`bm`/`t`/`tm`/`tu`/`tum`) 전부 결과 파일 바이트 동일.
+
+## D14. lang 영역: 익명 클래스는 함수형 인터페이스를 구현할 때만 람다로 바꾼다
+
+`AnonymousTester`는 같은 인터페이스(`FooHoo`)를 인터페이스 구현/추상 클래스 상속/구체 클래스
+상속 세 가지 방식의 익명 클래스로 만드는 데모다. 람다는 함수형 인터페이스만 구현할 수 있고
+클래스를 상속할 수는 없어서, 인터페이스 구현 케이스만 람다로 바꾸고 나머지 둘은 익명 클래스로
+남기며 그 이유를 인라인 주석으로 남겼다. `lang/for_each/Array.java`(자체 제작
+`ForEach`/`Filter`/`Map`/`Reduce` 함수형 인터페이스 + `Converter`/`Reducer`)는 표준
+`Stream` API가 이미 제공하는 것과 정확히 같은 일을 하고 있어서 파일 자체를 삭제하고
+`ForEachDemo`를 `Stream`/`List#replaceAll`/`List#reversed()`(Java 21 SequencedCollection)로
+다시 썼다. `for_each` 삭제와 재작성 모두 legacy와 정확히 같은 출력을 냈다(대조 완료).
+
+## D15. lang 영역: 필드를 리플렉션으로 덮어써야 하는 데모는 record로 바꾸지 않는다
+
+`ReflectField`(필드 값을 뒤집어 쓰는 데모)와 `AnnotationTarget`(어노테이션이 붙은 필드 값을
+리플렉션으로 덮어쓰는 데모, 이전 이름 `Target`)은 최초 조사에서 "record 후보"로 분류됐지만,
+record는 모든 필드가 final이라 `Field#set()`으로 값을 바꿀 수 없다 — 두 데모 모두 값을 바꾸는
+것 자체가 주제라 record로 바꾸면 데모가 성립하지 않는다. 그래서 두 클래스는 그대로 두고,
+`ReflectField`에만 구조가 같은 `record FooRecord`를 추가해서 `RecordComponent`(Java 16+)로
+필드 대신 컴포넌트를 읽는 것만 보여주는 `test_record_components()`를 덧붙였다(기존 출력 뒤에
+추가되는 형태라 legacy 대비 출력이 늘어나는 것은 의도된 차이).
+
+## D16. lang 영역: `is_in`/`isin`의 `Integer`/`Long` 값 비교 버그를 고치며 CSV 부분일치 버그도
+      함께 고친다
+
+`lang/is_in/IsIn.java`에는 두 세대의 구현이 함께 있었다 — 좁은 범위의 `is_in(...)`(String/Integer
+전용)과 이를 일반화한 `isin(...)`(String/Integer/Long/Float/Double, 내부적으로 하나의
+`isin(Object, Object...)` 엔진에 위임). 계획에서 이미 알려진 `Integer i == arg` 참조 비교
+버그(캐시 범위 밖 값에서 값이 같아도 `false`가 될 수 있음) 외에, 조사 중 CSV 문자열을
+`String#contains()`로 부분 일치시키는 버그도 발견했다(`is_in(1, "10,20,100")`가 "1"이
+"10"/"100"의 부분 문자열이라 잘못 `true`가 될 수 있음). 둘 다 진짜 정확성 버그이지 "그 시절의
+작성법"이 아니라서 legacy처럼 보존하지 않고 modern에서 고쳤다: CSV는 `String#split(",")` 후
+`Set#contains()`로 정확히 토큰 단위 비교하고, 값 비교는 모든 경우에 `Object#equals()`를 쓴다
+(`Float`/`Double`도 원래 `.compare()`로 특별 취급했지만 `Float#equals()`/`Double#equals()`가
+내부적으로 같은 비트 비교를 하므로 불필요했다 — `isin(Object, Object...)` 엔진의 타입별 분기가
+전부 `arg.equals(x)` 한 줄로 줄었다). `IsInDemo`의 모든 검증값이 legacy와 동일하게 통과하는
+것으로 확인했다(이 버그들은 데모가 쓰는 값 범위에서는 우연히 드러나지 않는다).
+
+## D17. `CloneTester`: `Cloneable`/`clone()` 대신 복사 생성자를 쓴다
+
+`Foo`/`Bar`는 값을 바꿔도 원본에 영향이 없어야 한다는 걸 보여주는 게 목적이라 불변(record)으로는
+바꿀 수 없지만, `clone()`+`Cloneable`+`CloneNotSupportedException` 처리는 Effective Java가
+권고하지 않는 낡은 패턴이다. `private` 복사 생성자 + `copy()` 팩토리 메서드로 바꿨다 — 깊은 복사
+의미론(내부 `Bar` 리스트도 각각 복사)은 그대로 유지했다. legacy와 동일하게 OOPS 로그 없이
+통과하는 것으로 확인했다.
+
+## D18. `UntilNotVoid`/`UntilNotVoidDemo`: 타입 판별 instanceof 사슬을 패턴 매칭 switch로 바꾸고,
+      이미 불필요하다고 밝혀진 캐스팅 블록은 삭제한다
+
+`UntilNotVoid.unv(Object...)`의 "이 값이 falsy인가"를 판별하는 긴 `instanceof` 사슬을 Java 21
+패턴 매칭 switch(`case Integer i -> i != 0` 등, JEP 441)로 다시 썼다 — 레거시 코드가 오래
+기다려온 정확한 예시다. `UntilNotVoidDemo.java`는 원래 같은 값을 세 번 시험했다: 전용 메서드
+(`until_not_void`), 캐스팅을 붙인 `unv(...)`, 캐스팅 없는 `unv(...)`. 세 번째 블록이 이미
+"캐스팅이 필요 없다"는 걸 증명하고 있어서(오버로드 해석이 정확한 타입을 돌려준다) 캐스팅 붙은
+중간 블록은 완전히 중복이었다 — 그 블록을 지우고 대신 인라인 주석으로 이유를 남겼다. 그 결과
+modern의 출력은 legacy보다 구분선(`"----------"`/`"--------------------"`) 줄 수가 적다(의도된
+차이). `expect()` 실패 출력은 legacy·modern 둘 다 없어서(모든 값이 기대와 일치) 패턴 매칭 switch
+버전이 원본과 동일하게 동작함을 확인했다.

@@ -1,5 +1,8 @@
 package modern.java21.lang.enum_;
 
+// 원형 유지: enum 상수별 동작을 switch(this)로 분기하는 단계를 보여주는 시리즈의 한 단계다.
+// Java 21 판: lang/enum_/EnumDemo5.java
+
 public class EnumDemo3 {
 	
 	enum Operation {

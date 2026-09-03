@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CloneTester {
-	
+
 	private void test_Something() {
 		Foo foo = new Foo("푸 1");
 		Bar bar = new Bar("바 11");
 		foo.addBar(bar);
 		bar = new Bar("바 12");
 		foo.addBar(bar);
-		
-		Foo foo2 = foo.clone();
+
+		Foo foo2 = foo.copy();
 		if (foo == foo2) {
 			System.out.println("OOPS foo == foo2");
 		}
@@ -39,22 +39,35 @@ public class CloneTester {
 			System.out.println("OOPS foo is equal to foo2");
 		}
 	}
-	
+
 	private void test_nothing() {
 		System.out.println(":wq");
 	}
-	
+
 	public void test() {
 		test_Something();
 		test_nothing();
 	}
-	
-	public class Foo implements Cloneable {
-		
+
+	// clone()/Cloneable 대신 복사 생성자를 쓴다 (Effective Java Item 13:
+	// "Override clone judiciously" - Cloneable보다 복사 생성자/복사 팩토리를 권장한다).
+	public class Foo {
+
 		public Foo(String val) {
 			this.val = val;
 		}
-		
+
+		private Foo(Foo other) {
+			this.val = other.val;
+			for (Bar bar : other.barz) {
+				this.barz.add(bar.copy());
+			}
+		}
+
+		public Foo copy() {
+			return new Foo(this);
+		}
+
 		private String val = null;
 		public String getVal() {
 			return val;
@@ -62,7 +75,7 @@ public class CloneTester {
 		public void setVal(String val) {
 			this.val = val;
 		}
-		
+
 		List<Bar> barz = new ArrayList<Bar>();
 		public List<Bar> getBarz() {
 			return barz;
@@ -73,7 +86,7 @@ public class CloneTester {
 		public void addBar(Bar bar) {
 			barz.add(bar);
 		}
-		
+
 		@Override
 		public boolean equals(Object o) {
 			if (o == this) return true;
@@ -89,29 +102,22 @@ public class CloneTester {
 			}
 			return true;
 		}
-		
-		@Override
-		public Foo clone() {
-			try {
-				Foo cloned = (Foo) super.clone();
-				cloned.setBarz(new ArrayList<Bar>());
-				for (Bar bar : barz) {
-					Bar cloned_bar = bar.clone();
-					cloned.addBar(cloned_bar);
-				}
-				return cloned;
-			} catch(CloneNotSupportedException e) {
-				throw new AssertionError();
-			}
-		}
 	}
-	
-	public class Bar implements Cloneable {
-		
+
+	public class Bar {
+
 		public Bar(String val) {
 			this.val = val;
 		}
-		
+
+		private Bar(Bar other) {
+			this.val = other.val;
+		}
+
+		public Bar copy() {
+			return new Bar(this);
+		}
+
 		private String val = null;
 		public String getVal() {
 			return val;
@@ -119,7 +125,7 @@ public class CloneTester {
 		public void setVal(String val) {
 			this.val = val;
 		}
-		
+
 		@Override
 		public boolean equals(Object o) {
 			if (o == this) return true;
@@ -129,17 +135,8 @@ public class CloneTester {
 			if (val != null && ! val.equals(other.getVal())) return false;
 			return true;
 		}
-		
-		@Override
-		public Bar clone() {
-			try {
-				return (Bar) super.clone();
-			} catch(CloneNotSupportedException e) {
-				throw new AssertionError();
-			}
-		}
 	}
-	
+
 	public static void main(String[] args) {
 		CloneTester worker = new CloneTester();
 		worker.test();

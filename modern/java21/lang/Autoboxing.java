@@ -1,5 +1,8 @@
 package modern.java21.lang;
 
+// 원형 유지: 오토박싱·언박싱과, Object로 박싱된 값을 원래 타입으로 되돌릴 때
+// 캐스팅이 필요하다는 언어 의미론 자체가 주제라 바꿀 대상이 없다.
+
 public class Autoboxing {
 	
 	public static void main(String[] args) {

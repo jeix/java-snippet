@@ -1,62 +1,39 @@
 package modern.java21.lang.is_in;
 
+import java.util.Set;
+
 public class IsIn {
 	public static boolean is_in(String s, String... args) {
 		if (args.length == 1) { // csv
-			return args[0].contains(s);
+			return Set.of(args[0].split(",")).contains(s);
 		} else { // array
-			for (String arg : args) {
-				if (arg.equals(s)) return true;
-			}
-			return false;
+			return Set.of(args).contains(s);
 		}
 	}
-	
+
 	public static boolean is_in(Integer i, String csv) {
-		return csv.contains(i.toString()); // valid if and only if fixed width
+		return Set.of(csv.split(",")).contains(String.valueOf(i));
 	}
 	public static boolean is_in(Integer i, Integer... args) {
-		for (Integer arg : args) {
-			if (i == arg) return true;
-		}
-		return false;
+		return Set.of(args).contains(i);
 	}
-	
+
 	public static boolean isin(Object x, Object... args) {
-		if (args.length == 1 && args[0] instanceof String) {
-			String csv = (String) args[0];
-			return csv.contains(x.toString());
-		} else {
-			for (Object arg : args) {
-				if (arg != null) {
-					if (x instanceof Integer && arg instanceof Integer) {
-						if ((Integer) arg == (Integer) x) return true;
-					} else if (x instanceof Long && arg instanceof Long) {
-						if ((Long) arg == (Long) x) return true;
-					} else if (x instanceof Float && arg instanceof Float) {
-						// if (((Float) arg).floatValue() == ((Float) x).floatValue()) return true;
-						if (Float.compare((Float) arg, (Float) x) == 0) return true;
-					} else if (x instanceof Double && arg instanceof Double) {
-						// if (((Double) arg).doubleValue() == ((Double) x).doubleValue()) return true;
-						if (Double.compare((Double) arg, (Double) x) == 0) return true;
-					} else {
-						if (arg.equals(x)) return true;
-					}
-				}
-			}
+		if (args.length == 1 && args[0] instanceof String csv) {
+			return Set.of(csv.split(",")).contains(String.valueOf(x));
+		}
+		for (Object arg : args) {
+			if (arg != null && arg.equals(x)) return true;
 		}
 		return false;
 	}
 	public static boolean isin(String s, String... args) {
-		// return is_in(s, args);
 		return isin((Object) s, (Object[]) args);
 	}
 	public static boolean isin(Integer i, String csv) { // valid if and only if fixed width
-		// return is_in(i, csv);
 		return isin((Object) i, new Object[] { csv });
 	}
 	public static boolean isin(Integer i, Integer... args) {
-		// return is_in(i, args);
 		return isin((Object) i, (Object[]) args);
 	}
 	public static boolean isin(Long l, String csv) { // valid if and only if fixed width

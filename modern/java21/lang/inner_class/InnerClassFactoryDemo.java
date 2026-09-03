@@ -1,5 +1,8 @@
 package modern.java21.lang.inner_class;
 
+// 원형 유지: InnerClassFactory.java가 보여주는 non-static/static inner 클래스 생성 방식을
+// 실제로 호출해서 확인하는 짝이라 그대로 둔다.
+
 public class InnerClassFactoryDemo {
 	
 	private void test_inner_class_factory() {

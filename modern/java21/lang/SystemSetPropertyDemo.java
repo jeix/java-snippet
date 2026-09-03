@@ -1,5 +1,8 @@
 package modern.java21.lang;
 
+// 원형 유지: line.separator 프로퍼티를 바꿔도 이미 초기화된 System.out의 내부 상태에는
+// 반영되지 않는다는 JVM 초기화 순서 이슈가 주제다.
+
 public class SystemSetPropertyDemo {
 	
 	private void test_System_setProperty() {

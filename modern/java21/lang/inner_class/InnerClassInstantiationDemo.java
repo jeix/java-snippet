@@ -1,5 +1,9 @@
 package modern.java21.lang.inner_class;
 
+// 원형 유지: outer 인스턴스와 엮이면 inner 클래스로, 그렇지 않으면 static nested 클래스로
+// 만들어야 한다는 결론과, non-static inner를 static 컨텍스트에서 만들 때 팩토리가 필요한
+// 이유가 주제다.
+
 class Outer {
 	
 	private String s;

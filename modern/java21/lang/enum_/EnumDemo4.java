@@ -1,5 +1,9 @@
 package modern.java21.lang.enum_;
 
+// 원형 유지: 상수별 클래스 본문(constant-specific method body)으로 switch 분기를 없애는
+// 단계를 보여주는 시리즈의 마지막 단계다. toString()의 switch만 남아 있다.
+// Java 21 판: lang/enum_/EnumDemo5.java
+
 public class EnumDemo4 {
 	
 	enum Operation {

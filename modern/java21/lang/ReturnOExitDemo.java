@@ -1,5 +1,8 @@
 package modern.java21.lang;
 
+// 원형 유지: return은 finally 블록을 거쳐 나가지만 System.exit()은 그렇지 않다는 JVM 의미론이
+// 주제다. Throwable.printStackTrace()를 직접 구현해 보는 부분도 그 시연의 일부라 그대로 둔다.
+
 public class ReturnOExitDemo {
 	
 	private void test_finally() {

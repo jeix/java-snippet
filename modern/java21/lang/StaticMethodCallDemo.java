@@ -1,5 +1,8 @@
 package modern.java21.lang;
 
+// 원형 유지: static 메서드는 인스턴스가 아니라 선언된(혹은 캐스팅된) 타입 기준으로 호출된다는
+// 것이 주제라, 일부러 인스턴스를 통해 static 메서드를 호출하는 관용구를 그대로 남겨 둔다.
+
 public class StaticMethodCallDemo {
 	
 	static class Foo {

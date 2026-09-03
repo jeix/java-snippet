@@ -29,31 +29,23 @@ public class UntilNotVoid {
 		Object maybe_last = null;
 		for (Object arg : args) {
 			maybe_last = arg;
-			if (arg != null) {
-				if (arg instanceof String) {
-					if (((String) arg).length() > 0) return arg;
-				} else if (arg instanceof Integer) {
-					if (((Integer) arg) != 0) return arg;
-				} else if (arg instanceof Long) {
-					if (((Long) arg) != 0L) return arg;
-				} else if (arg instanceof Float) {
-					if (((Float) arg) != 0.0f) return arg;
-				} else if (arg instanceof Double) {
-					if (((Double) arg) != 0.0) return arg;
-				} else if (arg instanceof Boolean) {
-					if (((Boolean) arg) != false) return arg;
-				} else if (arg instanceof BigDecimal) {
-					if (! BigDecimal.ZERO.equals(((BigDecimal) arg))) return arg;
-				} else {
-					return arg;
-				}
-			}
+			boolean truthy = switch (arg) {
+				case null -> false;
+				case String s -> ! s.isEmpty();
+				case Integer i -> i != 0;
+				case Long l -> l != 0L;
+				case Float f -> f != 0.0f;
+				case Double d -> d != 0.0;
+				case Boolean bool -> bool;
+				case BigDecimal bd -> ! BigDecimal.ZERO.equals(bd);
+				default -> true;
+			};
+			if (truthy) return arg;
 		}
 		return maybe_last;
 	}
 
 	public static String unv(String... args) {
-		//return until_not_void(args);
 		return (String) unv((Object[]) args);
 	}
 	public static Integer unv(Integer... args) {
@@ -72,7 +64,6 @@ public class UntilNotVoid {
 		return (Boolean) unv((Object[]) args);
 	}
 	public static BigDecimal unv(BigDecimal... args) {
-		//return until_not_void(args);
 		return (BigDecimal) unv((Object[]) args);
 	}
 }

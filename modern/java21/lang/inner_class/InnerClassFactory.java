@@ -1,5 +1,9 @@
 package modern.java21.lang.inner_class;
 
+// 원형 유지: non-static inner 클래스는 static 메서드에서 바로 만들 수 없어 감싸는 인스턴스를
+// 통해야 한다는 것과, static nested 클래스는 그럴 필요가 없다는 대비가 주제다.
+// InnerClassFactoryDemo.java, InnerClassInstantiationDemo.java와 함께 본다.
+
 public class InnerClassFactory {
 	
 	private InnerClassFactory() {}
