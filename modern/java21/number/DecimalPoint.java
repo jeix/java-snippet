@@ -1,8 +1,6 @@
 package modern.java21.number;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import static modern.java21.test.Expect.expect;
 public class DecimalPoint {
@@ -84,7 +82,7 @@ public class DecimalPoint {
 	 * @return
 	 */
 	public String plainValue() {
-		StringBuffer sb = new StringBuffer(10);
+		StringBuilder sb = new StringBuilder(10);
 		if (integer.length() > 0) {
 			sb.append(sign);
 			sb.append(integer);
@@ -111,7 +109,7 @@ public class DecimalPoint {
 	 */
 	public String commaValue(int fractionSize) {
 		if (empty_for_zero && isZero()) return EMPTY;
-		StringBuffer sb = new StringBuffer(10);
+		StringBuilder sb = new StringBuilder(10);
 		if (integer.length() > 0) {
 			sb.append(sign);
 			try {
@@ -142,7 +140,7 @@ public class DecimalPoint {
 	 */
 	public String humanReadable(int fractionSize) {
 		if (empty_for_zero && isZero()) return EMPTY;
-		StringBuffer sb = new StringBuffer(10);
+		StringBuilder sb = new StringBuilder(10);
 		if (integer.length() > 0) {
 			sb.append(sign);
 			sb.append(humanReadableInteger());
@@ -159,7 +157,7 @@ public class DecimalPoint {
 	
 	private static class Number {
 		private static long ZERO = 0L;
-		private static long THOUSNAD = 1000L;
+		private static long THOUSAND = 1000L;
 		private static long HUNDRED = 100L;
 		private static long TEN = 10L;
 	}
@@ -172,7 +170,7 @@ public class DecimalPoint {
 		try {
 			long num = Long.parseLong(integer);
 			if (num == Number.ZERO) return ZERO;
-			StringBuffer sb = new StringBuffer(15);
+			StringBuilder sb = new StringBuilder(15);
 			for (int i = 0; i < SCALES.length; i++) {
 				if (num >= SCALES[i]) {
 					long div = num / SCALES[i];
@@ -183,11 +181,11 @@ public class DecimalPoint {
 				}
 			}
 			if (num > Number.ZERO) {
-				if (num >= Number.THOUSNAD) {
-                    sb.append(comma(num));
-                } else {
-                    sb.append(num);
-                }
+				if (num >= Number.THOUSAND) {
+					sb.append(comma(num));
+				} else {
+					sb.append(num);
+				}
 			}
 			return sb.toString();
 		} catch (NumberFormatException nfe) {
@@ -201,47 +199,7 @@ public class DecimalPoint {
 	 * @return
 	 */
 	private String comma(long val) {
-		/* v1
-		if (val == Number.ZERO) return ZERO;
-		List<Long> csv = new ArrayList<Long>();
-		while (val > Number.THOUSNAD) {
-			long div = val / Number.THOUSNAD;
-			long remain = val - div * Number.THOUSNAD;
-			csv.add(remain);
-			val = div;
-		}
-		if (val > Number.ZERO) {
-			csv.add(val);
-		}
-		StringBuffer sb = new StringBuffer(10);
-		int begin = csv.size() - 1;
-		for (int i = begin; i >= 0; i--) {
-			long part = csv.get(i);
-			if (i < begin) {
-				if (part < Number.HUNDRED) sb.append(ZERO);
-				if (part < Number.TEN) sb.append(ZERO);
-			}
-			sb.append(part);
-			if (i > 0) {
-				sb.append(",");
-			}
-		}
-		return sb.toString();
-		//*/
-		/* v2
-		StringBuffer sb = new StringBuffer(10);
-		sb.append(val).reverse();
-		int end = sb.length();
-		for (int i = 3; i < end; i = i + 3) {
-			sb.insert(i, ",");
-			i = i + 1;
-			end = end + 1;
-		}
-		return sb.reverse().toString();
-		//*/
-		//* v3
 		return NumberFormat.getInstance().format(val);
-		//*/
 	}
 	
 	/**
@@ -250,36 +208,10 @@ public class DecimalPoint {
 	 * @return
 	 */
 	private String fraction(int size) {
-		/* v1
-		if (fraction.length() == size) {
-			return fraction;
-		} else if (fraction.length() > size) {
-			return fraction.substring(0, size); // 버림 (not 반올림)
-		} else {
-			int sizeDiff = size - fraction.length();
-			return new StringBuffer(size).append(fraction).append(repeatZero(sizeDiff)).toString();
-		}
-		//*/
-		//* v2
 		NumberFormat nf = NumberFormat.getInstance();
 		nf.setMaximumFractionDigits(size);
 		nf.setMinimumFractionDigits(size);
 		return nf.format(Double.parseDouble(ZERO + POINT + fraction)).substring(2);
-		//*/
-	}
-	
-	/**
-	 * 
-	 * @param n
-	 * @return
-	 */
-	private String repeatZero(int n) {
-		if (n <= 0) return "";
-		StringBuffer sb = new StringBuffer(n);
-		for (int i = 0; i < n; i++) {
-			sb.append(ZERO);
-		}
-		return sb.toString();
 	}
 	
 	/**

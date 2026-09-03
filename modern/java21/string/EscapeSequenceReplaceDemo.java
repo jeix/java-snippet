@@ -3,6 +3,9 @@ package modern.java21.string;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+// 원형 유지: String#replace()/replaceAll()과 Matcher#quoteReplacement()/
+// appendReplacement()가 백슬래시를 서로 다르게 다룬다는 것 자체가 주제라 바꿀 대상이 없다.
+
 public class EscapeSequenceReplaceDemo {
 	
 	String s = "foo \t bar";

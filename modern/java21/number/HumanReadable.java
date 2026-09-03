@@ -18,9 +18,7 @@ public class HumanReadable {
 		}
 		NumberFormat nf = new DecimalFormat("#,##0.#");
 		nf.setMaximumFractionDigits(2);
-		StringBuffer sb = new StringBuffer();
-		sb.append(nf.format(d)).append(si_prefixes[e]).append("B");
-		return sb.toString();
+		return nf.format(d) + si_prefixes[e] + "B";
 	}
 	
 	private void test_human_readable_file_size() {
@@ -48,7 +46,7 @@ public class HumanReadable {
 		if (s.length() > 0) {
 			list.add(s);
 		}
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		for (int i = list.size() - 1; i >= 0; i--) {
 			sb.append(list.get(i)).append(kr_prefixes[i]);
 			if (i > 0) sb.append(" ");

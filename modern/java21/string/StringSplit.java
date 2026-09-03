@@ -2,6 +2,10 @@ package modern.java21.string;
 
 import java.util.StringTokenizer;
 
+// 원형 유지: String#split()과 StringTokenizer가 끝에 나타나는 구분자와 빈 문자열을
+// 서로 다르게 처리한다는 것 자체가 주제라 바꿀 대상이 없다. StringTokenizer는 레거시
+// API지만 여기서는 비교 대상으로 의도적으로 쓰인다. StringSplitDemo.java와 함께 본다.
+
 public class StringSplit {
 	
 	private void test_java_lang_String_split() {

@@ -1,5 +1,8 @@
 package modern.java21.number;
 
+// 원형 유지: Integer.parseInt()/Float.parseFloat()가 진법·선행 0·잘못된 형식에서 실제로
+// 어떤 값(또는 예외)을 돌려주는지 확인하는 게 주제라 바꿀 대상이 없다.
+
 public class IntegerParseIntTest {
 	
 	private void test_Integer_parseInt() {

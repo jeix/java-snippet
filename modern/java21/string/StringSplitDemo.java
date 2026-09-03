@@ -2,6 +2,10 @@ package modern.java21.string;
 
 import java.util.StringTokenizer;
 
+// 원형 유지: 구분자가 문자열의 앞/뒤/전부를 차지할 때 String#split()과 StringTokenizer가
+// 토큰 개수를 서로 다르게 센다는 것 자체가 주제라 바꿀 대상이 없다. StringSplit.java와
+// 함께 본다.
+
 public class StringSplitDemo {
 	
 	public static void split(String s) {

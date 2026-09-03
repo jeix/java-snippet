@@ -2,6 +2,10 @@ package modern.java21.number;
 
 import java.math.BigDecimal;
 
+// 원형 유지: BigDecimal#toString()/toPlainString()/movePointLeft()/movePointRight()/
+// precision()/scale()/signum()이 실제로 어떤 값을 돌려주는지 확인하는 게 주제라 바꿀
+// 대상이 없다.
+
 public class BigDecimalDemo {
 
 	public static void main(String[] args) {

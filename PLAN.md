@@ -67,7 +67,7 @@ javac -encoding UTF-8 -d out/modern -sourcepath .            $(find modern      
   - [x] 4-3. lang (함수형·null 처리·기타)
   - [x] 4-4. collection
   - [x] 4-5. ood
-  - [ ] 4-6. number/string
+  - [x] 4-6. number/string
   - [ ] 4-7. test 하네스 + 최상위 (`ExpectTest`, `Expect2Test`, `lsc`, `NpidCheck`)
 - [ ] 5. 시리즈에 새 단계 추가 (아래 표, "Java 21에서 정말 새 답이 생긴 경우"만)
 - [x] 6a. 루트 `README.md` 초안 작성 (구조·컴파일법·진행 상황 표). 이후 영역별 모던화 커밋마다

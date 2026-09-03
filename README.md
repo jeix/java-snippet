@@ -45,7 +45,7 @@ java -cp out/modern modern.java21.<package>.<Class>
 | lang | 완료 |
 | collection | 완료 |
 | ood | 완료 |
-| number/string | 진행 예정 |
+| number/string | 완료 |
 | test 하네스 + 최상위 | 진행 예정 |
 | 시리즈 새 단계 추가 (EnumDemo5 등) | 진행 예정 |
 

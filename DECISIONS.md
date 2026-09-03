@@ -247,3 +247,20 @@ PLAN.md 초안은 이 9개 파일의 도메인 클래스(`ChangeOverview`/`BizRu
 `Object[]`의 하위 타입) `params`를 그대로 넘기면 된다. `invoke()`의
 `IllegalAccessException`/`InvocationTargetException` catch 블록은 본문이 똑같아서
 멀티 catch로 합쳤다.
+
+## D24. `DecimalPoint`: 이미 죽어 있던 v1/v2 대안 구현과 그것에만 쓰이던 헬퍼를 지운다
+
+`comma()`와 `fraction()` 메서드에는 `/* v1 ... */`, `/* v2 ... */`로 통째로 주석 처리된
+대안 구현이 실제로 쓰이는 v3(`NumberFormat` 기반) 코드 옆에 그대로 남아 있었다. 이미 죽어
+있던 코드(컴파일도 안 되고 실행도 안 됨)라 지워도 동작에 영향이 없어서 지웠다. 그 결과
+v1에서만 쓰던 `repeatZero()` 헬퍼도 완전히 미사용 상태가 돼서 같이 지웠고, `List`/`ArrayList`
+import도 더 이상 필요 없어져서 지웠다. 나머지 `StringBuffer` → `StringBuilder` 치환, 내부
+헬퍼 클래스의 오타(`THOUSNAD` → `THOUSAND`) 수정, 뒤섞여 있던 공백 들여쓰기를 탭으로 통일한
+것도 전부 동작에 영향 없는 표현 정리다. assertion 기반 `main()`이 legacy와 완전히 동일하게
+통과하는 것으로 확인했다.
+
+## D25. `string/FormatterFormatDemo`: `new Float(10.4)` → `10.4f`
+
+`Float(double)` 생성자는 Java 9부터 deprecated, 제거 예정(`for removal`) 표시가 붙어 있다.
+`Formatter#format()`이 받는 `Object...`에는 float 리터럴 `10.4f`를 그대로 넘겨도 자동으로
+박싱되므로, 생성자를 쓸 이유가 없었다.

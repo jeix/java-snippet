@@ -1,7 +1,10 @@
 package modern.java21.string;
 
-public class MethodParamterSignatureFormatter {
-	
+// legacy/java8/string/MethodParamterSignatureFormatter.java 를 대체해요.
+// 이름 변경 이유: 클래스명의 오타(Paramter) 수정.
+
+public class MethodParameterSignatureFormatter {
+
 	private void test_format_comma_separated_method_parameter() {
 		String expected = "foo(bar, baz)";
 		String[] cases = {
@@ -29,18 +32,18 @@ public class MethodParamterSignatureFormatter {
 			.replaceAll(" +\\)", ")")
 			.replaceAll("\\( +", "(");
 	}
-	
+
 	private void test_nothing() {
 		System.out.println(":wq");
 	}
-	
+
 	public void test() {
 		test_format_comma_separated_method_parameter();
 		test_nothing();
 	}
-	
+
 	public static void main(String[] args) {
-		MethodParamterSignatureFormatter worker = new MethodParamterSignatureFormatter();
+		MethodParameterSignatureFormatter worker = new MethodParameterSignatureFormatter();
 		worker.test();
 	}
 }

@@ -1,5 +1,9 @@
 package modern.java21.string;
 
+// 원형 유지: String#replaceAll()이 정규식을 받는다는 것(패턴 문자를 이스케이프해야 하고,
+// 문자 클래스로 숫자만 남기는 등) 자체가 주제라 바꿀 대상이 없다. StringReplaceDemo.java
+// (정규식이 아닌 replace())와 대비된다.
+
 public class StringReplaceAllDemo {
 	
 	private void test_String_replaceAll() {
