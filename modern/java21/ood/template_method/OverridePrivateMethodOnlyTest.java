@@ -1,64 +1,58 @@
 package modern.java21.ood.template_method;
 
 public class OverridePrivateMethodOnlyTest {
-	
-	class Foo {
-		
-		public void public_template_method() {
+
+	static sealed class Foo permits Bar, Baz {
+		public void publicTemplateMethod() {
 			System.out.println("Foo#public_template_method()");
-			private_method();
+			privateMethod();
 		}
-		
-		private void private_method() {
+
+		private void privateMethod() {
 			System.out.println("Foo#private_method()");
 		}
 	}
-	
-	class Bar extends Foo {
-		
-		private void private_method() {
+
+	static final class Bar extends Foo {
+		private void privateMethod() {
 			System.out.println("Bar#private_method()");
 		}
 	}
-	
-	class Baz extends Foo {
-		
-		public void public_template_method() {
+
+	static final class Baz extends Foo {
+		@Override
+		public void publicTemplateMethod() {
 			System.out.println("Baz#public_template_method()");
-			private_method();
+			privateMethod();
 		}
-		
-		private void private_method() {
+
+		private void privateMethod() {
 			System.out.println("Baz#private_method()");
 		}
 	}
-	
-	private void test_Something() {
+
+	private void testSomething() {
 		Foo foo = new Foo();
-		foo.public_template_method();
-			// -> Foo#public_template_method()
-			// -> Foo#private_method()
+		foo.publicTemplateMethod();
+
 		Foo bar = new Bar();
-		bar.public_template_method();
-			// -> Foo#public_template_method()
-			// -> Foo#private_method()
+		bar.publicTemplateMethod();
+
 		Foo baz = new Baz();
-		baz.public_template_method();
-			// -> Baz#public_template_method()
-			// -> Baz#private_method()
+		baz.publicTemplateMethod();
 	}
-	
-	private void test_nothing() {
+
+	private void testNothing() {
 		System.out.println(":wq");
 	}
-	
+
 	public void test() {
-		test_Something();
-		test_nothing();
+		testSomething();
+		testNothing();
 	}
-	
+
 	public static void main(String[] args) {
-		OverridePrivateMethodOnlyTest worker = new OverridePrivateMethodOnlyTest();
+		var worker = new OverridePrivateMethodOnlyTest();
 		worker.test();
 	}
 }

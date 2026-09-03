@@ -1,72 +1,72 @@
 package modern.java21.ood.template_method;
 
 public class OverrideWorkingMethodDemo {
-	
-	abstract class Foo {
-		
-		public final void public_template_method() {
+
+	sealed interface Foo permits NaturalFoo, RealFoo, ComplexFoo {
+		void publicTemplateMethod();
+	}
+
+	static final class NaturalFoo implements Foo {
+		@Override
+		public void publicTemplateMethod() {
 			System.out.println("Foo#public_template_method()");
-			protected_method();
-			private_method();
-		}
-		
-		protected abstract void protected_method();
-		
-		private void private_method() {
+			protectedMethod();
 			System.out.println("Foo#private_method()");
 		}
-	}
-	
-	class NaturalFoo extends Foo {
-		
-		protected void protected_method() {
+
+		private void protectedMethod() {
 			System.out.println("NaturalFoo#protected_method()");
 		}
 	}
-	
-	class RealFoo extends Foo {
-		
-		protected void protected_method() {
+
+	static final class RealFoo implements Foo {
+		@Override
+		public void publicTemplateMethod() {
+			System.out.println("Foo#public_template_method()");
+			protectedMethod();
+			System.out.println("Foo#private_method()");
+		}
+
+		private void protectedMethod() {
 			System.out.println("RealFoo#protected_method()");
 		}
 	}
-	
-	class ComplexFoo extends Foo {
-		
-		protected void protected_method() {
+
+	static final class ComplexFoo implements Foo {
+		@Override
+		public void publicTemplateMethod() {
+			System.out.println("Foo#public_template_method()");
+			protectedMethod();
+			System.out.println("Foo#private_method()");
+		}
+
+		private void protectedMethod() {
 			System.out.println("ComplexFoo#protected_method()");
 		}
 	}
-	
-	private void test_Something() {
+
+	private void testSomething() {
 		Foo natural = new NaturalFoo();
-		natural.public_template_method();
-			// -> Foo#public_template_method()
-			// -> NaturalFoo#protected_method()
-			// -> Foo#private_method()
+		natural.publicTemplateMethod();
+
 		Foo real = new RealFoo();
-		real.public_template_method();
-			// -> Foo#public_template_method()
-			// -> RealFoo#protected_method()
-			// -> Foo#private_method()
+		real.publicTemplateMethod();
+
 		Foo complex = new ComplexFoo();
-		complex.public_template_method();
-			// -> Foo#public_template_method()
-			// -> ComplexFoo#protected_method()
-			// -> Foo#private_method()
+		complex.publicTemplateMethod();
 	}
-	
-	private void test_nothing() {
+
+	private void testNothing() {
 		System.out.println(":wq");
 	}
-	
+
 	public void test() {
-		test_Something();
-		test_nothing();
+		testSomething();
+		testNothing();
 	}
-	
+
 	public static void main(String[] args) {
-		OverrideWorkingMethodDemo worker = new OverrideWorkingMethodDemo();
+		var worker = new OverrideWorkingMethodDemo();
 		worker.test();
 	}
 }

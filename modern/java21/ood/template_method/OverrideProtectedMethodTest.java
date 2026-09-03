@@ -1,48 +1,44 @@
 package modern.java21.ood.template_method;
 
 public class OverrideProtectedMethodTest {
-	
-	class Foo {
-		
-		public final void public_template_method() {
+
+	abstract static class Foo {
+		public final void publicTemplateMethod() {
 			System.out.println("Foo#public_template_method()");
-			protected_method();
+			protectedMethod();
 		}
-		
-		protected void protected_method() {
+
+		protected void protectedMethod() {
 			System.out.println("Foo#protected_method()");
 		}
 	}
-	
-	class Bar extends Foo {
-		
-		protected void protected_method() {
+
+	static final class Bar extends Foo {
+		@Override
+		protected void protectedMethod() {
 			System.out.println("Bar#protected_method()");
 		}
 	}
-	
-	private void test_Something() {
-		Foo foo = new Foo();
-		foo.public_template_method();
-			// -> Foo#public_template_method()
-			// -> Foo#protected_method()
+
+	private void testSomething() {
+		Foo foo = new Foo() {};
+		foo.publicTemplateMethod();
+
 		Foo bar = new Bar();
-		bar.public_template_method();
-			// -> Foo#public_template_method()
-			// -> Bar#protected_method()
+		bar.publicTemplateMethod();
 	}
-	
-	private void test_nothing() {
+
+	private void testNothing() {
 		System.out.println(":wq");
 	}
-	
+
 	public void test() {
-		test_Something();
-		test_nothing();
+		testSomething();
+		testNothing();
 	}
-	
+
 	public static void main(String[] args) {
-		OverrideProtectedMethodTest worker = new OverrideProtectedMethodTest();
+		var worker = new OverrideProtectedMethodTest();
 		worker.test();
 	}
 }
