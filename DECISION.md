@@ -118,6 +118,20 @@
 - 검토한 대안: 실행 환경의 기본 locale 유지, 테스트 실행 시에만 locale 강제.
 - 기각 근거: 기본 locale을 사용하면 같은 소스가 실행 환경에 따라 다른 문자열을 만들며, 테스트에만 locale을 지정하면 예제 API 자체의 결과는 여전히 불안정하다.
 
+## D-019: Expect2 matcher 의미
+
+- 상태: 확정
+- 결정: match는 regex의 부분 일치, contain은 문자열·iterable·배열 membership, order는 숫자 간 타입을 넘어 값으로 비교하고 그 외에는 같은 타입의 `Comparable`만 허용한다. close는 절대 tolerance를 사용한다. truthy/falsy는 null, boolean, 0, null character, 빈 문자열·컬렉션·map·배열을 falsy로 정의하며 throw matcher는 `ThrowingRunnable`을 실행한다.
+- 검토한 대안: 주석만 제거하거나 boolean과 객체 배열에만 matcher를 한정, JavaScript의 암묵적 변환을 그대로 모방.
+- 기각 근거: 미구현 API를 실제 테스트에 사용하려면 Java 타입별 의미와 잘못된 비교의 실패 경계를 명시해야 하며, 과도한 문자열·숫자 변환은 타입 오류를 숨긴다.
+
+## D-020: NpidCheck와 lsc의 실패 정책
+
+- 상태: 확정
+- 결정: `NpidCheck`는 형식이 잘못된 입력을 false로 반환하고 기존 checksum 규칙은 유지한다. `lsc`는 파일 I/O 실패와 직접 호출의 잘못된 mode를 예외로 전파하며 CLI의 잘못된 인자에는 usage를 출력한다.
+- 검토한 대안: 기존처럼 parse 예외와 null stream을 허용하거나 I/O 예외를 출력 후 무시.
+- 기각 근거: validation API는 malformed input을 정상적인 거부 결과로 처리해야 하고, 변환 도구가 I/O 실패를 숨기면 호출자는 원본이 변경됐는지 신뢰할 수 없다.
+
 ## 추후 결정 필요
 
 - 빌드 스크립트 또는 테스트 프레임워크를 추가할지, 직접 `javac` 실행을 유지할지

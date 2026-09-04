@@ -15,10 +15,19 @@
 | 파일 또는 묶음 | 처리 | 변경 방향과 근거 |
 |---|---|---|
 | `test/Expect.java`, `ExpectTest.java` | 제한 변경 | 호출 관계와 비교 의미를 유지하고 null 안전성, 잘못된 실패 메시지 등 구현 결함만 고친다. |
-| `test/Expect2.java`, `Expect2Test.java` | 유지 | `Expect`에서 fluent API로 이어지는 별도 시도의 장단점을 보존한다. |
+| `test/Expect2.java`, `Expect2Test.java` | 기존 파일 변경 | fluent API 구조를 유지하고 주석으로만 남은 matcher를 구현해 Java 타입별 의미를 검증한다. |
 | `NpidCheck.java` | 제한 변경 | 검증 알고리즘과 결과를 고정하고 명명, 상수와 입력 검증만 정리한다. |
-| `lsc.java` | 기존 파일 변경 | line separator 변환 목적을 유지하며 `Path`, `Files`, `StandardCharsets`, try-with-resources를 적용한다. |
+| `lsc.java` | 기존 파일 변경 | line separator 변환 목적을 유지하며 `Path`, `Files`, `StandardCharsets`와 명확한 오류 전파를 적용한다. |
 | `_list.txt`, `refactoring_a_case.txt` | 유지 | 각각 원본 예제 목록과 gradual refactoring 과정 자체가 교육 자료다. |
+
+### Root와 test 완료 결과
+
+- `test/Expect.java`는 `Objects.equals`와 `String.valueOf`로 null-safe하게 만들고 `BigDecimal` 실패 메시지의 기대값 오류를 고쳤다. `ExpectTest.java`에 null 비교를 추가했다.
+- `test/Expect2.java`는 기존 `expect(...).not`/`nay()` 구조를 유지하면서 `to_match`, `to_be_null`, `to_be_truthy`, `to_be_falsy`, `to_be_less_than`, `to_be_greater_than`, `to_be_close_to`, `to_throw`를 구현했다. `to_contain`은 문자열, iterable, 객체 및 primitive 배열을 지원한다.
+- 사용자가 지칭한 `ExpectTest2.java`의 실제 기존 파일명은 `Expect2Test.java`이므로 이름을 바꾸지 않고 이 파일에서 모든 추가 matcher의 긍정·부정 경로를 실행한다.
+- `NpidCheck.java`는 checksum 알고리즘과 기존 유효 사례를 유지하며 상수, ASCII digit 변환과 malformed input 검사를 정리했다.
+- `lsc.java`는 반복적인 배열 재할당과 null stream 오류를 제거하고 `Files.readAllBytes/write`, `ByteArrayOutputStream`, UTF-8 newline 상수와 switch expression을 사용한다. 빈 파일은 그대로 두고 I/O 오류는 전파한다.
+- `test/Expect2.java`, `Expect2Test.java`는 사용자 요구로 기존 `유지` 분류에서 `기존 파일 변경`으로 조정했다. `_list.txt`, `refactoring_a_case.txt`는 기존 교육 자료이므로 변경하지 않았다.
 
 ## collection
 

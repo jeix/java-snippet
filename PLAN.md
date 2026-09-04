@@ -15,7 +15,7 @@
 - 영역별 동작 현대화: `datetime/`, `file/`, `collection/`, `lang/`, `ood/` 완료
 - 2026-09-04 전체 재검증:
   - legacy: Java 소스 83개, class 파일 234개, Java 8 대상 컴파일 성공(기존 경고 43건)
-  - modern: Java 소스 90개, class 파일 245개, Java 21 대상 컴파일 성공(기존 보존 예제 경고 15건)
+  - modern: Java 소스 90개, class 파일 246개, Java 21 대상 컴파일 성공(기존 보존 예제 경고 14건, 루트/test 완료 후 갱신)
   - legacy/modern의 `refactoring_a_case.txt`가 모두 유효한 UTF-8임을 확인
   - 루트 `README.md`는 아직 없으며 6단계에서 작성 예정
 
@@ -54,7 +54,7 @@
 - enum, collection iteration, anonymous/lambda, clone/copy, for-each/stream, reflection delegation, immutable collection에 후속 예제를 추가하기로 했다.
 - 전체 분류, 변경 방향과 보존 근거를 `modern/java21/README.md`에 기록했다.
 
-### 5. 영역별 현대화 — 진행 중
+### 5. 영역별 현대화 — 완료
 
 다음 순서로 작은 검증 단위로 진행한다.
 
@@ -64,7 +64,7 @@
 4. `lang/` — 완료
 5. `ood/` — 완료
 6. `string/`, `number/` — 완료
-7. 루트와 `test/`
+7. 루트와 `test/` — 완료
 
 각 영역에서 deprecated API 제거 자체보다 예제의 원래 주제 보존을 우선한다. 저수준 API가 주제인 `NioRw.java`나 `RandomAccessFileDemo.java` 등은 상위 편의 API로 단순 치환하지 않는다.
 
@@ -132,6 +132,15 @@
 - 기본 locale 및 `de_DE`에서 변경 대상 4개의 출력이 동일하고, 전체 string/number main 13개가 legacy의 정상 locale 출력과 일치함을 확인했다.
 - split, replace, regex, integer parsing과 `BigDecimal` 예제는 각각의 API 차이가 주제이므로 변경하지 않았다.
 
+#### 루트와 test 완료 결과
+
+- `Expect`는 `Objects.equals`와 null-safe 출력으로 공통 비교를 정리하고 `BigDecimal` 실패 메시지가 실제 기대값을 표시하도록 수정했다.
+- `Expect2`의 주석으로만 남아 있던 match/null/truthy/falsy/order/close/throw matcher 8종을 구현하고 기존 `to_contain`을 문자열, iterable, 객체·primitive 배열에 대응하도록 확장했다.
+- 실제 대응 파일인 `Expect2Test`에서 모든 추가 matcher의 긍정·부정 경로를 호출하고 성공 시 `:wq`만 출력함을 확인했다.
+- `NpidCheck`는 검증 알고리즘을 유지하면서 상수와 digit 변환을 정리하고 null·길이·비숫자 입력을 예외 없이 거부한다.
+- `lsc`는 `Path`, `Files`, `StandardCharsets`, `ByteArrayOutputStream`과 switch expression으로 구현하고 I/O 실패를 호출자에게 전파한다.
+- `lsc`의 LF/CRLF 양방향 변환이 legacy와 일치하고 빈 파일, 이미 CRLF인 파일의 멱등성과 잘못된 mode의 usage 출력을 확인했다.
+
 ### 6. README와 최종 검증 — 대기
 
 - 기존 README를 `legacy/java8/README.md`로 보존한다.
@@ -140,4 +149,4 @@
 
 ## 다음 단계
 
-`string/`, `number/` 변경을 검토하고 커밋한 뒤 루트와 `test/`를 현대화한다. 이후 새 루트 `README.md` 작성과 최종 검증으로 마무리한다.
+루트와 `test/` 변경을 검토하고 커밋한 뒤 새 루트 `README.md` 작성과 최종 검증으로 마무리한다.

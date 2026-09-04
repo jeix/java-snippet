@@ -21,6 +21,9 @@ public class ExpectTest {
 		expect(new BigDecimal(1), BigDecimal.ONE);
 		expect(Date.valueOf("2012-07-06"), Date.valueOf("2012-07-06"));
 		expect(123, 123);
+		expect((Object) null, null);
+		expect((String) null, null);
+		expect((BigDecimal) null, null);
 
 		try {
 			Integer.valueOf("0x10");
