@@ -155,6 +155,15 @@
 | `DecimalPoint.java`, `HumanReadable.java` | 제한 변경 | 계산·출력 규칙을 고정하고 generic, 불변 반환과 formatter 사용만 정리한다. |
 | `NumberFormatDemo.java` | 제한 변경 | 동작을 유지하고 환경 locale 의존성을 제거한다. |
 
+### string과 number 완료 결과
+
+- `FormatterFormatDemo.java`는 `new Float(double)`를 autoboxing으로 교체하고 `Formatter`에 `Locale.ROOT`와 try-with-resources를 적용했다. 기존 formatter 출력은 유지된다.
+- `DecimalPoint.java`는 내부에 남겨 둔 v1/v2/v3 구현 비교와 기존 반올림·한글 단위 규칙을 유지하면서 상수 목록을 `List.of`로 만들고 `StringBuilder`, `String.repeat`, locale 고정 formatter를 적용했다.
+- `HumanReadable.java`는 단위 prefix를 `List.of`로 보호하고 `P`, `E` 범위를 추가했으며 `DecimalFormatSymbols`에 `Locale.ROOT`를 명시했다.
+- `NumberFormatDemo.java`는 `NumberFormat.getInstance(Locale.ROOT)`로 실행 환경과 무관하게 기존 예상 문자열을 만든다.
+- 변경 대상은 기본 locale과 `de_DE`에서 동일하게 동작한다. 기존 string/number main 13개의 정상 locale 출력도 legacy와 동일하다.
+- `StringSplit.java`, `StringSplitDemo.java`, replace/regex 예제군, `MethodParamterSignatureFormatter.java`, integer parsing 예제와 `BigDecimalDemo.java`는 API별 차이와 실패 자체가 학습 내용이므로 변경하지 않았다.
+
 ## 검증 원칙
 
 - 기존 파일 변경 전 대표 출력과 경계 사례를 기록한다.

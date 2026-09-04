@@ -111,6 +111,13 @@
 - 검토한 대안: 기존 reflection 구현의 raw type과 예외 처리를 직접 수정, 기존 freeze 구현을 record로 교체, unmodifiable view 사용.
 - 기각 근거: 기존 구현을 수정하면 delegation 및 immutability 접근법의 발전 단계를 잃는다. unmodifiable view는 원본 mutable collection의 후속 변경을 반영하므로 독립된 snapshot 요구를 충족하지 않는다.
 
+## D-018: 숫자 문자열 예제의 locale 정책
+
+- 상태: 확정
+- 결정: 예제가 점을 소수 구분자로, 쉼표를 그룹 구분자로 기대하는 모든 formatter에는 `Locale.ROOT`를 명시한다. 기존 입력에 대한 반올림, 한글 단위와 출력 형식은 변경하지 않는다.
+- 검토한 대안: 실행 환경의 기본 locale 유지, 테스트 실행 시에만 locale 강제.
+- 기각 근거: 기본 locale을 사용하면 같은 소스가 실행 환경에 따라 다른 문자열을 만들며, 테스트에만 locale을 지정하면 예제 API 자체의 결과는 여전히 불안정하다.
+
 ## 추후 결정 필요
 
 - 빌드 스크립트 또는 테스트 프레임워크를 추가할지, 직접 `javac` 실행을 유지할지

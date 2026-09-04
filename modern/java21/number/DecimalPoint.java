@@ -1,8 +1,8 @@
 package modern.java21.number;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static modern.java21.test.Expect.expect;
 
@@ -85,7 +85,7 @@ public class DecimalPoint {
 	 * @return
 	 */
 	public String plainValue() {
-		StringBuffer sb = new StringBuffer(10);
+		StringBuilder sb = new StringBuilder(10);
 		if (integer.length() > 0) {
 			sb.append(sign);
 			sb.append(integer);
@@ -112,7 +112,7 @@ public class DecimalPoint {
 	 */
 	public String commaValue(int fractionSize) {
 		if (empty_for_zero && isZero()) return EMPTY;
-		StringBuffer sb = new StringBuffer(10);
+		StringBuilder sb = new StringBuilder(10);
 		if (integer.length() > 0) {
 			sb.append(sign);
 			try {
@@ -143,7 +143,7 @@ public class DecimalPoint {
 	 */
 	public String humanReadable(int fractionSize) {
 		if (empty_for_zero && isZero()) return EMPTY;
-		StringBuffer sb = new StringBuffer(10);
+		StringBuilder sb = new StringBuilder(10);
 		if (integer.length() > 0) {
 			sb.append(sign);
 			sb.append(humanReadableInteger());
@@ -155,14 +155,14 @@ public class DecimalPoint {
 		return sb.toString();
 	}
 
-	private static long[] SCALES = {100000000L, 10000L};
-	private static String[] KR_PREFIXES = {"억", "만"};
+	private static final List<Long> SCALES = List.of(100000000L, 10000L);
+	private static final List<String> KR_PREFIXES = List.of("억", "만");
 
 	private static class Number {
-		private static long ZERO = 0L;
-		private static long THOUSNAD = 1000L;
-		private static long HUNDRED = 100L;
-		private static long TEN = 10L;
+		private static final long ZERO = 0L;
+		private static final long THOUSAND = 1000L;
+		private static final long HUNDRED = 100L;
+		private static final long TEN = 10L;
 	}
 
 	/**
@@ -173,18 +173,18 @@ public class DecimalPoint {
 		try {
 			long num = Long.parseLong(integer);
 			if (num == Number.ZERO) return ZERO;
-			StringBuffer sb = new StringBuffer(15);
-			for (int i = 0; i < SCALES.length; i++) {
-				if (num >= SCALES[i]) {
-					long div = num / SCALES[i];
-					num = num - div * SCALES[i];
+			StringBuilder sb = new StringBuilder(15);
+			for (int i = 0; i < SCALES.size(); i++) {
+				if (num >= SCALES.get(i)) {
+					long div = num / SCALES.get(i);
+					num = num - div * SCALES.get(i);
 					if (div > Number.ZERO) {
-						sb.append(comma(div)).append(KR_PREFIXES[i]);
+						sb.append(comma(div)).append(KR_PREFIXES.get(i));
 					}
 				}
 			}
 			if (num > Number.ZERO) {
-				if (num >= Number.THOUSNAD) {
+				if (num >= Number.THOUSAND) {
                     sb.append(comma(num));
                 } else {
                     sb.append(num);
@@ -241,7 +241,7 @@ public class DecimalPoint {
 		return sb.reverse().toString();
 		//*/
 		//* v3
-		return NumberFormat.getInstance().format(val);
+		return NumberFormat.getIntegerInstance(Locale.ROOT).format(val);
 		//*/
 	}
 
@@ -262,7 +262,7 @@ public class DecimalPoint {
 		}
 		//*/
 		//* v2
-		NumberFormat nf = NumberFormat.getInstance();
+		NumberFormat nf = NumberFormat.getInstance(Locale.ROOT);
 		nf.setMaximumFractionDigits(size);
 		nf.setMinimumFractionDigits(size);
 		return nf.format(Double.parseDouble(ZERO + POINT + fraction)).substring(2);
@@ -275,12 +275,7 @@ public class DecimalPoint {
 	 * @return
 	 */
 	private String repeatZero(int n) {
-		if (n <= 0) return "";
-		StringBuffer sb = new StringBuffer(n);
-		for (int i = 0; i < n; i++) {
-			sb.append(ZERO);
-		}
-		return sb.toString();
+		return n <= 0 ? EMPTY : ZERO.repeat(n);
 	}
 
 	/**

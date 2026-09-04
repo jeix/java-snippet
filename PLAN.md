@@ -63,7 +63,8 @@
 3. `collection/` — 완료
 4. `lang/` — 완료
 5. `ood/` — 완료
-6. `string/`, `number/`, 루트와 `test/`
+6. `string/`, `number/` — 완료
+7. 루트와 `test/`
 
 각 영역에서 deprecated API 제거 자체보다 예제의 원래 주제 보존을 우선한다. 저수준 API가 주제인 `NioRw.java`나 `RandomAccessFileDemo.java` 등은 상위 편의 API로 단순 치환하지 않는다.
 
@@ -122,6 +123,15 @@
 - `template_method/` 네 파일은 private override 실패부터 protected working method까지의 단계 전체가 학습 내용이므로 변경하지 않았다.
 - 기존 ood main 14개 실행과 신규 main 2개 실행, 전체 Java 21 컴파일에 성공했다.
 
+#### string과 number 완료 결과
+
+- `FormatterFormatDemo`에서 제거 예정인 `Float(double)` 생성자를 autoboxing으로 교체하고 formatter 수명과 locale을 명시했다.
+- `DecimalPoint`, `HumanReadable`, `NumberFormatDemo`의 숫자 formatter에 `Locale.ROOT`를 적용해 기본 locale 의존성을 제거했다.
+- `DecimalPoint`의 내부 v1/v2/v3 구현 기록과 계산 규칙은 유지하면서 상수 컬렉션, `StringBuilder`, `String.repeat`를 적용했다.
+- `HumanReadable`의 prefix를 불변 목록으로 만들고 `Long.MAX_VALUE` 범위에 필요한 `P`, `E` 단위를 보완했다.
+- 기본 locale 및 `de_DE`에서 변경 대상 4개의 출력이 동일하고, 전체 string/number main 13개가 legacy의 정상 locale 출력과 일치함을 확인했다.
+- split, replace, regex, integer parsing과 `BigDecimal` 예제는 각각의 API 차이가 주제이므로 변경하지 않았다.
+
 ### 6. README와 최종 검증 — 대기
 
 - 기존 README를 `legacy/java8/README.md`로 보존한다.
@@ -130,4 +140,4 @@
 
 ## 다음 단계
 
-`string/`, `number/`, 루트와 `test/` 현대화를 진행한다. 이후 새 루트 `README.md` 작성과 최종 검증으로 마무리한다.
+`string/`, `number/` 변경을 검토하고 커밋한 뒤 루트와 `test/`를 현대화한다. 이후 새 루트 `README.md` 작성과 최종 검증으로 마무리한다.

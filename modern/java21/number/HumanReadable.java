@@ -1,13 +1,15 @@
 package modern.java21.number;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class HumanReadable {
 
-	private static String[] si_prefixes = {"", "k", "M", "G", "T"};
+	private static final List<String> SI_PREFIXES = List.of("", "k", "M", "G", "T", "P", "E");
 
 	public static String filesize(long size) {
 		double d = 1.0d * size;
@@ -16,11 +18,9 @@ public class HumanReadable {
 			d /= 1024;
 			e += 1;
 		}
-		NumberFormat nf = new DecimalFormat("#,##0.#");
+		NumberFormat nf = new DecimalFormat("#,##0.#", DecimalFormatSymbols.getInstance(Locale.ROOT));
 		nf.setMaximumFractionDigits(2);
-		StringBuffer sb = new StringBuffer();
-		sb.append(nf.format(d)).append(si_prefixes[e]).append("B");
-		return sb.toString();
+		return nf.format(d) + SI_PREFIXES.get(e) + "B";
 	}
 
 	private void test_human_readable_file_size() {
@@ -36,11 +36,11 @@ public class HumanReadable {
 		System.out.println(HumanReadable.filesize(1234567890L)); // 1.15GB
 	}
 
-	private static String[] kr_prefixes = {"", "만", "억", "조", "경"};
+	private static final List<String> KR_PREFIXES = List.of("", "만", "억", "조", "경");
 
 	public static String number_kr(long n) {
 		String s = String.valueOf(n);
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		while (s.length() > 4) {
 			list.add(s.substring(s.length()-4));
 			s = s.substring(0, s.length()-4);
@@ -48,9 +48,9 @@ public class HumanReadable {
 		if (s.length() > 0) {
 			list.add(s);
 		}
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		for (int i = list.size() - 1; i >= 0; i--) {
-			sb.append(list.get(i)).append(kr_prefixes[i]);
+			sb.append(list.get(i)).append(KR_PREFIXES.get(i));
 			if (i > 0) sb.append(" ");
 		}
 		return sb.toString();

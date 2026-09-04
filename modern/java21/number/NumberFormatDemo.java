@@ -1,13 +1,14 @@
 package modern.java21.number;
 
 import java.text.NumberFormat;
+import java.util.Locale;
 
 import static modern.java21.test.Expect.expect;
 
 public class NumberFormatDemo {
 
 	public static void main(String[] args) {
-		NumberFormat nf = NumberFormat.getInstance();
+		NumberFormat nf = NumberFormat.getInstance(Locale.ROOT);
 
 		nf.setMaximumFractionDigits(2);
 		nf.setMinimumFractionDigits(2);
