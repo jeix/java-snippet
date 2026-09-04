@@ -111,6 +111,13 @@
 | `void_/AvoidNullCheck.java`, `NullProof.java` | 유지 | null object와 null 회피에 대한 서로 다른 실험을 보존한다. |
 | `void_/until_not_void/UntilNotVoid.java`, `UntilNotVoidDemo.java` | 제한 변경 | generic helper 동작을 유지하고 불필요한 cast만 정리한다. |
 
+### lang 2차 완료 결과
+
+- `EnumDemo0.java`~`EnumDemo4.java`는 int 상수 → enum → 상태 → switch statement → constant-specific method로 이어지는 단계 전체가 학습 대상이므로 변경하지 않았다.
+- `EnumDemo5.java`를 다음 단계로 추가해 symbol을 enum 상태로 캡슐화하고 모든 상수를 포괄하는 switch expression으로 연산한다. 출력은 `EnumDemo4.java`와 동일해 구현을 직접 비교할 수 있다.
+- `for_each/Array.java`, `ForEachDemo.java`는 Java 표준 stream 이전에 callback 기반 for-each/filter/map/reduce를 직접 구성한 예제이므로 변경하지 않았다.
+- `for_each/StreamDemo.java`를 다음 단계로 추가해 `map`, `allMatch`, `anyMatch`, `filter`, `reduce`, `flatMap`과 Java 21 `List.reversed()`를 사용한다. 출력 순서와 값은 `ForEachDemo.java`와 동일하다.
+
 ## ood
 
 | 파일 또는 묶음 | 처리 | 변경 방향과 근거 |

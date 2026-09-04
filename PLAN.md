@@ -4,7 +4,7 @@
 
 - 현재 브랜치: `modern-codex` (`master`의 `37978fe412d0b91f9502b213b58c5d18dc5d92da`에서 생성)
 - 작업 트리: 5단계 `collection/` 완료 상태
-- Java 소스: legacy 83개, modern 86개
+- Java 소스: legacy 83개, modern 88개
 - 빌드 시스템: 없음; `javac`/`java` 직접 사용
 - 로컬 JDK: `javac 21.0.11`
 - 구조 변경 전 기준선 전체 소스: `javac 21.0.11 -encoding UTF-8 -Xlint:all` 컴파일 성공
@@ -56,7 +56,7 @@
 1. `datetime/` — 완료
 2. `file/` — 완료
 3. `collection/` — 완료
-4. `lang/` — 진행 중 (1차 일반 예제 완료)
+4. `lang/` — 진행 중 (1차 일반 예제, 2차 단계형 묶음 완료)
 5. `ood/`
 6. `string/`, `number/`, 루트와 `test/`
 
@@ -94,6 +94,13 @@
 - `ReturnOExitDemo`, `StaticMethodCallDemo`는 각각 종료/finally와 static dispatch가 주제이므로 변경하지 않았다.
 - 선택 파일 컴파일과 8개 main 실행, 보존 예제의 대표 출력 비교에 성공했다.
 
+#### lang 2차 완료 결과
+
+- `EnumDemo0`~`EnumDemo4`를 변경하지 않고 enum의 symbol 상태와 exhaustive switch expression을 결합한 `EnumDemo5`를 추가했다.
+- `Array`, `ForEachDemo`를 변경하지 않고 표준 stream pipeline을 사용하는 `StreamDemo`를 추가했다.
+- 기존 enum 5개 예제는 legacy와 동일한 출력을 유지하고 `EnumDemo5`는 `EnumDemo4`와 동일한 계산 결과를 낸다.
+- `StreamDemo`는 `ForEachDemo`의 for-each/every/some/filter/map/reduce/reduce-right 결과를 같은 순서로 재현한다.
+
 ### 6. README와 최종 검증 — 대기
 
 - 기존 README를 `legacy/java8/README.md`로 보존한다.
@@ -102,4 +109,4 @@
 
 ## 다음 단계
 
-`lang/` 1차 일반 예제 변경을 검토하고 커밋한 뒤 2차 단계형 하위 패키지(`enum_/`, `for_each/`)를 진행한다.
+`lang/` 2차 단계형 예제 변경을 검토하고 커밋한 뒤 3차 유틸리티 묶음(`is_in/`, `void_/until_not_void/`)을 진행한다.

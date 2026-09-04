@@ -90,6 +90,13 @@
 - 검토한 대안: 기존 익명 클래스와 clone 구현을 직접 교체, `getDeclaredFields()`가 반환하는 compiler-generated 필드까지 Java 8과 동일하게 고정.
 - 기각 근거: 직접 교체하면 언어 기능의 변화 단계를 비교할 수 없다. Java 21 컴파일러는 outer instance를 사용하지 않는 inner class에 Java 8의 synthetic `this$0` 필드를 생성하지 않을 수 있으므로 compiler-generated 필드는 안정적인 예제 계약이 아니다.
 
+## D-015: enum과 for-each 후속 예제의 비교 기준
+
+- 상태: 확정
+- 결정: `EnumDemo5`는 enum에 symbol 상태를 캡슐화하고 exhaustive switch expression으로 연산하며 `EnumDemo4`와 같은 출력을 낸다. `StreamDemo`는 기존 사용자 정의 `Array` API를 수정하지 않고 표준 stream과 Java 21 `List.reversed()`로 `ForEachDemo`의 전체 출력을 같은 순서로 재현한다.
+- 검토한 대안: 기존 `EnumDemo3`의 switch를 직접 변경, `Array`의 callback interface를 표준 functional interface로 치환.
+- 기각 근거: 기존 파일을 바꾸면 int 상수에서 enum과 사용자 정의 고차 함수로 발전하는 중간 단계를 잃는다. 동일 출력의 별도 후속 예제는 API와 구현 차이를 직접 비교할 수 있다.
+
 ## 추후 결정 필요
 
 - 빌드 스크립트 또는 테스트 프레임워크를 추가할지, 직접 `javac` 실행을 유지할지
