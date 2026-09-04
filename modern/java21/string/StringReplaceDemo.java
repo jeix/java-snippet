@@ -1,23 +1,23 @@
 package modern.java21.string;
 
 public class StringReplaceDemo {
-	
-	private void test_String_replace() {
-		String s = "2010-09-03";
+
+	private void testStringReplace() {
+		var s = "2010-09-03";
 		System.out.println(s.replace("-", ""));
 	}
-	
-	private void test_nothing() {
+
+	private void testNothing() {
 		System.out.println(":wq");
 	}
-	
-	public void test() {
-		test_String_replace();
-		test_nothing();
+
+	void test() {
+		testStringReplace();
+		testNothing();
 	}
-	
+
 	public static void main(String[] args) {
-		StringReplaceDemo worker = new StringReplaceDemo();
+		var worker = new StringReplaceDemo();
 		worker.test();
 	}
 }

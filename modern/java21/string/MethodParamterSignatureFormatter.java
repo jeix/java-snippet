@@ -1,10 +1,10 @@
 package modern.java21.string;
 
 public class MethodParamterSignatureFormatter {
-	
-	private void test_format_comma_separated_method_parameter() {
-		String expected = "foo(bar, baz)";
-		String[] cases = {
+
+	private void testFormatCommaSeparatedMethodParameter() {
+		var expected = "foo(bar, baz)";
+		var cases = new String[] {
 			"foo(bar,baz)",
 			"foo(bar, baz)",
 			"foo(bar ,baz)",
@@ -12,16 +12,16 @@ public class MethodParamterSignatureFormatter {
 			"foo(bar  ,  baz)",
 			"foo( bar,baz )"
 		};
-		for (int i = 0; i < cases.length; i++) {
-			String normalized = format_comma_separated_method_parameter(cases[i]);
-			if (! expected.equals(normalized)) { // TODO use JUnit
+		for (var i = 0; i < cases.length; i++) {
+			var normalized = format(cases[i]);
+			if (!expected.equals(normalized)) {
 				System.out.println(cases[i] + " :: " + expected + " expected BUT " + normalized + " returned");
 			}
 		}
 	}
-	// format comma separated method parameter (method signature)
-	private String format_comma_separated_method_parameter(String ms) {
-		if (null == ms) return null;
+
+	private String format(String ms) {
+		if (ms == null) return null;
 		return ms
 			.replaceAll(" +,", ",")
 			.replaceAll(",  +", ", ")
@@ -29,18 +29,18 @@ public class MethodParamterSignatureFormatter {
 			.replaceAll(" +\\)", ")")
 			.replaceAll("\\( +", "(");
 	}
-	
-	private void test_nothing() {
+
+	private void testNothing() {
 		System.out.println(":wq");
 	}
-	
-	public void test() {
-		test_format_comma_separated_method_parameter();
-		test_nothing();
+
+	void test() {
+		testFormatCommaSeparatedMethodParameter();
+		testNothing();
 	}
-	
+
 	public static void main(String[] args) {
-		MethodParamterSignatureFormatter worker = new MethodParamterSignatureFormatter();
+		var worker = new MethodParamterSignatureFormatter();
 		worker.test();
 	}
 }

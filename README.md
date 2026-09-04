@@ -55,7 +55,7 @@ java -cp out/modern modern.java21.lang.enum_.EnumDemo0
 | 3 | Collections & Streams | ✅ 완료 | collection/*.java (8개) |
 | 4 | Language Features | ✅ 완료 | lang/* (20개, enum_ 제외) |
 | 5 | OOD Patterns | ✅ 완료 | ood/immutable/*.java (7개), template_method/*.java (4개), delegation/*.java (1개) |
-| 6 | String, Number, Root | ⏳ 진행 중 | string/StringSplit.java (완료), string/*.java (8개), number/*.java (6개), lsc.java, NpidCheck.java |
+| 6 | String, Number, Root | ✅ 완료 | string/*.java (8개), number/*.java (6개), lsc.java, NpidCheck.java |
 
 ## ⚠️ 수정 금지 (교육용 진행 과정 보존)
 - `lang/enum_/EnumDemo0~4.java` — int 상수 → 기본 enum → 필드/메서드 enum → switch enum → 상수별 메서드 enum 진화 과정

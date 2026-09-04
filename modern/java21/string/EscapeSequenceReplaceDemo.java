@@ -1,70 +1,64 @@
 package modern.java21.string;
 
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EscapeSequenceReplaceDemo {
-	
-	String s = "foo \t bar";
-	
-	private void test_with_String_replace() {
-		String t = s.replace("\t", "\\t");
-		System.out.println(t); // -> foo \t bar
+
+	private final String s = "foo \t bar";
+
+	private void testWithStringReplace() {
+		var t = s.replace("\t", "\\t");
+		System.out.println(t);
 	}
-	
-	private void test_with_String_replaceAll() {
-		String t = s.replaceAll("\\t", "\\\\t");
-		System.out.println(t); // -> foo \t bar
+
+	private void testWithReplaceAll() {
+		var t = s.replaceAll("\\t", "\\\\t");
+		System.out.println(t);
 	}
-	
-	private void demo_Matcher_quoteReplacement() {
-		String x = null;
-		String y = null;
-		
-		x = "\\t";
-		y = Matcher.quoteReplacement(x);
-		System.out.println("[" + x + "]=>[" + y + "]"); // -> [\t]=>[\\t]
-		
+
+	private void demoMatcherQuoteReplacement() {
+		var x = "\\t";
+		var y = Matcher.quoteReplacement(x);
+		System.out.println("[" + x + "]=>[" + y + "]");
+
 		x = "\\\\t";
 		y = Matcher.quoteReplacement(x);
-		System.out.println("[" + x + "]=>[" + y + "]"); // -> [\\t]=>[\\\\t]
+		System.out.println("[" + x + "]=>[" + y + "]");
 	}
-	
-	private void demo_Matcher_appendReplacement() {
-		String x = null;
-		StringBuffer sb = null;
-		
+
+	private void demoMatcherAppendReplacement() {
 		Matcher m = Pattern.compile("x", Pattern.LITERAL).matcher("xxx");
-		
-		x = "\\t";
-		sb = new StringBuffer();
+
+		var x = "\\t";
+		var sb = new StringBuilder();
 		if (m.find()) {
 			m.appendReplacement(sb, x);
-			System.out.println("[" + x + "]=>[" + sb.toString() + "]"); // -> [\t]=>[t]
+			System.out.println("[" + x + "]=>[" + sb.toString() + "]");
 		}
-		
+
 		x = "\\\\t";
-		sb = new StringBuffer();
+		sb = new StringBuilder();
 		if (m.find()) {
 			m.appendReplacement(sb, x);
-			System.out.println("[" + x + "]=>[" + sb.toString() + "]"); // -> [\\t]=>[\t]
+			System.out.println("[" + x + "]=>[" + sb.toString() + "]");
 		}
 	}
-	
-	private void test_nothing() {
+
+	private void testNothing() {
 		System.out.println(":wq");
 	}
-	
-	public void test() {
-		test_with_String_replace();
-		test_with_String_replaceAll();
-		demo_Matcher_quoteReplacement();
-		demo_Matcher_appendReplacement();
-		test_nothing();
+
+	void test() {
+		testWithStringReplace();
+		testWithReplaceAll();
+		demoMatcherQuoteReplacement();
+		demoMatcherAppendReplacement();
+		testNothing();
 	}
-	
+
 	public static void main(String[] args) {
-		EscapeSequenceReplaceDemo worker = new EscapeSequenceReplaceDemo();
+		var worker = new EscapeSequenceReplaceDemo();
 		worker.test();
 	}
 }
