@@ -179,3 +179,11 @@
 - `유지` 파일은 공통 변경 외 내용 변경이 없는지 확인한다.
 - 후속 예제는 바로 이전 단계와 나란히 실행해 개선점이 드러나야 한다.
 - 전체 소스는 `javac --release 21 -encoding UTF-8 -Xlint:all`로 컴파일한다.
+
+## 최종 검증
+
+- legacy의 원본 자료·소스 87개와 modern 기준 트리의 상대 경로가 일치하며, 문서화한 후속 Java 예제 7개만 추가되었다.
+- modern Java 소스 90개가 `--release 21 -encoding UTF-8 -Xlint:all`로 컴파일되어 class 파일 246개가 생성되었다.
+- 경고 14건은 학습 목적으로 유지한 `CloneTester.java`, `StaticMethodCallDemo.java`, `InstancelessDelegation.java`에서만 발생한다.
+- modern의 Java, Markdown과 text 자료는 모두 유효한 UTF-8이고, 모든 Java 파일의 package 및 내부 import가 `modern.java21` 구조와 일치한다.
+- 의도적으로 process를 종료하는 `ReturnOExitDemo.java`를 제외한 `main` 81개, file 예제 경계 사례와 후속 예제의 이전 단계 출력 비교를 통과했다.

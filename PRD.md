@@ -45,3 +45,5 @@ modern/java21/README.md   파일·묶음별 유지/변경/추가 기록
 - legacy가 Java 8 대상으로, modern이 Java 21 대상으로 각각 컴파일된다.
 - 주요 실행 예제의 의도된 동작이 유지된다.
 - 루트 및 modern README에서 구조와 파일별 판단을 추적할 수 있다.
+
+2026-09-04 최종 검증에서 위 조건을 모두 충족했다. legacy 원본 자료·소스 87개가 modern 기준 트리에 대응하고 후속 Java 예제 7개만 추가되었으며, legacy Java 8 및 modern Java 21 전체 컴파일과 대표 실행 검증을 통과했다.

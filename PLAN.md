@@ -3,7 +3,7 @@
 ## 현재 상태
 
 - 현재 브랜치: `modern-codex` (`master`의 `37978fe412d0b91f9502b213b58c5d18dc5d92da`에서 생성, upstream은 `origin/modern-codex`, 로컬 커밋 push 대기)
-- 작업 상태: 5단계 영역별 현대화 중 `ood/`까지 완료
+- 작업 상태: Java 21 현대화, README 작성과 최종 검증 완료
 - Java 소스: legacy 83개, modern 90개
 - 빌드 시스템: 없음; `javac`/`java` 직접 사용
 - 로컬 JDK: `javac 21.0.11`
@@ -15,9 +15,11 @@
 - 영역별 동작 현대화: `datetime/`, `file/`, `collection/`, `lang/`, `ood/` 완료
 - 2026-09-04 전체 재검증:
   - legacy: Java 소스 83개, class 파일 234개, Java 8 대상 컴파일 성공(기존 경고 43건)
-  - modern: Java 소스 90개, class 파일 246개, Java 21 대상 컴파일 성공(기존 보존 예제 경고 14건, 루트/test 완료 후 갱신)
-  - legacy/modern의 `refactoring_a_case.txt`가 모두 유효한 UTF-8임을 확인
-  - 루트 `README.md`는 아직 없으며 6단계에서 작성 예정
+  - modern: Java 소스 90개, class 파일 246개, Java 21 대상 컴파일 성공(보존 예제 경고 14건)
+  - legacy의 원본 자료·소스 87개와 modern 기준 트리가 일치하고 후속 Java 예제 7개만 추가됨
+  - Markdown, Java, text 자료 전체가 유효한 UTF-8이며 modern package/import 경로가 모두 일치함
+  - 의도적으로 process를 종료하는 예제를 제외한 대표 `main` 81개, file 예제 경계 사례와 후속 예제 출력 비교 통과
+  - 루트 `README.md` 작성과 modern README 최종 대조 완료
 
 ## 작업 단계
 
@@ -141,12 +143,13 @@
 - `lsc`는 `Path`, `Files`, `StandardCharsets`, `ByteArrayOutputStream`과 switch expression으로 구현하고 I/O 실패를 호출자에게 전파한다.
 - `lsc`의 LF/CRLF 양방향 변환이 legacy와 일치하고 빈 파일, 이미 CRLF인 파일의 멱등성과 잘못된 mode의 usage 출력을 확인했다.
 
-### 6. README와 최종 검증 — 대기
+### 6. README와 최종 검증 — 완료
 
-- 기존 README를 `legacy/java8/README.md`로 보존한다.
-- 새 루트 `README.md`를 작성하고 현재 `modern/java21/README.md`를 최종 상태와 대조한다.
-- legacy/modern 전체 컴파일, 대표 실행 비교, 파일 누락, 잘못된 기존 package 참조를 검사한다.
+- 기존 README를 `legacy/java8/README.md`로 보존했다.
+- 새 루트 `README.md`에 프로젝트 구조, 요구 환경, 컴파일·실행법과 Java 21 후속 예제를 안내했다.
+- legacy/modern 전체 컴파일, 대표 실행 비교, 파일 누락, UTF-8과 package/import 경로를 검사했다.
+- modern의 14개 경고가 교육 목적으로 유지한 `CloneTester`, `StaticMethodCallDemo`, `InstancelessDelegation`에서만 발생함을 확인했다.
 
 ## 다음 단계
 
-루트와 `test/` 변경을 검토하고 커밋한 뒤 새 루트 `README.md` 작성과 최종 검증으로 마무리한다.
+현대화 계획을 모두 완료했다. 이후 변경은 별도 작업 단위로 진행한다.
