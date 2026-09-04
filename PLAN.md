@@ -2,8 +2,8 @@
 
 ## 현재 상태
 
-- 현재 브랜치: `modern-codex` (`master`의 `37978fe412d0b91f9502b213b58c5d18dc5d92da`에서 생성)
-- 작업 트리: 5단계 `collection/` 완료 상태
+- 현재 브랜치: `modern-codex` (`master`의 `37978fe412d0b91f9502b213b58c5d18dc5d92da`에서 생성, upstream은 `origin/modern-codex`, 로컬 커밋 push 대기)
+- 작업 상태: 5단계 영역별 현대화 중 `ood/`까지 완료
 - Java 소스: legacy 83개, modern 90개
 - 빌드 시스템: 없음; `javac`/`java` 직접 사용
 - 로컬 JDK: `javac 21.0.11`
@@ -12,7 +12,12 @@
   - removal, rawtypes, unchecked, overrides, static, cast 항목에서 경고 40건
 - `refactoring_a_case.txt`: UTF-8 변환 및 LF 정규화 완료
 - legacy 구조 분리, modern 기준 트리 구성과 예제 관계 분석: 완료
-- 영역별 동작 현대화: `datetime/`, `file/`, `collection/` 완료
+- 영역별 동작 현대화: `datetime/`, `file/`, `collection/`, `lang/`, `ood/` 완료
+- 2026-09-04 전체 재검증:
+  - legacy: Java 소스 83개, class 파일 234개, Java 8 대상 컴파일 성공(기존 경고 43건)
+  - modern: Java 소스 90개, class 파일 245개, Java 21 대상 컴파일 성공(기존 보존 예제 경고 15건)
+  - legacy/modern의 `refactoring_a_case.txt`가 모두 유효한 UTF-8임을 확인
+  - 루트 `README.md`는 아직 없으며 6단계에서 작성 예정
 
 ## 작업 단계
 
@@ -120,9 +125,9 @@
 ### 6. README와 최종 검증 — 대기
 
 - 기존 README를 `legacy/java8/README.md`로 보존한다.
-- 새 루트 `README.md`와 `modern/java21/README.md`를 작성한다.
+- 새 루트 `README.md`를 작성하고 현재 `modern/java21/README.md`를 최종 상태와 대조한다.
 - legacy/modern 전체 컴파일, 대표 실행 비교, 파일 누락, 잘못된 기존 package 참조를 검사한다.
 
 ## 다음 단계
 
-`ood/` 변경을 검토하고 커밋한 뒤 `string/`, `number/`, 루트와 `test/` 현대화를 진행한다.
+`string/`, `number/`, 루트와 `test/` 현대화를 진행한다. 이후 새 루트 `README.md` 작성과 최종 검증으로 마무리한다.

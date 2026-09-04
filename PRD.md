@@ -17,9 +17,9 @@ modern/java21/README.md   파일·묶음별 유지/변경/추가 기록
 
 1. `modern-codex` 브랜치에서 작업한다. 브랜치가 없으면 `master`에서 생성한다.
 2. `origin/modern-opencode`는 참고하지 않는다.
-3. `refactoring_a_case.txt`의 현재 EUC-KR 계열 인코딩을 UTF-8로 변환하고 내용을 검증한다.
-4. 현재 소스와 실행 자료 전체를 `legacy/java8/`에 보존한다.
-5. 현재 `README.md`는 레거시 설명이므로 `legacy/java8/README.md`로 이동한다.
+3. `master` 기준의 EUC-KR 계열 `refactoring_a_case.txt`를 UTF-8로 변환하고 내용을 검증한다.
+4. `master` 기준 소스와 실행 자료 전체를 `legacy/java8/`에 보존한다.
+5. `master` 기준 `README.md`는 레거시 설명이므로 `legacy/java8/README.md`로 이동한다.
 6. 새 루트 `README.md`에서 프로젝트 목적, legacy/modern 구조와 빌드·실행법을 설명한다.
 7. 모든 Java 21 소스는 `modern/java21/` 아래로 옮기고 `modern.java21` 하위 package를 사용한다.
 8. 같은 패키지의 참조, static import, 자료 경로와 실행 관계를 함께 수정한다.
@@ -27,7 +27,7 @@ modern/java21/README.md   파일·묶음별 유지/변경/추가 기록
 10. 단계형 예제는 기존 단계를 유지하고, 명확한 교육적 가치가 있는 경우 Java 21 후속 단계를 새 파일로 추가한다.
 11. 유지한 파일의 이유, 변경한 파일의 변경 방향, 추가한 파일과 기존 묶음의 관계를 문서화한다.
 
-## 주요 보존 후보 묶음
+## 주요 보존 묶음
 
 - `lang/enum_/EnumDemo0.java` ~ `EnumDemo4.java`
 - `ood/immutable/WrapperOverCollection_*.java`
@@ -36,7 +36,7 @@ modern/java21/README.md   파일·묶음별 유지/변경/추가 기록
 - `test/Expect.java`, `Expect2.java`와 루트의 대응 테스트
 - 문자열 split 및 replace 비교 예제군
 
-최종 유지/변경/추가 여부는 각 묶음의 코드와 README 설명을 함께 검토해 확정한다.
+파일·묶음별 유지/변경/추가 판단과 구현 결과는 `modern/java21/README.md`에서 관리한다.
 
 ## 완료 조건
 
