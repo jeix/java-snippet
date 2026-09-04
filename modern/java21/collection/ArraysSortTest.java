@@ -2,6 +2,7 @@ package modern.java21.collection;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class ArraysSortTest {
@@ -9,6 +10,21 @@ public class ArraysSortTest {
 	private void test_Arrays_sort() {
 		test_sort_not_comparable();
 		test_sort_comparable();
+		test_sort_with_comparator();
+	}
+
+	private void test_sort_with_comparator() {
+		System.out.println("// test sort with Comparator.comparing()");
+		var list = new ArrayList<Tomato>();
+		list.add(new Tomato("two"));
+		list.add(new Tomato());
+		list.add(new Tomato("one"));
+
+		var by_name = Comparator.comparing(
+				Tomato::getName,
+				Comparator.nullsFirst(Comparator.naturalOrder()));
+		list.sort(by_name);
+		System.out.println(list);
 	}
 
 	private void test_sort_not_comparable() {

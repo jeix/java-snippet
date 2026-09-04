@@ -31,6 +31,15 @@
 | `OrderedKeyValPairsDemo.java`, `OrderedKeyValPairsDemo2.java`, `LinkedHashMapDemo.java` | 유지 | 두 컬렉션에서 `LinkedHashMap`으로 이어지는 단계형 예제다. |
 | `CascadingOptionsBuilderDemo.java` | 기존 파일 변경 | cascading 규칙은 유지하며 `computeIfAbsent`, `List.copyOf`, comparator로 구현을 정리한다. |
 
+### collection 완료 결과
+
+- `ListToArrayTester.java`는 기존 `toArray(T[])` 출력 뒤에 `toArray(String[]::new)` 출력을 추가해 두 API를 직접 비교한다.
+- `ArraysSortTest.java`는 non-comparable 객체의 실패와 `Comparable` 호출 과정을 유지하고, `Comparator.comparing`과 null name 정책을 명시한 성공 사례를 추가한다.
+- `CascadingOptionsBuilderDemo.java`는 출력과 중복 제거 규칙을 유지하면서 `computeIfAbsent`, `List.copyOf`, comparator와 stream을 적용한다. 반환 목록을 불변 snapshot으로 만들어 내부 상태를 외부에 노출하지 않는다.
+- `RemoveDuringIterationTest.java`는 실패와 iterator removal의 차이를 보여주므로 변경하지 않았다. `RemoveDuringIterationModern.java`를 다음 단계로 추가해 `removeIf`, `removeAll`, 원본을 유지하는 stream filtering과 map entry removal을 비교한다.
+- `ArrayInitializeTester.java`, `ArrayExtendTester.java`는 고정 크기 배열의 제약을 보여주므로 변경하지 않았다.
+- `OrderedKeyValPairsDemo.java`, `OrderedKeyValPairsDemo2.java`, `LinkedHashMapDemo.java`는 insertion order 구현의 발전 과정을 보여주는 묶음이므로 변경하지 않았다.
+
 ## datetime
 
 | 파일 또는 묶음 | 처리 | 변경 방향과 근거 |

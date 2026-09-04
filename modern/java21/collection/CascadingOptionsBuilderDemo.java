@@ -1,8 +1,7 @@
 package modern.java21.collection;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -15,46 +14,40 @@ public class CascadingOptionsBuilderDemo {
 
 		private static final String ROOT = "";
 
-		private Map<String,Set<String>> kmap;
-		private Map<String,List<Option>> map;
+		private final Map<String,Set<String>> kmap;
+		private final Map<String,List<Option>> map;
 
 		public CascadingOptionsBuilder() {
-			kmap = new HashMap<String,Set<String>>();
-			map = new HashMap<String,List<Option>>();
+			kmap = new HashMap<>();
+			map = new HashMap<>();
 		}
 
 		public void put(String p, Option option) {
 			if (option == null || option.getK() == null) return;
-			Set<String> ks = kmap.get(p);
-			if (ks == null) {
-				ks = new HashSet<String>();
-				kmap.put(p, ks);
-			}
 			String k = option.getK();
-			if (! ks.contains(k)) {
-				ks.add(k);
+			if (kmap.computeIfAbsent(p, ignored -> new HashSet<>()).add(k)) {
 				add(p, option);
 			}
 		}
 
 		public void add(String p, Option option) {
-			List<Option> options = options_for(p);
+			if (option == null) return;
+			List<Option> options = mutable_options_for(p);
 			if (! options.contains(option)) {
 				options.add(option);
 			}
 		}
 
 		public List<Option> options_for(String p) {
-			List<Option> options = map.get(p);
-			if (options == null) {
-				options = new ArrayList<Option>();
-				map.put(p, options);
-			}
-			return options;
+			return List.copyOf(mutable_options_for(p));
+		}
+
+		private List<Option> mutable_options_for(String p) {
+			return map.computeIfAbsent(p, ignored -> new ArrayList<>());
 		}
 
 		public String p(String... ks) {
-			StringBuffer sb = new StringBuffer(ROOT);
+			StringBuilder sb = new StringBuilder(ROOT);
 			int i = 0;
 			for (String k : ks) {
 				if (i++ > 0) sb.append("_");
@@ -64,21 +57,11 @@ public class CascadingOptionsBuilderDemo {
 		}
 
 		public List<Option> sorted_options_for(String p) {
-			// List<Option> options = options_for(p);
-			// Collections.sort(options);
-			// return options;
-			return sort(options_for(p));
-		}
-
-		private List<Option> sort(List<Option> options){
-			Option[] a = new Option[] {};
-			a = options.toArray(a);
-			Arrays.sort(a);
-			options.clear();
-			for(Option option : a) {
-				options.add(option);
-			}
-			return options;
+			return options_for(p).stream()
+					.sorted(Comparator.comparing(
+							Option::getK,
+							Comparator.nullsFirst(Comparator.naturalOrder())))
+					.toList();
 		}
 	}
 

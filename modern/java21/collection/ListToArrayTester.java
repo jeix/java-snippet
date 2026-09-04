@@ -6,7 +6,7 @@ import java.util.List;
 public class ListToArrayTester {
 
 	private void test_List_toArray() {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		for (int i = 0; i < 3; i++) {
 			list.add(String.valueOf(i + 1));
 		}
@@ -20,12 +20,20 @@ public class ListToArrayTester {
 		System.out.println();
 	}
 
+	private void test_List_toArray_with_generator() {
+		var list = List.of("1", "2", "3");
+		var array = list.toArray(String[]::new);
+		System.out.println(array.length);
+		System.out.println(String.join("", array));
+	}
+
 	private void test_nothing() {
 		System.out.println(":wq");
 	}
 
 	public void test() {
 		test_List_toArray();
+		test_List_toArray_with_generator();
 		test_nothing();
 	}
 

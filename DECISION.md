@@ -76,6 +76,13 @@
 - 검토한 대안: `Files.readAllBytes`/`write`로 저수준 구현 전체 치환, 기존의 null 반환과 `printStackTrace` 유지.
 - 기각 근거: 편의 API 치환은 채널과 random access의 동작을 가리고, 실패를 정상적인 null 결과로 표현하면 호출자가 원인을 구분하거나 복구하기 어렵다.
 
+## D-013: collection 단계 보존과 컬렉션 노출 정책
+
+- 상태: 확정
+- 결정: 반복 중 구조 변경의 실패와 iterator 기반 성공을 보여주는 기존 예제는 그대로 두고 bulk operation과 stream을 별도 후속 예제에서 비교한다. cascading option builder는 내부 mutable 목록과 외부 반환 목록을 분리하고 외부에는 `List.copyOf` 결과만 노출한다.
+- 검토한 대안: 기존 실패 사례를 `removeIf`로 교체, builder의 내부 목록을 계속 직접 반환.
+- 기각 근거: 실패 사례를 지우면 iterator 규칙을 관찰할 수 없고, 내부 목록 노출은 호출자가 중복 제거와 정렬 규칙을 우회하게 만든다.
+
 ## 추후 결정 필요
 
 - 빌드 스크립트 또는 테스트 프레임워크를 추가할지, 직접 `javac` 실행을 유지할지

@@ -3,7 +3,7 @@
 ## 현재 상태
 
 - 현재 브랜치: `modern-codex` (`master`의 `37978fe412d0b91f9502b213b58c5d18dc5d92da`에서 생성)
-- 작업 트리: 5단계 `file/` 완료 상태
+- 작업 트리: 5단계 `collection/` 완료 상태
 - Java 소스: 83개
 - 빌드 시스템: 없음; `javac`/`java` 직접 사용
 - 로컬 JDK: `javac 21.0.11`
@@ -12,7 +12,7 @@
   - removal, rawtypes, unchecked, overrides, static, cast 항목에서 경고 40건
 - `refactoring_a_case.txt`: UTF-8 변환 및 LF 정규화 완료
 - legacy 구조 분리, modern 기준 트리 구성과 예제 관계 분석: 완료
-- 영역별 동작 현대화: `datetime/`, `file/` 완료
+- 영역별 동작 현대화: `datetime/`, `file/`, `collection/` 완료
 
 ## 작업 단계
 
@@ -55,7 +55,7 @@
 
 1. `datetime/` — 완료
 2. `file/` — 완료
-3. `collection/`
+3. `collection/` — 완료
 4. `lang/`
 5. `ood/`
 6. `string/`, `number/`, 루트와 `test/`
@@ -77,6 +77,14 @@
 - `PropertiesTest`의 최초 파일 생성과 재로딩, `TextFileReader`/`TextFileWriter`의 한글 왕복을 임시 디렉토리에서 검증했다.
 - 전체 Java 21 컴파일과 `NioRw` 6개 모드의 바이트 동일성 및 빈 파일 처리를 확인했다.
 
+#### collection 완료 결과
+
+- `ListToArrayTester`에 배열 생성자 참조를 받는 `toArray(String[]::new)` 비교 단계를 추가했다.
+- `ArraysSortTest`의 non-comparable 실패와 `Comparable` 정렬 경로를 보존하고 `Comparator.comparing`으로 일반 객체를 정렬하는 성공 경로를 추가했다.
+- `CascadingOptionsBuilderDemo`는 `computeIfAbsent`로 내부 컬렉션 생성을 모으고 `List.copyOf`로 외부 변경을 차단하며, 정렬 결과는 comparator와 stream으로 만든 불변 목록으로 반환한다.
+- `RemoveDuringIterationTest`는 변경하지 않고 `removeIf`, `removeAll`, 비변경 stream filtering을 비교하는 `RemoveDuringIterationModern`을 후속 단계로 추가했다.
+- 나머지 배열 및 insertion-order 단계형 예제는 수정하지 않았으며 legacy와 동일한 출력을 확인했다.
+
 ### 6. README와 최종 검증 — 대기
 
 - 기존 README를 `legacy/java8/README.md`로 보존한다.
@@ -85,4 +93,4 @@
 
 ## 다음 단계
 
-`file/` 변경을 검토하고 커밋한 뒤 `collection/` 현대화를 진행한다.
+`collection/` 변경을 검토하고 커밋한 뒤 `lang/` 현대화를 진행한다.
