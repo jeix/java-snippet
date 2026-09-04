@@ -4,7 +4,7 @@
 
 - 현재 브랜치: `modern-codex` (`master`의 `37978fe412d0b91f9502b213b58c5d18dc5d92da`에서 생성)
 - 작업 트리: 5단계 `collection/` 완료 상태
-- Java 소스: 83개
+- Java 소스: legacy 83개, modern 86개
 - 빌드 시스템: 없음; `javac`/`java` 직접 사용
 - 로컬 JDK: `javac 21.0.11`
 - 구조 변경 전 기준선 전체 소스: `javac 21.0.11 -encoding UTF-8 -Xlint:all` 컴파일 성공
@@ -56,7 +56,7 @@
 1. `datetime/` — 완료
 2. `file/` — 완료
 3. `collection/` — 완료
-4. `lang/`
+4. `lang/` — 진행 중 (1차 일반 예제 완료)
 5. `ood/`
 6. `string/`, `number/`, 루트와 `test/`
 
@@ -85,6 +85,15 @@
 - `RemoveDuringIterationTest`는 변경하지 않고 `removeIf`, `removeAll`, 비변경 stream filtering을 비교하는 `RemoveDuringIterationModern`을 후속 단계로 추가했다.
 - 나머지 배열 및 insertion-order 단계형 예제는 수정하지 않았으며 legacy와 동일한 출력을 확인했다.
 
+#### lang 1차 완료 결과
+
+- `AnonymousTester`와 `CloneTester`를 보존하고 각각의 다음 단계인 `LambdaTester`, `CopyTester`를 추가했다.
+- `NullType`의 null `instanceof`/cast 출력을 유지하면서 raw collection 경고를 제거했다.
+- `ReflectField`는 `Field.getType()`과 `trySetAccessible()`을 사용하며 명시적으로 선언된 세 필드의 출력과 변환 결과를 유지한다.
+- `VarArgsDemo`는 varargs의 배열 전달/개별 전달 비교를 유지하고 `Calendar`/`Date` 대신 한 번 캡처한 `Instant`를 두 호출에 전달한다.
+- `ReturnOExitDemo`, `StaticMethodCallDemo`는 각각 종료/finally와 static dispatch가 주제이므로 변경하지 않았다.
+- 선택 파일 컴파일과 8개 main 실행, 보존 예제의 대표 출력 비교에 성공했다.
+
 ### 6. README와 최종 검증 — 대기
 
 - 기존 README를 `legacy/java8/README.md`로 보존한다.
@@ -93,4 +102,4 @@
 
 ## 다음 단계
 
-`collection/` 변경을 검토하고 커밋한 뒤 `lang/` 현대화를 진행한다.
+`lang/` 1차 일반 예제 변경을 검토하고 커밋한 뒤 2차 단계형 하위 패키지(`enum_/`, `for_each/`)를 진행한다.

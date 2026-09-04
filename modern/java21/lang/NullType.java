@@ -21,8 +21,8 @@ public class NullType {
 		}
 
 		String s = null;
-		List list = new ArrayList();
-		list.add(s); // warning: unchecked
+		List<Object> list = new ArrayList<>();
+		list.add(s);
 		System.out.print("calling with casted Something...");
 		check_instance((Something) list.get(0)); // no error
 		System.out.print("calling with casted Something again...");

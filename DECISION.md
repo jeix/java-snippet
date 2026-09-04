@@ -83,6 +83,13 @@
 - 검토한 대안: 기존 실패 사례를 `removeIf`로 교체, builder의 내부 목록을 계속 직접 반환.
 - 기각 근거: 실패 사례를 지우면 iterator 규칙을 관찰할 수 없고, 내부 목록 노출은 호출자가 중복 제거와 정렬 규칙을 우회하게 만든다.
 
+## D-014: lang 일반 예제의 후속 단계와 reflection 경계
+
+- 상태: 확정
+- 결정: 익명 클래스와 `Object.clone()` 예제는 유지하고 lambda/method reference 및 immutable record/명시적 copy를 별도 후속 파일로 추가한다. reflection 검증은 명시적으로 선언된 필드와 그 값의 변환에 한정한다.
+- 검토한 대안: 기존 익명 클래스와 clone 구현을 직접 교체, `getDeclaredFields()`가 반환하는 compiler-generated 필드까지 Java 8과 동일하게 고정.
+- 기각 근거: 직접 교체하면 언어 기능의 변화 단계를 비교할 수 없다. Java 21 컴파일러는 outer instance를 사용하지 않는 inner class에 Java 8의 synthetic `this$0` 필드를 생성하지 않을 수 있으므로 compiler-generated 필드는 안정적인 예제 계약이 아니다.
+
 ## 추후 결정 필요
 
 - 빌드 스크립트 또는 테스트 프레임워크를 추가할지, 직접 `javac` 실행을 유지할지

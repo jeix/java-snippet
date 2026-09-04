@@ -1,6 +1,6 @@
 package modern.java21.lang;
 
-import java.util.Calendar;
+import java.time.Instant;
 
 public class VarArgsDemo {
 
@@ -11,8 +11,9 @@ public class VarArgsDemo {
 	}
 
 	private void test_var_args(Object... args) {
-		demo(new Object[] {false, 42, "The Universe", Calendar.getInstance().getTime()});
-		demo(false, 42, "The Universe", Calendar.getInstance().getTime());
+		var now = Instant.now();
+		demo(new Object[] {false, 42, "The Universe", now});
+		demo(false, 42, "The Universe", now);
 	}
 
 	private void test_nothing() {

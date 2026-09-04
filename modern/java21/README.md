@@ -90,6 +90,15 @@
 | `SystemSetPropertyDemo.java` | 유지 | line separator property와 실제 출력의 관계를 보여준다. |
 | `VarArgsDemo.java` | 제한 변경 | varargs 동작은 유지하고 날짜 예시의 `Calendar`만 `java.time`으로 바꾼다. |
 
+### lang 1차 완료 결과
+
+- `AnonymousTester.java`는 interface/abstract class/concrete class를 익명 구현하는 차이가 주제이므로 변경하지 않았다. `LambdaTester.java`를 추가해 functional interface의 lambda와 method reference를 비교한다.
+- `CloneTester.java`는 mutable 객체의 깊은 `Object.clone()` 구현 과정이 주제이므로 변경하지 않았다. `CopyTester.java`를 추가해 immutable record, `List.copyOf`, 명시적 `copy`/`with` 메서드로 복사와 변경을 표현한다.
+- `NullType.java`는 null의 `instanceof` 및 cast 출력을 유지하고 `List<Object>`와 diamond operator로 주제와 무관한 raw/unchecked 경고만 제거했다.
+- `ReflectField.java`는 `Field.getType()`으로 불필요한 cast를 없애고 `trySetAccessible()` 실패를 명시적으로 처리한다. Java 8에서 보이던 synthetic outer-reference field는 Java 21 compiler가 생성하지 않을 수 있으므로 명시적 필드만 동작 검증 대상으로 삼는다.
+- `VarArgsDemo.java`는 `Calendar.getInstance().getTime()`을 한 번 캡처한 `Instant.now()`로 바꿔 두 varargs 호출에 동일한 값을 전달한다.
+- `ReturnOExitDemo.java`와 `StaticMethodCallDemo.java`는 의도된 process exit와 static 호출 경고가 각각 학습 내용이므로 변경하지 않았다.
+
 ### lang 하위 묶음
 
 | 파일 또는 묶음 | 처리 | 변경 방향과 근거 |

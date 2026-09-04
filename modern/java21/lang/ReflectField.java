@@ -39,9 +39,11 @@ public class ReflectField {
 		obj.setF(1.0f);
 
 		for (Field f : obj.getClass().getDeclaredFields()) {
-			Class<?> c = (Class<?>) f.getGenericType();
+			Class<?> c = f.getType();
 			System.out.println(f.getName() + " : " + c.getName());
-			f.setAccessible(true);
+			if (!f.trySetAccessible()) {
+				throw new IllegalStateException("Cannot access field: " + f.getName());
+			}
 			try {
 				if (c.isPrimitive()) {
 					if (boolean.class.equals(c)) {
