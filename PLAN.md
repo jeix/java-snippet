@@ -4,7 +4,7 @@
 
 - 현재 브랜치: `modern-codex` (`master`의 `37978fe412d0b91f9502b213b58c5d18dc5d92da`에서 생성)
 - 작업 트리: 5단계 `collection/` 완료 상태
-- Java 소스: legacy 83개, modern 88개
+- Java 소스: legacy 83개, modern 90개
 - 빌드 시스템: 없음; `javac`/`java` 직접 사용
 - 로컬 JDK: `javac 21.0.11`
 - 구조 변경 전 기준선 전체 소스: `javac 21.0.11 -encoding UTF-8 -Xlint:all` 컴파일 성공
@@ -57,7 +57,7 @@
 2. `file/` — 완료
 3. `collection/` — 완료
 4. `lang/` — 완료
-5. `ood/`
+5. `ood/` — 완료
 6. `string/`, `number/`, 루트와 `test/`
 
 각 영역에서 deprecated API 제거 자체보다 예제의 원래 주제 보존을 우선한다. 저수준 API가 주제인 `NioRw.java`나 `RandomAccessFileDemo.java` 등은 상위 편의 API로 단순 치환하지 않는다.
@@ -109,6 +109,14 @@
 - `IsInDemo`, `UntilNotVoidDemo`의 assertion이 모두 통과했고 `UntilNotVoidDemo`의 출력은 legacy와 동일하다.
 - `annotation/`, `inner_class/`, `void_/AvoidNullCheck.java`, `void_/NullProof.java`는 각 묶음의 언어 구조와 null object 실험을 보존하기 위해 변경하지 않았다.
 
+#### ood 완료 결과
+
+- reflection과 문자열 기반 호출을 보여주는 `InstancelessDelegation`을 변경하지 않고 `Supplier<String>`, `BinaryOperator<String>` 및 method reference 기반 `TypeSafeDelegation`을 추가했다.
+- `WrapperOverCollection_1*`~`WrapperOverCollection_4*`를 변경하지 않고 중첩 record, `List.copyOf`, `Map.copyOf` 기반 `WrapperOverCollection_5_Record`를 추가했다.
+- type-safe delegation은 기존 예제와 같은 `foo`, `foobar` 출력을 내며 새 immutable 예제는 원본 컬렉션 변경 격리와 반환 컬렉션의 변경 거부를 검증했다.
+- `template_method/` 네 파일은 private override 실패부터 protected working method까지의 단계 전체가 학습 내용이므로 변경하지 않았다.
+- 기존 ood main 14개 실행과 신규 main 2개 실행, 전체 Java 21 컴파일에 성공했다.
+
 ### 6. README와 최종 검증 — 대기
 
 - 기존 README를 `legacy/java8/README.md`로 보존한다.
@@ -117,4 +125,4 @@
 
 ## 다음 단계
 
-`lang/` 3차 유틸리티 변경을 검토하고 커밋한 뒤 `ood/` 현대화를 진행한다.
+`ood/` 변경을 검토하고 커밋한 뒤 `string/`, `number/`, 루트와 `test/` 현대화를 진행한다.

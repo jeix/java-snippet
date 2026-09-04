@@ -104,6 +104,13 @@
 - 검토한 대안: 기존 `String.contains`와 boxed number의 `==` 비교 유지, CSV token을 숫자 타입별로 parse.
 - 기각 근거: substring과 reference equality는 membership에 거짓 양성·거짓 음성을 만들며, 이미 타입이 정해진 검색값에는 token 문자열의 정확한 표현 비교가 단순하고 잘못된 숫자 token도 안전하게 false로 처리한다.
 
+## D-017: OOD 후속 예제의 타입 안전성과 immutable snapshot
+
+- 상태: 확정
+- 결정: reflection delegation은 원형으로 보존하고 같은 출력을 내는 functional interface 기반 delegation을 별도 추가한다. collection wrapper의 다음 단계는 모든 구성 요소를 record로 표현하고 생성 경계마다 `List.copyOf` 또는 `Map.copyOf`로 immutable snapshot을 만든다.
+- 검토한 대안: 기존 reflection 구현의 raw type과 예외 처리를 직접 수정, 기존 freeze 구현을 record로 교체, unmodifiable view 사용.
+- 기각 근거: 기존 구현을 수정하면 delegation 및 immutability 접근법의 발전 단계를 잃는다. unmodifiable view는 원본 mutable collection의 후속 변경을 반영하므로 독립된 snapshot 요구를 충족하지 않는다.
+
 ## 추후 결정 필요
 
 - 빌드 스크립트 또는 테스트 프레임워크를 추가할지, 직접 `javac` 실행을 유지할지

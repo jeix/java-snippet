@@ -135,6 +135,14 @@
 | `immutable/_data_type.txt` | 유지 | immutable 묶음의 자료 구조 설명이다. |
 | `template_method/*.java` | 유지 | private override 실패에서 protected working method까지의 비교 흐름 전체가 학습 대상이다. |
 
+### ood 완료 결과
+
+- `delegation/InstancelessDelegation.java`는 문자열 기반 field/method 탐색, cast와 reflection 실패 처리의 한계를 보여주므로 변경하지 않았다. `TypeSafeDelegation.java`를 추가해 `Supplier<String>`, `BinaryOperator<String>`와 method reference로 같은 출력을 compile-time type safety 아래 재현한다.
+- `immutable/WrapperOverCollection_1*.java`~`WrapperOverCollection_4*.java`는 직접 노출, map/JSON 변환, clone, freeze로 이어지는 선택지와 한계가 학습 내용이므로 변경하지 않았다.
+- `immutable/WrapperOverCollection_5_Record.java`를 다음 단계로 추가해 중첩 값을 record로 만들고 각 생성 경계에서 `List.copyOf`와 `Map.copyOf`를 적용한다. 원본 컬렉션의 후속 변경이 snapshot에 반영되지 않고 반환 컬렉션을 변경할 수 없음을 실행 결과로 확인한다.
+- `immutable/_data_type.txt`는 wrapper 묶음의 자료 구조 설명이므로 변경하지 않았다.
+- `template_method/*.java`는 private method가 override되지 않는 실패부터 final template/protected working method 조합까지 이어지는 단계형 묶음이므로 변경하지 않았다.
+
 ## string과 number
 
 | 파일 또는 묶음 | 처리 | 변경 방향과 근거 |
