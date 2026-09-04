@@ -97,6 +97,13 @@
 - 검토한 대안: 기존 `EnumDemo3`의 switch를 직접 변경, `Array`의 callback interface를 표준 functional interface로 치환.
 - 기각 근거: 기존 파일을 바꾸면 int 상수에서 enum과 사용자 정의 고차 함수로 발전하는 중간 단계를 잃는다. 동일 출력의 별도 후속 예제는 API와 구현 차이를 직접 비교할 수 있다.
 
+## D-016: membership의 token 및 null 정책
+
+- 상태: 확정
+- 결정: CSV membership은 쉼표로 나눈 token을 trim해 정확히 비교하며 substring은 허용하지 않는다. null CSV 또는 CSV에서 null 검색은 false이고, 빈 문자열은 명시적인 빈 token과 일치한다. varargs는 `Objects.equals`를 사용해 명시적 null 원소와 null 검색값이 일치하게 한다.
+- 검토한 대안: 기존 `String.contains`와 boxed number의 `==` 비교 유지, CSV token을 숫자 타입별로 parse.
+- 기각 근거: substring과 reference equality는 membership에 거짓 양성·거짓 음성을 만들며, 이미 타입이 정해진 검색값에는 token 문자열의 정확한 표현 비교가 단순하고 잘못된 숫자 token도 안전하게 false로 처리한다.
+
 ## 추후 결정 필요
 
 - 빌드 스크립트 또는 테스트 프레임워크를 추가할지, 직접 `javac` 실행을 유지할지

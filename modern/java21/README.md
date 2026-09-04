@@ -118,6 +118,14 @@
 - `for_each/Array.java`, `ForEachDemo.java`는 Java 표준 stream 이전에 callback 기반 for-each/filter/map/reduce를 직접 구성한 예제이므로 변경하지 않았다.
 - `for_each/StreamDemo.java`를 다음 단계로 추가해 `map`, `allMatch`, `anyMatch`, `filter`, `reduce`, `flatMap`과 Java 21 `List.reversed()`를 사용한다. 출력 순서와 값은 `ForEachDemo.java`와 동일하다.
 
+### lang 3차 완료 결과
+
+- `is_in/IsIn.java`는 CSV를 trim한 token 단위로 정확히 비교해 substring 오판을 제거하고, 배열은 `Objects.equals`와 `anyMatch`로 비교해 boxed number의 reference equality 문제를 없앴다.
+- `is_in/IsInDemo.java`에는 substring, 공백, 빈 token, null, 잘못된 숫자 token과 integer cache 범위 밖 값의 경계 검사를 추가했다.
+- CSV에서 null은 membership 대상이 아니지만 명시적인 varargs null 원소는 null 검색값과 일치한다. 빈 문자열은 CSV에 명시적인 빈 token이 있을 때만 일치한다.
+- `void_/until_not_void/UntilNotVoid.java`는 다양한 타입에서 첫 non-void 값을 찾고 모두 void이면 마지막 값을 반환하는 규칙을 보존하기 위해 변경하지 않았다. `UntilNotVoidDemo.java`에서는 typed overload 호출에 불필요한 cast만 제거했다.
+- `annotation/`, `inner_class/`, `void_/AvoidNullCheck.java`, `void_/NullProof.java`는 각각 annotation/inner class 관계와 null object 실험 자체가 주제이므로 변경하지 않았다.
+
 ## ood
 
 | 파일 또는 묶음 | 처리 | 변경 방향과 근거 |

@@ -56,7 +56,7 @@
 1. `datetime/` — 완료
 2. `file/` — 완료
 3. `collection/` — 완료
-4. `lang/` — 진행 중 (1차 일반 예제, 2차 단계형 묶음 완료)
+4. `lang/` — 완료
 5. `ood/`
 6. `string/`, `number/`, 루트와 `test/`
 
@@ -101,6 +101,14 @@
 - 기존 enum 5개 예제는 legacy와 동일한 출력을 유지하고 `EnumDemo5`는 `EnumDemo4`와 동일한 계산 결과를 낸다.
 - `StreamDemo`는 `ForEachDemo`의 for-each/every/some/filter/map/reduce/reduce-right 결과를 같은 순서로 재현한다.
 
+#### lang 3차 완료 결과
+
+- `IsIn`의 CSV membership을 substring 검색에서 trim한 token의 정확한 비교로 바꾸고 varargs membership은 `Objects.equals`와 `anyMatch`로 통일했다.
+- null CSV/검색값, 명시적 null 원소, 빈 token, 잘못된 숫자 token과 boxed integer cache 범위 밖 값을 경계 사례로 검증했다.
+- `UntilNotVoid` 구현과 반환 규칙은 변경하지 않고 `UntilNotVoidDemo`의 typed overload 결과 주변에 남은 불필요한 cast만 제거했다.
+- `IsInDemo`, `UntilNotVoidDemo`의 assertion이 모두 통과했고 `UntilNotVoidDemo`의 출력은 legacy와 동일하다.
+- `annotation/`, `inner_class/`, `void_/AvoidNullCheck.java`, `void_/NullProof.java`는 각 묶음의 언어 구조와 null object 실험을 보존하기 위해 변경하지 않았다.
+
 ### 6. README와 최종 검증 — 대기
 
 - 기존 README를 `legacy/java8/README.md`로 보존한다.
@@ -109,4 +117,4 @@
 
 ## 다음 단계
 
-`lang/` 2차 단계형 예제 변경을 검토하고 커밋한 뒤 3차 유틸리티 묶음(`is_in/`, `void_/until_not_void/`)을 진행한다.
+`lang/` 3차 유틸리티 변경을 검토하고 커밋한 뒤 `ood/` 현대화를 진행한다.

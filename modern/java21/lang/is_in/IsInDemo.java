@@ -18,6 +18,9 @@ public class IsInDemo {
 		assertEquals(true, IsIn.is_in(100, 100,200,400), "IsIn.is_in(i, ...)");
 		assertEquals(false, IsIn.is_in(300, "100,200,400"), "IsIn.is_in(i, csv)");
 		assertEquals(false, IsIn.is_in(300, 100,200,400), "IsIn.is_in(i, ...)");
+		assertEquals(false, IsIn.is_in(10, "100,200,400"), "exact csv token");
+		assertEquals(false, IsIn.is_in(100, "not-a-number,100x"), "invalid numeric token");
+		assertEquals(true, IsIn.is_in(1000, 1000,2000,4000), "boxed value equality");
 		System.out.println("--------------------");
 		assertEquals(true, isin("foo", "foo,bar,baz"), "isin.(s, csv)");
 		assertEquals(true, isin("foo", "foo","bar","baz"), "isin.(s, ...)");
@@ -43,6 +46,12 @@ public class IsInDemo {
 		assertEquals(true, isin(10.0, 10.0,20.0,40.0), "isin.(d, ...)");
 		assertEquals(false, isin(30.0, "10.0,20.0,40.0"), "isin.(d, csv)");
 		assertEquals(false, isin(30.0, 10.0,20.0,40.0), "isin.(d, ...)");
+		System.out.println("----------");
+		assertEquals(true, isin("foo", " foo , bar "), "trimmed csv token");
+		assertEquals(false, isin("foo", "foobar,baz"), "not a substring");
+		assertEquals(true, isin("", ",bar"), "explicit empty csv token");
+		assertEquals(false, isin((Object) null, "foo,bar"), "null is absent from csv");
+		assertEquals(true, isin((Object) null, new Object[] {null, "foo"}), "explicit null array member");
 		System.out.println("--------------------");
 	}
 }
